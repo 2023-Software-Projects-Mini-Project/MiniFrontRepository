@@ -9,6 +9,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // 이건 테스트입니다.
-
+        // 2
     }
 }
