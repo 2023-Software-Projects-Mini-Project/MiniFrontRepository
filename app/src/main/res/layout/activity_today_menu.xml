@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TodayMenu">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오늘의 메뉴"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/cart_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="240dp"
+            android:src="@drawable/ic_baseline_shopping_cart_24" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+
+            <!--월요일-->
+            <TextView
+                android:id="@+id/text_Mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="100dp"
+                android:text="월요일" />
+
+            <!--오늘의 메뉴 텍스트 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/round_background_top"
+                    android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/mon_A"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴A이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/round_background_top"
+                    android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/mon_B"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴B이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <!-- 메뉴 A/B 장바구니 아이콘 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/round_background_bottom"
+                    android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴A"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_mon_A"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/round_background_bottom"
+                    android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴B"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_mon_B"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+
+
+            <!--화요일-->
+            <TextView
+                android:id="@+id/text_Tue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="100dp"
+                android:text="화요일" />
+
+
+            <!--오늘의 메뉴 텍스트 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tue_A"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴A이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tue_B"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴B이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <!-- 메뉴 A/B 장바구니 아이콘 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴A"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_tue_A"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴B"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_tue_B"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <!--수요일-->
+            <TextView
+                android:id="@+id/text_Wen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="100dp"
+                android:text="수요일" />
+
+
+            <!--오늘의 메뉴 텍스트 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/wen_A"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴A이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/wen_B"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴B이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <!-- 메뉴 A/B 장바구니 아이콘 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴A"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_wen_A"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴B"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_wen_B"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+
+            <!--목요일-->
+            <TextView
+                android:id="@+id/text_Thu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="100dp"
+                android:text="목요일" />
+
+
+            <!--오늘의 메뉴 텍스트 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/thu_A"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴A이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/thu_B"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴B이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <!-- 메뉴 A/B 장바구니 아이콘 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴A"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_thu_A"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴B"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_thu_B"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+
+            <!--금요일-->
+            <TextView
+                android:id="@+id/text_Fri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="100dp"
+                android:text="금요일" />
+
+
+            <!--오늘의 메뉴 텍스트 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/fri_A"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴A이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_top"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/fri_B"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginStart="13dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="12dp"
+                            android:text="오늘의메뉴B이다"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <!-- 메뉴 A/B 장바구니 아이콘 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴A"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_fri_A"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/round_background_bottom"
+                        android:scaleType="centerCrop" />
+                    <TableLayout
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:stretchColumns="0, 1">
+                        <TableRow>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginStart="7dp"
+                                android:layout_marginTop="7dp"
+                                android:textSize="16dp"
+                                android:text="메뉴B"/>
+                        </TableRow>
+                        <TableRow>
+                            <ImageView
+                                android:id="@+id/cart_fri_B"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="left"
+                                android:layout_marginStart="140dp"
+                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
+                        </TableRow>
+                    </TableLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemBackground="@android:color/white"
+        app:itemIconTint="@color/bottom_nav_item_selector"
+        app:itemTextColor="@color/bottom_nav_item_selector"
+        />
+</LinearLayout>
