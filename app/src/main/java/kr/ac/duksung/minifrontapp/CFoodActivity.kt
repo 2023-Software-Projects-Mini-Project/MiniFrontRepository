@@ -1,12 +1,11 @@
 package kr.ac.duksung.minifrontapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class AllTodayMenu : AppCompatActivity() {
+class CFoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_today_menu)
+        setContentView(R.layout.cfood_list)
     }
 }

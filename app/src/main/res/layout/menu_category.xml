@@ -15,7 +15,9 @@
         app:layout_constraintEnd_toStartOf="@+id/card2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="5dp">
+        app:cardElevation="5dp"
+        android:clickable="true"
+        android:onClick="onCard1Click">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -55,7 +57,9 @@
         app:layout_constraintEnd_toStartOf="@+id/card3"
         app:layout_constraintStart_toEndOf="@+id/card1"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="5dp">
+        app:cardElevation="5dp"
+        android:clickable="true"
+        android:onClick="onCard2Click2">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -94,7 +98,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/card2"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="5dp">
+        app:cardElevation="5dp"
+        android:clickable="true"
+        android:onClick="onCard3Click">
 
         <RelativeLayout
             android:layout_width="match_parent"

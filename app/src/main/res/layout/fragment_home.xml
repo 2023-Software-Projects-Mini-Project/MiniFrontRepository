@@ -94,7 +94,9 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/today_menu"
-        app:layout_constraintTop_toBottomOf="@+id/category_recycler" />
+        app:layout_constraintTop_toBottomOf="@+id/category_recycler"
+        android:onClick="onViewAllButtonClick" />
+
 
     <TextView
         android:id="@+id/today_date"

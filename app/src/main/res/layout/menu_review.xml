@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:isIndicator="true"
@@ -69,11 +69,17 @@
             android:id="@+id/review_text"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:text="리뷰"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="#aaa"/>
 
         <ScrollView
             android:layout_width="match_parent"
