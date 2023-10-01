@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import org.w3c.dom.Text
 
 class HomeFragment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,31 +26,22 @@ class HomeFragment : AppCompatActivity() {
             startActivity(intent)
         })
 
+        val card1 = findViewById<CardView>(R.id.card1)
+        val card2 = findViewById<CardView>(R.id.card2)
+        val card3 = findViewById<CardView>(R.id.card3)
 
-        // card1 클릭 이벤트 핸들러
-        fun onCard1Click(view: View) {
-            // kfood_list.xml로 이동하는 Intent를 생성합니다.
+        card1.setOnClickListener {
             val intent = Intent(this@HomeFragment, KFoodActivity::class.java)
-
-            // Intent를 사용하여 액티비티를 시작합니다.
             startActivity(intent)
         }
 
-        // card2 클릭 이벤트 핸들러
-        fun onCard2Click(view: View) {
-            // kfood_list.xml로 이동하는 Intent를 생성합니다.
+        card2.setOnClickListener {
             val intent = Intent(this@HomeFragment, CFoodActivity::class.java)
-
-            // Intent를 사용하여 액티비티를 시작합니다.
             startActivity(intent)
         }
 
-        // card1 클릭 이벤트 핸들러
-        fun onCard3Click(view: View) {
-            // kfood_list.xml로 이동하는 Intent를 생성합니다.
+        card3.setOnClickListener {
             val intent = Intent(this@HomeFragment, BoonsikActivity::class.java)
-
-            // Intent를 사용하여 액티비티를 시작합니다.
             startActivity(intent)
         }
     }
