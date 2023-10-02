@@ -116,12 +116,13 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="51dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <android.widget.RadioButton
             android:id="@+id/RBT_smartpay"
@@ -155,6 +156,24 @@
             tools:ignore="TouchTargetSizeCheck" />
 
     </RadioGroup>
+
+    <ScrollView
+        android:id="@+id/SV_Pay"
+        android:layout_width="match_parent"
+        android:layout_height="367dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/BT_pay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <android.widget.Button
         android:id="@+id/BT_pay"
