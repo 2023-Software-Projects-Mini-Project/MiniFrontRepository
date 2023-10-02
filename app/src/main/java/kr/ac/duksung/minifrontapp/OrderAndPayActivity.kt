@@ -7,14 +7,16 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_order_and_pay.*
 import kr.ac.duksung.minifrontapp.databinding.ActivityOrderAndPayBinding
 import kr.ac.duksung.minifrontapp.databinding.SmartPayContentBinding
+import kr.ac.duksung.minifrontapp.databinding.TestBinding
 
 import java.text.DecimalFormat
 
 class OrderAndPayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bindingMain = ActivityOrderAndPayBinding.inflate(layoutInflater)        // 현재 페이지와
-        val bindingSmartPay = SmartPayContentBinding.inflate(layoutInflater)          //
+        val bindingMain = ActivityOrderAndPayBinding.inflate(layoutInflater)        // 현재 페이지(주문/결제 페이지)
+        val bindingSmartPay = SmartPayContentBinding.inflate(layoutInflater)        // smart_pay_content 페이지
+        val bindingTest = TestBinding.inflate(layoutInflater)
         setContentView(bindingMain.root)
 
 
@@ -51,6 +53,7 @@ class OrderAndPayActivity : AppCompatActivity() {
             RBT_Npay.setTextColor(Color.parseColor("#FFFFFFFF"))
 
             bindingMain.SVPay.removeAllViews()
+            bindingMain.SVPay.addView(bindingTest.root)
 
         }
 
