@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <!-- 날짜 -->
+            <TextView
+                android:id="@+id/order_detail_dates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9. 21 (목)"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000"/>
+
+            <!-- 구분점 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" • "
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000"/>
+
+
+            <!-- 픽업상태 -->
+            <TextView
+                android:id="@+id/order_detail_pickup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="픽업완료"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- 구분선 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:background="@color/light_grey"/>
+
+</LinearLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/menu_list_bg">
+        <ImageView
+            android:id="@+id/order_details_order1"
+            android:layout_width="110dp"
+            android:layout_height="94dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/boonsik"
+            />
+
+        <TextView
+            android:id="@+id/order1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/order_details_order1"
+            android:text="분식"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <!-- 메인메뉴 이름 -->
+        <TextView
+            android:id="@+id/order1_mainname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order1_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/order_details_order1"
+            android:text="떡볶이세트"
+            android:textColor="@color/black" />
+
+        <!-- 외 -->
+        <TextView
+            android:id="@+id/order1_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order1_text"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/order1_mainname"
+            android:text="외"
+            android:textColor="@color/black" />
+        <!-- 갯수 -->
+        <TextView
+            android:id="@+id/order1_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order1_text"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/order1_other"
+            android:text="1개"
+            android:textColor="@color/black" />
+        <!-- 금액 -->
+        <TextView
+            android:id="@+id/order1_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order1_text"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/order1_number"
+            android:text="12,500원"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <ImageView
+        android:id="@+id/order1_orderdetailButton"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/round_background_orderdetails"
+        android:scaleType="centerCrop" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="13dp"
+            android:textSize="17dp"
+            android:textColor="@color/duksung"
+            android:text="주문상세"/>
+    </FrameLayout>
+
+    <!-- 구분선 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:background="@color/light_grey"/>
+
+</LinearLayout>
