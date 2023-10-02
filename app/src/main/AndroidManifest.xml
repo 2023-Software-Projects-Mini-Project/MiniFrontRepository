@@ -78,7 +78,13 @@
         <activity
             android:name=".TodayMenu"
             android:exported="true" />
-
+        <activity
+            android:name=".Card"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
     </application>
 
 </manifest>
