@@ -21,9 +21,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-        <!-- 장바구니 페이지. parentAct = 음식세부사항 페이지로 해야함 -->
+        </activity> <!-- 장바구니 페이지. parentAct = 음식세부사항 페이지로 해야함 -->
         <activity
             android:name=".CartActivity"
             android:exported="false"
@@ -31,9 +29,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-        <!-- 주문/결제 페이지. parentAct = 장바구니 -->
+        </activity> <!-- 주문/결제 페이지. parentAct = 장바구니 -->
         <activity
             android:name=".OrderAndPayActivity"
             android:exported="false"
@@ -41,9 +37,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-        <!-- 회원가입 페이지. -->
+        </activity> <!-- 회원가입 페이지. -->
         <activity
             android:name=".RegisterActivity"
             android:exported="false">
@@ -51,7 +45,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
