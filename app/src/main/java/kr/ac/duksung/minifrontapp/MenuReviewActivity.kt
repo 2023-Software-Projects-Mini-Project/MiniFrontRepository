@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 
-class CFoodActivity : AppCompatActivity() {
+class MenuReviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.cfood_list)
+        setContentView(R.layout.menu_review)
 
         val backIcon = findViewById<ImageView>(R.id.back_icon)
 

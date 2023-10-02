@@ -84,6 +84,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/goJajangmyeon"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_arrow_forward_24"
@@ -139,6 +140,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/goJjamppong"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_arrow_forward_24"
@@ -194,6 +196,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/goTangsuyuk"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_arrow_forward_24"

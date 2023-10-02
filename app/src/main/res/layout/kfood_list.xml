@@ -84,13 +84,16 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/goKimchi"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_arrow_forward_24"
             android:adjustViewBounds="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:onClick="onGoKimchiClick"/>
     </RelativeLayout>
 
     <Space
