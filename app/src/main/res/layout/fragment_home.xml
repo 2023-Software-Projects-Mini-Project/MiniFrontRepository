@@ -61,16 +61,17 @@
 
     <include
         android:id="@+id/category_recycler"
+        layout="@layout/menu_category"
         android:layout_width="407dp"
         android:layout_height="111dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view"
-        layout="@layout/menu_category"/>
+        app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
     <TextView
         android:id="@+id/today_menu"
@@ -103,8 +104,8 @@
         android:id="@+id/today_date"
         android:layout_width="99dp"
         android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:padding="5dp"
+        android:layout_marginLeft="13dp"
+        android:paddingBottom="5dp"
         android:text="2023.09.27"
         android:textColor="@color/black"
         android:textSize="15dp"
@@ -113,15 +114,15 @@
 
     <include
         android:id="@+id/today_menu_recycler"
+        layout="@layout/today_menu"
         android:layout_width="412dp"
         android:layout_height="0dp"
         android:layout_marginLeft="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/today_date"
-        layout="@layout/today_menu"/>
+        app:layout_constraintTop_toBottomOf="@+id/today_date" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

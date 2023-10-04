@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MiniFrontApp</string>
+    <string name="title_home">홈</string>
+    <string name="title_interest">친구추가</string>
+    <string name="title_mypage">마이페이지</string>
+    <string name="title_cart">장바구니</string>
+    <string name="title_orderandpay">주문/결제</string>
 </resources>

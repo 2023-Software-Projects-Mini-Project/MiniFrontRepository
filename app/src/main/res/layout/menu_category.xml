@@ -123,7 +123,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="한식"
+                android:text="분식"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="12dp" />

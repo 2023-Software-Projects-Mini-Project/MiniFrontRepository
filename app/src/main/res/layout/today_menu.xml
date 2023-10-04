@@ -20,8 +20,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <ImageView
-                        android:layout_width="170dp"
-                        android:layout_height="165dp"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
                         android:background="@drawable/round_background_top"
                         android:scaleType="centerCrop" />
                     <LinearLayout
@@ -44,8 +44,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <ImageView
-                        android:layout_width="170dp"
-                        android:layout_height="165dp"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
                         android:layout_marginStart="10dp"
                         android:background="@drawable/round_background_top"
                         android:scaleType="centerCrop" />
@@ -80,12 +80,12 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <ImageView
-                        android:layout_width="170dp"
+                        android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:background="@drawable/round_background_bottom"
                         android:scaleType="centerCrop" />
                     <TableLayout
-                        android:layout_width="170dp"
+                        android:layout_width="180dp"
                         android:layout_height="match_parent"
                         android:stretchColumns="0, 1">
                         <TableRow>
@@ -114,13 +114,13 @@
                     android:layout_height="fill_parent">
 
                     <ImageView
-                        android:layout_width="170dp"
+                        android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="10dp"
                         android:background="@drawable/round_background_bottom"
                         android:scaleType="centerCrop" />
                     <TableLayout
-                        android:layout_width="170dp"
+                        android:layout_width="180dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
                         android:stretchColumns="0, 1">

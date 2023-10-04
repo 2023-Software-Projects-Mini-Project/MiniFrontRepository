@@ -44,13 +44,6 @@
             android:textColor="@color/black"
             android:maxLines="1"/>
 
-        <!-- 추천 -->
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150dp"
-            android:src="@drawable/ic_baseline_thumb_up_off_alt_24"/>
     </LinearLayout>
 
     <!-- 구분선 -->

@@ -8,7 +8,10 @@ import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeFragment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,18 @@ class HomeFragment : AppCompatActivity() {
             // Intent를 사용하여 액티비티를 시작합니다.
             startActivity(intent)
         })
+
+
+
+        val textView: TextView = findViewById(R.id.today_date) // R.id.today_date는 텍스트뷰의 ID입니다.
+
+        // 현재 날짜를 가져오고 원하는 형식으로 포맷합니다.
+        val currentDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
+
+        // 텍스트뷰에 현재 날짜를 설정합니다.
+        textView.text = currentDate
+
+
 
         val card1 = findViewById<CardView>(R.id.card1)
         val card2 = findViewById<CardView>(R.id.card2)
@@ -46,29 +61,24 @@ class HomeFragment : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 검색창 뷰를 찾습니다.
-        val searchView = findViewById<SearchView>(R.id.search_view)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
-        // SearchView의 리스너를 설정합니다.
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // 여기에서 검색어(query)를 가지고 검색 결과를 처리하고 메뉴 화면으로 이동하도록 구현합니다.
-                if (!query.isNullOrBlank()) {
-                    // 예를 들어, query를 사용하여 검색 결과 화면으로 이동하는 Intent를 생성합니다.
-                    val intent = Intent(this@HomeFragment, MenuReviewActivity::class.java)
-                    intent.putExtra("menu_name", query) // 검색어를 인텐트에 추가할 수 있습니다.
-                    startActivity(intent)
-                    return true
+        // 바텀 네비게이션 아이템 클릭 리스너 설정
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.page_fv -> {
+                    // 친구 추가 아이템 클릭 시 친구 추가 화면으로 이동
+                    startActivity(Intent(this@HomeFragment, FriendsList::class.java))
+                    true
                 }
-                return false
+                R.id.page_ps -> {
+                    // 마이페이지 아이템 클릭 시 마이페이지 화면으로 이동
+                    startActivity(Intent(this@HomeFragment, MyPage::class.java))
+                    true
+                }
+                else -> false
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                // 검색어가 변경될 때 처리할 내용을 추가할 수 있습니다.
-                return true
-            }
-        })
+        }
 
     }
-
 }
