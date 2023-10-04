@@ -35,8 +35,9 @@ class OrderAndPayActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val bindingMain = ActivityOrderAndPayBinding.inflate(layoutInflater)        // 현재 페이지와
-        val bindingSmartPay = SmartPayContentBinding.inflate(layoutInflater)            //
+        val bindingSmartPay = SmartPayContentBinding.inflate(layoutInflater)        // 간편결제 페이지
         setContentView(bindingMain.root)
 
 

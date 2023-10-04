@@ -17,8 +17,6 @@ class CartActivity : AppCompatActivity() {
             }
         })
 
-        //val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)      // 장바구니 페이지에서 네비게이션바 홈버튼 색칠 안되도록...
-        //bottomNavigationView.selectedItemId = 0 // 선택 해제
 
 
 
