@@ -42,6 +42,7 @@
             android:layout_height="24dp"
             android:layout_gravity="end|center_vertical"
             android:background="#00FFFFFF"
+            android:layout_marginRight="7dp"
             app:srcCompat="@drawable/ic_baseline_notifications_none_24"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
             tools:layout_editor_absoluteX="347dp"

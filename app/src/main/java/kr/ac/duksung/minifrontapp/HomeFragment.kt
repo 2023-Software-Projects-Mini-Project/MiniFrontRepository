@@ -1,13 +1,18 @@
 package kr.ac.duksung.minifrontapp
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.w3c.dom.Text
@@ -25,7 +30,6 @@ class HomeFragment : AppCompatActivity() {
             val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
-
 
 
         // "View All >" 텍스트뷰를 찾습니다.
@@ -49,7 +53,6 @@ class HomeFragment : AppCompatActivity() {
 
         // 텍스트뷰에 현재 날짜를 설정합니다.
         textView.text = currentDate
-
 
 
         val card1 = findViewById<CardView>(R.id.card1)
@@ -89,6 +92,7 @@ class HomeFragment : AppCompatActivity() {
                 else -> false
             }
         }
+
 
     }
 }
