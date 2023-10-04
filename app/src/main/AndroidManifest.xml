@@ -39,50 +39,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:name=".MyReview"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <!-- 대기번호 페이지. parentAct = 주문결제 -->
-        <activity
-            android:name=".WaitingNumActivity"
-            android:exported="false"
-            android:parentActivityName=".OrderAndPayActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity> <!-- 장바구니 페이지. parentAct = 음식세부사항 페이지로 해야함 -->
-        <activity
-            android:name=".CartActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity> <!-- 주문/결제 페이지. parentAct = 장바구니 -->
-        <activity
-            android:name=".OrderAndPayActivity"
-            android:exported="false"
-            android:parentActivityName=".CartActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity> <!-- 회원가입 페이지. -->
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -60,7 +60,7 @@
                     android:layout_height="120dp"
                     android:background="@drawable/card_background_top"
                     android:scaleType="centerCrop" />
-=======
+
             <ImageView
                 android:layout_width="350dp"
                 android:layout_height="120dp"
