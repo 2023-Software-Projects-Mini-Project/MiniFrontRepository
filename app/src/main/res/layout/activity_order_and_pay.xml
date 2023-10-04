@@ -174,14 +174,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RCV_pay"
-        android:layout_width="match_parent"
-        android:layout_height="367dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/BT_pay"
+        android:layout_width="407dp"
+        android:layout_height="327dp"
+        android:layout_marginTop="30dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <android.widget.Button
         android:id="@+id/BT_pay"
@@ -198,11 +197,9 @@
 
     <ScrollView
         android:id="@+id/SV_pay"
-        android:layout_width="match_parent"
-        android:layout_height="366dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/BT_pay"
+        android:layout_width="408dp"
+        android:layout_height="299dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
