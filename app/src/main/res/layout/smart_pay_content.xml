@@ -3,142 +3,194 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RadioGroup
-        android:layout_width="match_parent"
+        android:id="@+id/RDG_smartpay"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="177dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/RBT_card_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-            <RadioButton
-                android:id="@+id/RBT_card_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+        <RadioButton
+            android:id="@+id/RBT_toss_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-            <ImageView
-                android:layout_width="51dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_credit_card_24" />
+        <RadioButton
+            android:id="@+id/RBT_naver_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-            <TextView
-                android:layout_width="305dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:text="대표 카드 결제" />
-        </LinearLayout>
+        <RadioButton
+            android:id="@+id/RBT_payco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/RBT_kakao_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-            <RadioButton
-                android:id="@+id/RBT_toss_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="62dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/tosspay" />
-
-            <TextView
-                android:layout_width="299dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:text="토스 페이" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/RBT_naver_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="51dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/naverpay" />
-
-            <TextView
-                android:layout_width="305dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:text="네이버 페이" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/RBT_payco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="51dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/payco" />
-
-            <TextView
-                android:layout_width="305dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:text="페이코" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/RBT_kakao_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="51dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/kakaopay" />
-
-            <TextView
-                android:layout_width="305dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:text="카카오 페이" />
-        </LinearLayout>
     </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/RDG_smartpay"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="51dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_baseline_credit_card_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="대표 카드 결제"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/RDG_smartpay"
+        app:layout_constraintTop_toBottomOf="@+id/view7">
+
+        <ImageView
+            android:layout_width="62dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/tosspay" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:text="토스 페이"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/RDG_smartpay"
+        app:layout_constraintTop_toBottomOf="@+id/view8">
+
+        <ImageView
+            android:layout_width="51dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/naverpay" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="네이버 페이"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/RDG_smartpay"
+        app:layout_constraintTop_toBottomOf="@+id/view9">
+
+        <ImageView
+            android:layout_width="51dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/payco" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="페이코"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/RDG_smartpay"
+        app:layout_constraintTop_toBottomOf="@+id/view10">
+
+        <ImageView
+            android:layout_width="51dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/kakaopay" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="카카오 페이"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/light_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/light_gray"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/light_gray"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+
+    <View
+        android:id="@+id/view10"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/light_gray"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

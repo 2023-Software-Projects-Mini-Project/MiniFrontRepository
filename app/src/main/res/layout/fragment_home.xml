@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".HomeFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -29,19 +29,23 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="20dp"
             android:background="#00FFFFFF"
-            android:src="@drawable/ic_baseline_shopping_cart_24" />
+            android:src="@drawable/ic_baseline_shopping_cart_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="371dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <ImageButton
             android:id="@+id/notification_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:background="#00FFFFFF"
-            app:srcCompat="@drawable/ic_baseline_notifications_none_24" />
+            app:srcCompat="@drawable/ic_baseline_notifications_none_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="347dp"
+            tools:layout_editor_absoluteY="16dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <android.widget.SearchView
@@ -92,12 +96,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:clickable="true"
+        android:onClick="onViewAllButtonClick"
         android:text="View All >"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/today_menu"
         app:layout_constraintTop_toBottomOf="@+id/category_recycler"
-        android:onClick="onViewAllButtonClick" />
+        tools:ignore="TouchTargetSizeCheck" />
 
 
     <TextView

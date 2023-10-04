@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,6 +18,15 @@ class HomeFragment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_home)
+
+
+        // 장바구니 아이콘 클릭시
+        cart_icon.setOnClickListener{
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
         // "View All >" 텍스트뷰를 찾습니다.
         val viewAllButton = findViewById<TextView>(R.id.viewAllButton)
