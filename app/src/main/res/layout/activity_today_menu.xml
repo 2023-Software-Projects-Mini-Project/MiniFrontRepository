@@ -153,15 +153,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_mon_A"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
 
                 </FrameLayout>
@@ -189,15 +181,6 @@
                                 android:textSize="16dp"
                                 android:textColor="@color/black"
                                 android:text="메뉴B"/>
-                        </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_mon_B"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
                         </TableRow>
                     </TableLayout>
                 </FrameLayout>
@@ -309,15 +292,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_tue_A"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
 
                 </FrameLayout>
@@ -346,15 +321,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_tue_B"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
                 </FrameLayout>
             </LinearLayout>
@@ -462,15 +429,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_wen_A"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
 
                 </FrameLayout>
@@ -498,15 +457,6 @@
                                 android:textSize="16dp"
                                 android:textColor="@color/black"
                                 android:text="메뉴B"/>
-                        </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_wen_B"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
                         </TableRow>
                     </TableLayout>
                 </FrameLayout>
@@ -617,15 +567,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_thu_A"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
 
                 </FrameLayout>
@@ -654,15 +596,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_thu_B"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
                 </FrameLayout>
             </LinearLayout>
@@ -772,15 +706,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_fri_A"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
 
                 </FrameLayout>
@@ -809,15 +735,7 @@
                                 android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
-                        <TableRow>
-                            <ImageView
-                                android:id="@+id/cart_fri_B"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="140dp"
-                                android:src="@drawable/ic_baseline_add_shopping_cart_24" />
-                        </TableRow>
+
                     </TableLayout>
                 </FrameLayout>
             </LinearLayout>

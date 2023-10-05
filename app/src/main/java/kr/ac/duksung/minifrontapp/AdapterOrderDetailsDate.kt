@@ -1,5 +1,6 @@
 package kr.ac.duksung.minifrontapp
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,20 @@ class AdapterOrderDetailsDate (var itemList : MutableList<OrderDetailsClass>) : 
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
         var view : View = v
+
+
+        init {
+
+            view.order1_orderdetailButton.setOnClickListener{
+                val intent = Intent(view.context, OrderDetailsDetail::class.java)
+                view.context.startActivity(intent)
+            }
+
+            view.review_writeButton.setOnClickListener{
+                val intent = Intent(view.context, ReviewWrite::class.java)
+                view.context.startActivity(intent)
+            }
+        }
 
         fun bind(item: OrderDetailsClass){
             view.order_detail_dates.text = item.date
