@@ -46,6 +46,7 @@ tools:context=".MyPage">
             android:src="@drawable/ic_baseline_person_24"
             app:tint="@color/duksung" />
         <TextView
+            android:id="@+id/username_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
