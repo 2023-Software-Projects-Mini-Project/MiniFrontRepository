@@ -40,9 +40,15 @@ class CartAddAdapter (var context: Context, var itemList : MutableList<MenuClass
         private val cartActivity = CartActivity.getInstance()       // CartActivity에서 객체 가져오기
 
         init {
-            view.bt_DeleteMenu.setOnClickListener{      // 지우기 버튼 눌렸을때
-                view.MenuName.text = "지우기"
-
+            view.bt_DeleteMenu.setOnClickListener{
+                // bt_DeleteMenu를 클릭할 때 실행할 코드
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    // 아이템을 itemList에서 삭제
+                    itemList.removeAt(position)
+                    // RecyclerView에 변경사항을 알림
+                    notifyItemRemoved(position)
+                }
             }
 
             view.bt_sub.setOnClickListener{             // 빼기 버튼 눌렸을때
