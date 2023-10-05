@@ -1,22 +1,20 @@
 package kr.ac.duksung.minifrontapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.content.Intent
 import android.view.View
-import android.widget.ImageView
-import kotlinx.android.synthetic.main.cfood_list.back_icon
-import kotlinx.android.synthetic.main.activity_card.*
-import kotlinx.android.synthetic.main.kfood_list.*
-import kotlinx.android.synthetic.main.kfood_list.bottomNavigationView
+import kotlinx.android.synthetic.main.boonski_list.*
+import kotlinx.android.synthetic.main.boonski_list.back_icon
+import kotlinx.android.synthetic.main.boonski_list.bottomNavigationView
+import kotlinx.android.synthetic.main.cfood_list.*
 
-class KFoodActivity : AppCompatActivity() {
+class BFoodActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.kfood_list)
-
+        setContentView(R.layout.boonski_list)
 
         back_icon.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -29,38 +27,38 @@ class KFoodActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.page_home -> {
                     // 홈 아이템 클릭 시 홈 화면으로 이동
-                    startActivity(Intent(this@KFoodActivity, HomeFragment::class.java))
+                    startActivity(Intent(this@BFoodActivity, HomeFragment::class.java))
                     true
                 }
                 R.id.page_fv -> {
                     // 친구 추가 아이템 클릭 시 친구 추가 화면으로 이동
-                    startActivity(Intent(this@KFoodActivity, FriendsList::class.java))
+                    startActivity(Intent(this@BFoodActivity, FriendsList::class.java))
                     true
                 }
                 R.id.page_ps -> {
                     // 마이페이지 아이템 클릭 시 마이페이지 화면으로 이동
-                    startActivity(Intent(this@KFoodActivity, MyPage::class.java))
+                    startActivity(Intent(this@BFoodActivity, MyPage::class.java))
                     true
                 }
                 else -> false
             }
         }
 
-        goKimchi.setOnClickListener {
-            val intent = Intent(this@KFoodActivity, MenuReviewActivity::class.java)
-            intent.putExtra("menuName", "김치찌개")
+        goKimbab.setOnClickListener{
+            val intent = Intent(this@BFoodActivity, MenuReviewActivity::class.java)
+            intent.putExtra("menuName", "김밥")
             startActivity(intent)
         }
 
-        goDoenjang.setOnClickListener{
-            val intent = Intent(this@KFoodActivity, MenuReviewActivity::class.java)
-            intent.putExtra("menuName", "된장찌개")
+        goRamen.setOnClickListener{
+            val intent = Intent(this@BFoodActivity, MenuReviewActivity::class.java)
+            intent.putExtra("menuName", "라면")
             startActivity(intent)
         }
 
-        goBoodea.setOnClickListener {
-            val intent = Intent(this@KFoodActivity, MenuReviewActivity::class.java)
-            intent.putExtra("menuName", "부대찌개")
+        goTtokppokki.setOnClickListener{
+            val intent = Intent(this@BFoodActivity, MenuReviewActivity::class.java)
+            intent.putExtra("menuName", "떡볶이")
             startActivity(intent)
         }
     }

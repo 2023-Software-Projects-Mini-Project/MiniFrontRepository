@@ -22,13 +22,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".StorageActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ReviewWrite"
             android:exported="true">
             <meta-data
@@ -64,7 +57,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".BoonsikActivity"
+            android:name=".BFoodActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

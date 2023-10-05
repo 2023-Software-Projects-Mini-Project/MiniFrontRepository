@@ -9,6 +9,8 @@ import android.view.View
 import android.widget.ImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_friends_list.*
+import kotlinx.android.synthetic.main.activity_friends_list.back_icon
+import kotlinx.android.synthetic.main.cfood_list.*
 
 class FriendsList : AppCompatActivity() {
 
@@ -28,6 +30,12 @@ class FriendsList : AppCompatActivity() {
         val adapter = FriendsAddAdapter(friendsList)        // 분할결제를 위한 친구목록 띄우기용 adapter
         RCV_friendslist.adapter = adapter                           // 이렇게 하면 항상 리사이클러뷰가 보이니까
 
+
+        back_icon.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                finish() // 현재 액티비티 종료
+            }
+        })
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 

@@ -75,10 +75,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RCV_menu"
-        android:layout_width="411dp"
-        android:layout_height="482dp"
+        android:layout_width="408dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@+id/BT_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

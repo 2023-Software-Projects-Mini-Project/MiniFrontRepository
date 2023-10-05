@@ -5,8 +5,10 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import kotlinx.android.synthetic.main.activity_card.*
 import kotlinx.android.synthetic.main.activity_order_and_pay.*
 import kotlinx.android.synthetic.main.activity_order_and_pay.back_icon
+import kotlinx.android.synthetic.main.activity_order_and_pay.bottomNavigationView
 import kr.ac.duksung.minifrontapp.databinding.ActivityOrderAndPayBinding
 import kr.ac.duksung.minifrontapp.databinding.SmartPayContentBinding
 import java.text.DecimalFormat
@@ -45,6 +47,29 @@ class OrderAndPayActivity : AppCompatActivity() {
                 finish() // 현재 액티비티 종료
             }
         })
+
+        // 바텀 네비게이션 아이템 클릭 리스너 설정
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.page_home -> {
+                    // 홈 아이템 클릭 시 홈 화면으로 이동
+                    startActivity(Intent(this@OrderAndPayActivity, HomeFragment::class.java))
+                    true
+                }
+                R.id.page_fv -> {
+                    // 친구 추가 아이템 클릭 시 친구 추가 화면으로 이동
+                    startActivity(Intent(this@OrderAndPayActivity, FriendsList::class.java))
+                    true
+                }
+                R.id.page_ps -> {
+                    // 마이페이지 아이템 클릭 시 마이페이지 화면으로 이동
+                    startActivity(Intent(this@OrderAndPayActivity, MyPage::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         val adapter = FriendsRowAdapter(friendsList)        // 분할결제를 위한 친구목록 띄우기용 adapter
         RCV_pay.adapter = adapter                           // 이렇게 하면 항상 리사이클러뷰가 보이니까
