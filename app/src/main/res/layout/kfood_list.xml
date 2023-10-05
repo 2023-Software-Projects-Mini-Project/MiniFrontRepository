@@ -83,17 +83,18 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/goKimchi"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_arrow_forward_24"
-            android:adjustViewBounds="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:clickable="true"
-            android:onClick="onGoKimchiClick"/>
+            <ImageView
+                android:id="@+id/goKimchi"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:onClick="onGoKimchiClick"
+                android:src="@drawable/ic_baseline_arrow_forward_24"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </RelativeLayout>
 
     <Space
@@ -142,13 +143,16 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/goDoenjang"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_arrow_forward_24"
-            android:adjustViewBounds="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"/>
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </RelativeLayout>
 
     <Space
@@ -197,13 +201,16 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/goBoodea"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_arrow_forward_24"
-            android:adjustViewBounds="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"/>
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </RelativeLayout>
     </LinearLayout>
 

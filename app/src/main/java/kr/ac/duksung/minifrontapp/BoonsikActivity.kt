@@ -1,9 +1,12 @@
 package kr.ac.duksung.minifrontapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import kotlinx.android.synthetic.main.boonski_list.*
+import kotlinx.android.synthetic.main.kfood_list.*
 
 class BoonsikActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,5 +20,26 @@ class BoonsikActivity : AppCompatActivity() {
                 finish() // 현재 액티비티 종료
             }
         })
+
+        goKimchi.setOnClickListener{
+            val intent = Intent(this, MenuReviewActivity::class.java)
+            intent.putExtra("MenuName", "김밥")
+            startActivity(intent)
+        }
+
+        goRamen.setOnClickListener{
+            val intent = Intent(this, MenuReviewActivity::class.java)
+            intent.putExtra("MenuName", "라면")
+            startActivity(intent)
+        }
+
+        goTtokppokki.setOnClickListener{
+            val intent = Intent(this, MenuReviewActivity::class.java)
+            intent.putExtra("MenuName", "떡볶이")
+            startActivity(intent)
+        }
+
+
+
     }
 }

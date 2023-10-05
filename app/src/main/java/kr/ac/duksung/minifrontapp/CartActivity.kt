@@ -5,8 +5,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_cart_main.*
+import kotlinx.android.synthetic.main.activity_cart_main.back_icon
 
 class CartActivity : AppCompatActivity() {
+
+
+    var menuList : MutableList<MenuClass> = mutableListOf(
+        MenuClass("떡볶이", "5,000", "1", R.drawable.boonsik),                   // 일단 서버연동 전까지 이렇게 해둠
+        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang)
+    )
+
+    // CartActivity 객체화(다른 클래스에서도 참조할 수 있도록)
+    init{
+        var instance = this
+    }
+
+    companion object{
+        private var instance:CartActivity? = null
+        fun getInstance(): CartActivity? {
+            return instance
+        }
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart_main)
@@ -17,6 +39,9 @@ class CartActivity : AppCompatActivity() {
             }
         })
 
+
+        val adapter = CartAddAdapter(this, menuList)
+        RCV_menu.adapter = adapter
 
 
 
