@@ -26,7 +26,7 @@ import java.util.*
 class HomeFragment : AppCompatActivity() {
 
     private val database = FirebaseDatabase.getInstance()
-    private val categoriesRef = database.getReference("category")
+    private val categoriesRef = database.getReference("MenuName")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,8 +109,8 @@ class HomeFragment : AppCompatActivity() {
                         val TodayATextView = findViewById<TextView>(R.id.mon_A)
                         val TodayBTextView = findViewById<TextView>(R.id.mon_B)
 
-                        TodayATextView.text = dataSnapshot.child("menuA").child("menuName").getValue(String::class.java)
-                        TodayBTextView.text = dataSnapshot.child("menuB").child("menuName").getValue(String::class.java)
+                        TodayATextView.text = dataSnapshot.child("menuA").child("todayName").getValue(String::class.java)
+                        TodayBTextView.text = dataSnapshot.child("menuB").child("todayName").getValue(String::class.java)
                     }
                 }
 

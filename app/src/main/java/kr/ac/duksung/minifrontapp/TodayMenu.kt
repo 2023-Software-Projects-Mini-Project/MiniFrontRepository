@@ -16,7 +16,7 @@ import java.util.*
 class TodayMenu : AppCompatActivity() {
 
     private val database = FirebaseDatabase.getInstance()
-    private val categoriesRef = database.getReference("category")
+    private val categoriesRef = database.getReference("MenuName")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +41,8 @@ class TodayMenu : AppCompatActivity() {
                 // val tueATextView = findViewById<TextView>(R.id.tue_A)
                 // val tueBTextView = findViewById<TextView>(R.id.tue_B)
 
-                monATextView.text = dataSnapshot.child("menuA").child("menuName").getValue(String::class.java)
-                monBTextView.text = dataSnapshot.child("menuB").child("menuName").getValue(String::class.java)
+                monATextView.text = dataSnapshot.child("menuA").child("todayName").getValue(String::class.java)
+                monBTextView.text = dataSnapshot.child("menuB").child("todayName").getValue(String::class.java)
                 //tueATextView.text = dataSnapshot.child("menuA").child("menuName").getValue(String::class.java)
             }
 
@@ -55,8 +55,8 @@ class TodayMenu : AppCompatActivity() {
                 val tueATextView = findViewById<TextView>(R.id.tue_A)
                 val tueBTextView = findViewById<TextView>(R.id.tue_B)
 
-                tueATextView.text = dataSnapshot.child("menuA").child("menuName").getValue(String::class.java)
-                tueBTextView.text = dataSnapshot.child("menuB").child("menuName").getValue(String::class.java)
+                tueATextView.text = dataSnapshot.child("menuA").child("todayName").getValue(String::class.java)
+                tueBTextView.text = dataSnapshot.child("menuB").child("todayName").getValue(String::class.java)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -68,8 +68,8 @@ class TodayMenu : AppCompatActivity() {
                 val wenATextView = findViewById<TextView>(R.id.wen_A)
                 val wenBTextView = findViewById<TextView>(R.id.wen_B)
 
-                wenATextView.text = dataSnapshot.child("menuA").child("menuName").getValue(String::class.java)
-                wenBTextView.text = dataSnapshot.child("menuB").child("menuName").getValue(String::class.java)
+                wenATextView.text = dataSnapshot.child("menuA").child("todayName").getValue(String::class.java)
+                wenBTextView.text = dataSnapshot.child("menuB").child("todayName").getValue(String::class.java)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -81,8 +81,8 @@ class TodayMenu : AppCompatActivity() {
                 val thuATextView = findViewById<TextView>(R.id.thu_A)
                 val thuBTextView = findViewById<TextView>(R.id.thu_B)
 
-                thuATextView.text = dataSnapshot.child("menuA").child("menuName").getValue(String::class.java)
-                thuBTextView.text = dataSnapshot.child("menuB").child("menuName").getValue(String::class.java)
+                thuATextView.text = dataSnapshot.child("menuA").child("todayName").getValue(String::class.java)
+                thuBTextView.text = dataSnapshot.child("menuB").child("todayName").getValue(String::class.java)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -94,8 +94,8 @@ class TodayMenu : AppCompatActivity() {
                 val friATextView = findViewById<TextView>(R.id.fri_A)
                 val friBTextView = findViewById<TextView>(R.id.fri_B)
 
-                friATextView.text = dataSnapshot.child("menuA").child("menuName").getValue(String::class.java)
-                friBTextView.text = dataSnapshot.child("menuB").child("menuName").getValue(String::class.java)
+                friATextView.text = dataSnapshot.child("menuA").child("todayName").getValue(String::class.java)
+                friBTextView.text = dataSnapshot.child("menuB").child("todayName").getValue(String::class.java)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

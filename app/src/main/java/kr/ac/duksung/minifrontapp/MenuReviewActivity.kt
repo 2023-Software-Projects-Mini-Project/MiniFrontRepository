@@ -1,11 +1,21 @@
 package kr.ac.duksung.minifrontapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
+import android.widget.EditText
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class MenuReviewActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_review)
@@ -17,6 +27,8 @@ class MenuReviewActivity : AppCompatActivity() {
                 finish() // 현재 액티비티 종료
             }
         })
+
+
 /*
         public void onGoKimchiClick(View viewpublic void onGoKimchiClick(View view) {
             // 리뷰 화면으로 이동하는 인텐트 생성
