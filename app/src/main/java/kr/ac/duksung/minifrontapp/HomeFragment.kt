@@ -14,12 +14,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeFragment : AppCompatActivity() {
+
+    private val database = FirebaseDatabase.getInstance()
+    private val categoriesRef = database.getReference("MenuName")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_home)
@@ -93,6 +101,28 @@ class HomeFragment : AppCompatActivity() {
             }
         }
 
+        val todayDate = getTodayDate()
+        categoriesRef.child("오늘의 메뉴").child(todayDate)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        val TodayATextView = findViewById<TextView>(R.id.mon_A)
+                        val TodayBTextView = findViewById<TextView>(R.id.mon_B)
 
+                        TodayATextView.text = dataSnapshot.child("menuA").child("todayName").getValue(String::class.java)
+                        TodayBTextView.text = dataSnapshot.child("menuB").child("todayName").getValue(String::class.java)
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // 필요한 대로 onCancelled를 처리합니다.
+                }
+            })
+    }
+
+    private fun getTodayDate(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = Date()
+        return dateFormat.format(date)
     }
 }

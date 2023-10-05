@@ -66,7 +66,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/jajangmyeon"
-                android:text="테스트"
+                android:text="짜장면"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -79,7 +79,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/jajangmyeon"
-                android:text="얼마일까요"
+                android:text="6000원"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
