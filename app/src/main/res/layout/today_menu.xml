@@ -98,7 +98,7 @@
                 </TableRow>
                 <TableRow>
                     <ImageView
-                        android:id="@+id/cart_mon_A"
+                        android:id="@+id/cart_A"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="left"
@@ -135,7 +135,7 @@
                 </TableRow>
                 <TableRow>
                     <ImageView
-                        android:id="@+id/cart_mon_B"
+                        android:id="@+id/cart_B"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="left"
