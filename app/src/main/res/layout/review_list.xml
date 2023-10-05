@@ -11,22 +11,14 @@
         android:gravity="center_vertical"
         android:padding="20dp">
 
-        <!-- 학번 -->
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="학번"
-            android:textSize="16sp"
-            android:textColor="#000"/>
-
         <!-- 별점 -->
         <RatingBar
+            android:id="@+id/Rate"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:isIndicator="true"

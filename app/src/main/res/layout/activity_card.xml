@@ -34,18 +34,17 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="15dp"
-        android:layout_weight="1">
-
+        android:padding="15dp">
 
 
         <!-- 국민 카드 -->
         <LinearLayout
+            android:id="@+id/layout_kb_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -61,11 +60,11 @@
                     android:background="@drawable/card_background_top"
                     android:scaleType="centerCrop" />
 
-            <ImageView
-                android:layout_width="350dp"
-                android:layout_height="120dp"
-                android:background="@drawable/card_background_top"
-                android:scaleType="centerCrop" />
+                <ImageView
+                    android:layout_width="350dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/card_background_top"
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -97,6 +96,7 @@
                             android:textSize="17dp" />
                         <!-- 주카드 -->
                         <FrameLayout
+                            android:id="@+id/kb_frame"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -130,8 +130,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
-                        android:textSize="17dp"
-                        android:text="1234  56**  ****  789*"/>
+                        android:text="1234  56**  ****  789*"
+                        android:textSize="17dp" />
 
                     <!-- 세번째 줄 -->
                     <TextView
@@ -139,8 +139,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
-                        android:textSize="13dp"
-                        android:text="ㅇㅇ카드"/>
+                        android:text="ㅇㅇ카드"
+                        android:textSize="13dp" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -148,35 +148,47 @@
             <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
+
                 <ImageView
                     android:layout_width="350dp"
                     android:layout_height="50dp"
                     android:background="@drawable/card_background_bottom"
                     android:scaleType="centerCrop" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
+                        android:id="@+id/kb_main"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="15dp"
+                        android:text="대표카드 설정"
                         android:textSize="17dp"
-                        android:text="대표카드 설정"/>
+                        android:clickable="true"
+                        android:onClick="onKbMainButtonClick"/>
+
                     <ImageView
                         android:layout_width="1.5dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="50dp"
                         android:layout_marginTop="15dp"
                         app:srcCompat="@drawable/round_background_maincard" />
+
                     <TextView
+                        android:id="@+id/kb_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="55dp"
                         android:layout_marginTop="15dp"
-                        android:textSize="17dp"
-                        android:text="삭제"/>
+                        android:clickable="true"
+                        android:onClick="onKbDeleteButtonClick"
+                        android:text="삭제"
+                        android:textSize="17dp" />
+
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
@@ -184,6 +196,7 @@
 
         <!-- 신한 카드 -->
         <LinearLayout
+            android:id="@+id/layout_sh_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -192,11 +205,13 @@
             <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
+
                 <ImageView
                     android:layout_width="350dp"
                     android:layout_height="120dp"
                     android:background="@drawable/card_background_top"
                     android:scaleType="centerCrop" />
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -233,8 +248,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
-                        android:textSize="17dp"
-                        android:text="1234  56**  ****  789*"/>
+                        android:text="1234  56**  ****  789*"
+                        android:textSize="17dp" />
 
                     <!-- 세번째 줄 -->
                     <TextView
@@ -242,8 +257,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
-                        android:textSize="13dp"
-                        android:text="ㅁㅁ카드"/>
+                        android:text="ㅁㅁ카드"
+                        android:textSize="13dp" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -253,41 +268,48 @@
             <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
+
                 <ImageView
                     android:layout_width="350dp"
                     android:layout_height="50dp"
                     android:background="@drawable/card_background_bottom"
                     android:scaleType="centerCrop" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="15dp"
-                        android:textSize="17dp"
-                        android:text="대표카드 설정"/>
+                        android:text="대표카드 설정"
+                        android:textSize="17dp" />
+
                     <ImageView
                         android:layout_width="1.5dp"
                         android:layout_height="25dp"
                         android:layout_marginStart="50dp"
                         android:layout_marginTop="15dp"
                         app:srcCompat="@drawable/round_background_maincard" />
+
                     <TextView
+                        android:id="@+id/sh_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="55dp"
                         android:layout_marginTop="15dp"
-                        android:textSize="17dp"
-                        android:text="삭제"/>
+                        android:clickable="true"
+                        android:onClick="onShDeleteButtonClick"
+                        android:text="삭제"
+                        android:textSize="17dp" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
 
     </LinearLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

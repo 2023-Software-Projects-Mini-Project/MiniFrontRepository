@@ -17,6 +17,5 @@ class OrderDetails : AppCompatActivity() {
                 finish() // 현재 액티비티 종료
             }
         })
-        
     }
 }

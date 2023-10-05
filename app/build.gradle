@@ -2,8 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
-    id 'com.google.gms.google-services'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -46,9 +46,8 @@ android {
 }
 
 dependencies {
-
-
-
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
     implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -73,10 +72,5 @@ dependencies {
     // Firebase Firestore
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation("com.google.firebase:firebase-database-ktx")
-
-
-
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
 }
