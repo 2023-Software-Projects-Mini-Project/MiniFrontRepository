@@ -25,8 +25,8 @@ class OrderAndPayActivity : AppCompatActivity() {
     }
 
     companion object{
-        private var instance:MainActivity? = null
-        fun getInstance(): MainActivity? {
+        private var instance:OrderAndPayActivity? = null
+        fun getInstance(): OrderAndPayActivity? {
             return instance
         }
     }
