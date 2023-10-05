@@ -14,7 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniFrontApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".FriendsAddList"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".StorageActivity"
             android:exported="false">
@@ -29,7 +35,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".OrderDetailsDetail"
             android:exported="false">
@@ -132,22 +137,18 @@
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value=""/>
+                android:value="" />
         </activity>
-
         <activity
             android:name=".MyPage"
             android:exported="true" />
-
         <activity
             android:name=".OrderDetails"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value=""/>
+                android:value="" />
         </activity>
-
-
     </application>
 
 </manifest>

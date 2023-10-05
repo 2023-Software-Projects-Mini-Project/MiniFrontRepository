@@ -22,19 +22,19 @@ class BoonsikActivity : AppCompatActivity() {
         })
 
         goKimchi.setOnClickListener{
-            val intent = Intent(this, MenuReviewActivity::class.java)
+            val intent = Intent(this@BoonsikActivity, MenuReviewActivity::class.java)
             intent.putExtra("MenuName", "김밥")
             startActivity(intent)
         }
 
         goRamen.setOnClickListener{
-            val intent = Intent(this, MenuReviewActivity::class.java)
+            val intent = Intent(this@BoonsikActivity, MenuReviewActivity::class.java)
             intent.putExtra("MenuName", "라면")
             startActivity(intent)
         }
 
         goTtokppokki.setOnClickListener{
-            val intent = Intent(this, MenuReviewActivity::class.java)
+            val intent = Intent(this@BoonsikActivity, MenuReviewActivity::class.java)
             intent.putExtra("MenuName", "떡볶이")
             startActivity(intent)
         }

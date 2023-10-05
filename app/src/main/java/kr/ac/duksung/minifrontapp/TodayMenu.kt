@@ -31,7 +31,7 @@ class TodayMenu : AppCompatActivity() {
         })
 
 
-      //  val currentDate = getCurrentDate()
+        //  val currentDate = getCurrentDate()
 
 
         categoriesRef.child("오늘의 메뉴").child("2023-10-02").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -118,6 +118,5 @@ class TodayMenu : AppCompatActivity() {
 
      */
 }
-
 
 

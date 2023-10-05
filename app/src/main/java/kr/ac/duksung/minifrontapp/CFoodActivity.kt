@@ -31,39 +31,6 @@ class CFoodActivity : AppCompatActivity() {
             }
         })
 
-
-        // 서버에서 정보 받아오게
-        /*
-        menunameRef.child("중식").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-
-                    jajangmyeon_text.text = dataSnapshot.child("0").child("menuName").getValue(String::class.java)
-                    jajangmyeon_price.text = dataSnapshot.child("0").child("price").getValue(String::class.java)
-                }
-
-                if (dataSnapshot.exists()) {
-
-                    jjamppong_text.text = dataSnapshot.child("1").child("menuName").getValue(String::class.java)
-                    jjamppong_price.text = dataSnapshot.child("1").child("price").getValue(String::class.java)
-                }
-
-                if (dataSnapshot.exists()) {
-
-                    tangsuyuk_text.text = dataSnapshot.child("2").child("menuName").getValue(String::class.java)
-                    tangsuyuk_price.text = dataSnapshot.child("2").child("price").getValue(String::class.java)
-                }
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 데이터 읽기가 취소된 경우
-                Log.e("Firebase", "Data read cancelled: ${databaseError.message}")
-            }
-        })
-
-         */
-
         goJajangmyeon.setOnClickListener {
             val intent = Intent(this@CFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("menuName", "짜장면")

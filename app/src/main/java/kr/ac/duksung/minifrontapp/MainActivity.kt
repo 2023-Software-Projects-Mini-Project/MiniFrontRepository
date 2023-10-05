@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
  /*       data class review(
             val reviewText: String
+
         )
 
         data class Menu(
@@ -175,12 +176,18 @@ class MainActivity : AppCompatActivity() {
                     // 회원가입 성공
                     Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_LONG).show()
                     // 필요한 작업 수행 (예: 메인 화면으로 이동)
-                    // goToMainActivity(task.result?.user)
-                    val emailId = email.substringBefore('@')
+                    // goToMainActivity(task.result?.user)auth.currentUser?.uid.toString()
+                   /* val emailId = email.substringBefore('@')
                     val user = hashMapOf( "username" to emailId)
                     db.collection("users")
                         .document(auth.currentUser?.uid.toString())
                         .set(user)
+*/
+                    val emailId = email.substringBefore('@')
+                    val FireuserID = hashMapOf( "userID" to auth.currentUser?.uid.toString())
+                    db.collection("users")
+                        .document(emailId)
+                        .set(FireuserID)
 
                     val mainIntent = Intent(this, HomeFragment::class.java)
                     startActivity(mainIntent)
