@@ -184,6 +184,9 @@ class MainActivity : AppCompatActivity() {
                         .set(user)
 */
                     val emailId = email.substringBefore('@')
+                   /* val FireuserID = hashMapOf( "userID" to auth.currentUser?.uid.toString(),
+                        "cart" to hashMapOf<String, Any>()
+                        )*/
                     val FireuserID = hashMapOf( "userID" to auth.currentUser?.uid.toString())
                     db.collection("users")
                         .document(emailId)
