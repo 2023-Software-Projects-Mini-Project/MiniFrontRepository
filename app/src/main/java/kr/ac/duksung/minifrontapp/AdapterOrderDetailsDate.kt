@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.orderdetails_date.view.*
+import kotlinx.android.synthetic.main.orderdetails_orders2.view.*
 import kotlinx.android.synthetic.main.row_friends.view.*
 
 class AdapterOrderDetailsDate (var itemList : MutableList<FriendsID>) : RecyclerView.Adapter<AdapterOrderDetailsDate.ViewHolder>()  {
@@ -13,7 +13,7 @@ class AdapterOrderDetailsDate (var itemList : MutableList<FriendsID>) : Recycler
     // LayoutInflater를 이용해서 row_friends.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
     // inflatedView를 사용한 FriendsRowViewHolder를 반환
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterOrderDetailsDate.ViewHolder {
-        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.orderdetails_date, parent, false)
+        val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.orderdetails_orders2, parent, false)
         return ViewHolder(inflatedView);
     }
 
