@@ -14,7 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniFrontApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".writeMenu"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".OrderDetailsDetail"
             android:exported="false">
@@ -43,24 +49,23 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".BoonsikActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".CFoodActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".KFoodActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -113,7 +118,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".MyReview"
             android:exported="true">
@@ -121,14 +125,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
-
         <activity
             android:name=".MyPage"
             android:exported="true" />
-
-
     </application>
 
 </manifest>
