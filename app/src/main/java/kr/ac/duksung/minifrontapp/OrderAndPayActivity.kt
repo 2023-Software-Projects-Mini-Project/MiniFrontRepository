@@ -5,7 +5,6 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.android.synthetic.main.activity_order_and_pay.*
 import kotlinx.android.synthetic.main.activity_order_and_pay.back_icon
 import kr.ac.duksung.minifrontapp.databinding.ActivityOrderAndPayBinding
