@@ -12,6 +12,9 @@ class CartActivity : AppCompatActivity() {
 
     var menuList : MutableList<MenuClass> = mutableListOf(
         MenuClass("떡볶이", "5,000", "1", R.drawable.boonsik),                   // 일단 서버연동 전까지 이렇게 해둠
+        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
+        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
+        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
         MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang)
     )
 

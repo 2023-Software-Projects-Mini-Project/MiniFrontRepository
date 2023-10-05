@@ -78,7 +78,7 @@ class HomeFragment : AppCompatActivity() {
         }
 
         card3.setOnClickListener {
-            val intent = Intent(this@HomeFragment, BoonsikActivity::class.java)
+            val intent = Intent(this@HomeFragment, BFoodActivity::class.java)
             startActivity(intent)
         }
 

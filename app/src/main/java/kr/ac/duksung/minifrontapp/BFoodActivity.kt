@@ -8,7 +8,7 @@ import android.widget.ImageView
 import kotlinx.android.synthetic.main.boonski_list.*
 import kotlinx.android.synthetic.main.kfood_list.*
 
-class BoonsikActivity : AppCompatActivity() {
+class BFoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.boonski_list)
@@ -21,25 +21,22 @@ class BoonsikActivity : AppCompatActivity() {
             }
         })
 
-        goKimchi.setOnClickListener{
-            val intent = Intent(this@BoonsikActivity, MenuReviewActivity::class.java)
+        goKimbab.setOnClickListener{
+            val intent = Intent(this@BFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("MenuName", "김밥")
             startActivity(intent)
         }
 
         goRamen.setOnClickListener{
-            val intent = Intent(this@BoonsikActivity, MenuReviewActivity::class.java)
+            val intent = Intent(this@BFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("MenuName", "라면")
             startActivity(intent)
         }
 
         goTtokppokki.setOnClickListener{
-            val intent = Intent(this@BoonsikActivity, MenuReviewActivity::class.java)
+            val intent = Intent(this@BFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("MenuName", "떡볶이")
             startActivity(intent)
         }
-
-
-
     }
 }
