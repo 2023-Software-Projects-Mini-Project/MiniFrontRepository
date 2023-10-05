@@ -11,7 +11,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.kfood_list.*
 import kotlinx.android.synthetic.main.menu_review.*
+import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
 
 class MenuReviewActivity : AppCompatActivity() {
 
@@ -29,6 +31,29 @@ class MenuReviewActivity : AppCompatActivity() {
                 finish() // 현재 액티비티 종료
             }
         })
+
+        // 바텀 네비게이션 아이템 클릭 리스너 설정
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.page_home -> {
+                    // 홈 아이템 클릭 시 홈 화면으로 이동
+                    startActivity(Intent(this@MenuReviewActivity, HomeFragment::class.java))
+                    true
+                }
+                R.id.page_fv -> {
+                    // 친구 추가 아이템 클릭 시 친구 추가 화면으로 이동
+                    startActivity(Intent(this@MenuReviewActivity, FriendsList::class.java))
+                    true
+                }
+                R.id.page_ps -> {
+                    // 마이페이지 아이템 클릭 시 마이페이지 화면으로 이동
+                    startActivity(Intent(this@MenuReviewActivity, MyPage::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         var reviewList : MutableList<ReviewClass> = mutableListOf(
             ReviewClass(4.5f, "맛있어요!"), // 일단 서버연동 전까지 이렇게 해둠
