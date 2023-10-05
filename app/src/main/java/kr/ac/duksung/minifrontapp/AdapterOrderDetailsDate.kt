@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.orderdetails_date.view.*
-import kotlinx.android.synthetic.main.row_friends.view.*
 
 class AdapterOrderDetailsDate (var itemList : MutableList<FriendsID>) : RecyclerView.Adapter<AdapterOrderDetailsDate.ViewHolder>()  {
 
