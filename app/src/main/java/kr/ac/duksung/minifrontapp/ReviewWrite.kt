@@ -38,7 +38,7 @@ class ReviewWrite : AppCompatActivity() {
 
             // 사용자 UID를 사용하여 리뷰를 저장
             val userReview = findViewById<EditText>(R.id.edit_review) // 사용자로부터 입력받은 리뷰 데이터
-            reviewsRef.child(uid).push().setValue(userReview)
+            reviewsRef.push().setValue(userReview)
         }
          */
     }

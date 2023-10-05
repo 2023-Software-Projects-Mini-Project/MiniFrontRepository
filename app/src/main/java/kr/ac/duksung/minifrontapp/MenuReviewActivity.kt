@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.menu_review.*
 class MenuReviewActivity : AppCompatActivity() {
 
     private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
-    val menunameRef = db.getReference("MenuName")
+    private val categoriesRef = db.getReference("MenuName")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,20 +36,22 @@ class MenuReviewActivity : AppCompatActivity() {
             ReviewClass(5.0f, "맛있어요!"),
         )
 
-
         val intent : Intent = intent
         val menuNameText = intent.getStringExtra("menuName")
         menu_name.setText(menuNameText)
 
-/*
-        menunameRef.child(intent.getStringExtra("김밥").toString()).addValueEventListener(object : ValueEventListener {
+
+        categoriesRef.child("김밥").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
 
+                    /*
                     reviewList.add(
                         ReviewClass(
-                        4.5f, dataSnapshot.child("reviews").getValue(String::class.java).toString()
+                        4.5f, dataSnapshot.child("reviews").child("0").getValue(String::class.java)
                     ))
+                     */
+                    Toast.makeText(this@MenuReviewActivity, dataSnapshot.child("reviews").child("0").getValue(String::class.java), Toast.LENGTH_SHORT).show()
 
                 }
 
@@ -60,7 +63,6 @@ class MenuReviewActivity : AppCompatActivity() {
             }
         })
 
- */
 
         val adapter = MenuReviewAddAdapter(reviewList)
         menu_review.adapter = adapter

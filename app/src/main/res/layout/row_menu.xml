@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
+        android:buttonTint="@color/duksung"
         android:minWidth="48dp"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
