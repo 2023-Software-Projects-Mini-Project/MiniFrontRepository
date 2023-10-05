@@ -26,6 +26,12 @@ class MyPage : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // '주문 내역' 항목 클릭 이벤트 처리
+        mp_order_detail.setOnClickListener {
+            val intent = Intent(this@MyPage, OrderDetails::class.java)
+            startActivity(intent)
+        }
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         // 바텀 네비게이션 아이템 클릭 리스너 설정
