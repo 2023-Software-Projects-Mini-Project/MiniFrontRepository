@@ -30,7 +30,8 @@ class CFoodActivity : AppCompatActivity() {
                 finish() // 현재 액티비티 종료
             }
         })
-        
+
+
         // 서버에서 정보 받아오게
         /*
         menunameRef.child("중식").addValueEventListener(object : ValueEventListener {

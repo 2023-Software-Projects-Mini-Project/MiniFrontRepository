@@ -67,8 +67,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/jajangmyeon"
                 android:text="짜장면"
-                android:textSize="20sp"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
