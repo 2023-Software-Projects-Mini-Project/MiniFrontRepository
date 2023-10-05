@@ -150,6 +150,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
                         <TableRow>
@@ -186,6 +187,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
                         <TableRow>
@@ -304,6 +306,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
                         <TableRow>
@@ -340,6 +343,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
                         <TableRow>
@@ -455,6 +459,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
                         <TableRow>
@@ -491,6 +496,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
                         <TableRow>
@@ -608,6 +614,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
                         <TableRow>
@@ -644,6 +651,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
                         <TableRow>
@@ -761,6 +769,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴A"/>
                         </TableRow>
                         <TableRow>
@@ -797,6 +806,7 @@
                                 android:layout_marginStart="7dp"
                                 android:layout_marginTop="7dp"
                                 android:textSize="16dp"
+                                android:textColor="@color/black"
                                 android:text="메뉴B"/>
                         </TableRow>
                         <TableRow>
