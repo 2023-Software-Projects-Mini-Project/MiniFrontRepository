@@ -17,7 +17,8 @@ class Card : AppCompatActivity() {
         val backIcon = findViewById<ImageView>(R.id.back_icon)
         val kbDeleteButton = findViewById<View>(R.id.kb_delete)
         val shDeleteButton = findViewById<View>(R.id.sh_delete)
-
+        val kbMainButton = findViewById<View>(R.id.kb_main)
+        val shMainButton = findViewById<View>(R.id.sh_main)
 
         backIcon.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -44,5 +45,18 @@ class Card : AppCompatActivity() {
         })
 
         //주카드 설정
+        kbMainButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                kb_frame.visibility = View.INVISIBLE
+                sh_frame.visibility = View.VISIBLE
+            }
+        })
+
+        shMainButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                sh_frame.visibility = View.INVISIBLE
+                kb_frame.visibility = View.VISIBLE
+            }
+        })
     }
 }
