@@ -31,6 +31,7 @@ class CFoodActivity : AppCompatActivity() {
             }
         })
 
+
         // 서버에서 정보 받아오게
         /*
         menunameRef.child("중식").addValueEventListener(object : ValueEventListener {
