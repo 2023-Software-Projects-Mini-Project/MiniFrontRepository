@@ -23,6 +23,13 @@
         android:theme="@style/Theme.MiniFrontApp"
         tools:targetApi="31">
         <activity
+            android:name=".AddFriendsFragment"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".FriendsAddList"
             android:exported="false">
             <meta-data
