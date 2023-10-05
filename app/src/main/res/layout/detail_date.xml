@@ -43,7 +43,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{header.pickup}"
             android:textStyle="bold"
             android:textColor="@color/duksung"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textColor="@color/black"
-            priceAmount="@{product.date}"
             app:layout_constraintTop_toBottomOf="@id/product_pickup"
             app:layout_constraintStart_toEndOf="@id/product_pickup_text1"
             tools:text="2023년 9월 21일 오후 01:15" />
