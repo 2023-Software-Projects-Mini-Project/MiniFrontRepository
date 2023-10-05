@@ -47,15 +47,15 @@ class Card : AppCompatActivity() {
         //주카드 설정
         kbMainButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                kb_frame.visibility = View.INVISIBLE
-                sh_frame.visibility = View.VISIBLE
+                kb_frame.visibility = View.VISIBLE
+                sh_frame.visibility = View.INVISIBLE
             }
         })
 
         shMainButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                sh_frame.visibility = View.INVISIBLE
-                kb_frame.visibility = View.VISIBLE
+                sh_frame.visibility = View.VISIBLE
+                kb_frame.visibility = View.INVISIBLE
             }
         })
     }

@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.row_menu.view.*
 
 class CartAddAdapter (var context: Context, var itemList : MutableList<MenuClass>) : RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
-
     // Adapter에서 사용할 ViewHolder를 설정
     // LayoutInflater를 이용해서 row_friends.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
     // inflatedView를 사용한 FriendsRowViewHolder를 반환
