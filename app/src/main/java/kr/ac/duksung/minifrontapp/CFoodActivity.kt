@@ -32,6 +32,7 @@ class CFoodActivity : AppCompatActivity() {
         })
         
         // 서버에서 정보 받아오게
+        /*
         menunameRef.child("중식").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -59,6 +60,8 @@ class CFoodActivity : AppCompatActivity() {
                 Log.e("Firebase", "Data read cancelled: ${databaseError.message}")
             }
         })
+
+         */
 
         goJajangmyeon.setOnClickListener {
             val intent = Intent(this@CFoodActivity, MenuReviewActivity::class.java)
