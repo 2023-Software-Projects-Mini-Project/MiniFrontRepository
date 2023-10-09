@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.row_menu.view.*
 
-class CartAddAdapter (var context: Context, var itemList : MutableList<MenuClass>) : RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
+class CartAddAdapter(var context: Context, var itemList: MutableList<MenuReviewActivity.CartItem>) : RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
     // Adapter에서 사용할 ViewHolder를 설정
     // LayoutInflater를 이용해서 row_friends.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
@@ -61,15 +61,13 @@ class CartAddAdapter (var context: Context, var itemList : MutableList<MenuClass
             }
         }
 
-
-        fun bind(item: MenuClass, context: Context){
-
-            Glide.with(view).load(item.menuimage).into(view.MenuImage)
-
-            view.MenuName.text = item.menuname
-            view.MenuPrice.text = item.menuprice
-            view.MenuCount.text = item.menucount
+        fun bind(item: MenuReviewActivity.CartItem, context: Context){
+            // Glide.with(view).load(item.menuimage).into(view.MenuImage)
+            view.MenuName.text = item.menuName
+            view.MenuPrice.text = item.menuPrice.toString()
+            //view.MenuCount.text = item.menucount
         }
+
     }
 
 

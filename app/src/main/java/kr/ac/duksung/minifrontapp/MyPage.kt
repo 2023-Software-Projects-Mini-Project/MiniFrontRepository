@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_my_page.*
 class MyPage : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     private lateinit var username_area: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,13 +59,39 @@ class MyPage : AppCompatActivity() {
             }
         }
 
-        auth = FirebaseAuth.getInstance()
 
         username_area = findViewById(R.id.username_area)
 
-        val docRef  =  db.collection("users").document(auth.currentUser?.uid.toString())
-        docRef.get().addOnSuccessListener { documentSnapshot ->
-            username_area.setText(documentSnapshot.get("username").toString())
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
+        val intent = intent
+        val emailId = intent.getStringExtra("email")
+        username_area = findViewById(R.id.username_area)
+
+// Firestore에서 해당 이메일 ID를 가져옵니다.
+        if (emailId != null) {
+            db.collection("users")
+                .document(emailId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        // 해당 문서가 존재하면 emailID를 가져와서 표시합니다.
+                        val emailID = document.getString("userID")
+                        username_area.setText(emailID)
+                        if (emailID != null) {
+                            // emailID를 사용하여 원하는 작업을 수행합니다.
+                            // 예: 화면에 표시하거나 다른 처리를 수행합니다.
+                            username_area.setText(emailID)
+                        }
+                    } else {
+                        // 해당 이메일 ID를 찾을 수 없음
+                    }
+                }
+        } else {
+            // emailId가 null일 때 처리할 코드
         }
+
+
     }
 }

@@ -49,18 +49,21 @@ class KFoodActivity : AppCompatActivity() {
         goKimchi.setOnClickListener {
             val intent = Intent(this@KFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("menuName", "김치찌개")
+            intent.putExtra("menuPrice", "5500")
             startActivity(intent)
         }
 
         goDoenjang.setOnClickListener{
             val intent = Intent(this@KFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("menuName", "된장찌개")
+            intent.putExtra("menuPrice", "5500")
             startActivity(intent)
         }
 
         goBoodea.setOnClickListener {
             val intent = Intent(this@KFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("menuName", "부대찌개")
+            intent.putExtra("menuPrice", "5500")
             startActivity(intent)
         }
     }
