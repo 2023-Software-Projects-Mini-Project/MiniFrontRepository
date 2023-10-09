@@ -9,14 +9,11 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-//FCM 메시지 수신 및 처리를 위한 서비스 클래스
-
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        // FCM 메시지를 수신했을 때 실행되는 코드
-        // remoteMessage로부터 메시지 내용을 가져와서 알림을 생성하거나 작업을 수행할 수 있음
+        createNotificationChannel() // 알림 채널 생성
 
         // 예: 알림 생성
         createNotification(remoteMessage)
@@ -52,6 +49,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         notificationManager.notify(0, notificationBuilder.build())
     }
 
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "my_channel_id" // 유효한 채널 ID로 설정
+            val channel = NotificationChannel(
+                channelId,
+                "My Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.description = "My Channel Description"
+
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    companion object {
+        private const val CHANNEL_ID = "my_channel_id" // 채널 ID 설정
+    }
 }
-
-
