@@ -57,18 +57,21 @@ class CFoodActivity : AppCompatActivity() {
         goJajangmyeon.setOnClickListener {
             val intent = Intent(this@CFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("menuName", "짜장면")
+            intent.putExtra("menuPrice", "6000")
             startActivity(intent)
         }
 
         goJjamppong.setOnClickListener{
             val intent = Intent(this@CFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("menuName", "짬뽕")
+            intent.putExtra("menuPrice", "6000")
             startActivity(intent)
         }
 
         goTangsuyuk.setOnClickListener{
             val intent = Intent(this@CFoodActivity, MenuReviewActivity::class.java)
             intent.putExtra("menuName", "탕수육")
+            intent.putExtra("menuPrice", "4000")
             startActivity(intent)
         }
 

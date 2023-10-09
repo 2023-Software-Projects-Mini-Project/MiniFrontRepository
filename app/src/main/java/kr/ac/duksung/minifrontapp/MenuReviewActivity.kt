@@ -24,10 +24,10 @@ class MenuReviewActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val cartRef = db.getReference("Cart")
-    val menunameRef = db.getReference("MenuName")
+    private var categoriesRef = db.getReference("MenuName")
 
     private lateinit var adapter : TotalReviewAdapter
-    private var categoriesRef = db.getReference("MenuName")
+
 
     data class CartItem(val menuName: String, val menuPrice: String)
 
@@ -111,6 +111,7 @@ class MenuReviewActivity : AppCompatActivity() {
         ratingbar.rating = adapter.totalRating
 
 
+        // 장바구니에 담기 버튼이 눌렸을때
         addToCartButton.setOnClickListener {
             if (menuNameText != null && menuPriceText != null && userUid != null) {
                 // 장바구니에 메뉴 추가
@@ -123,11 +124,6 @@ class MenuReviewActivity : AppCompatActivity() {
             }
         }
 
-
-
-
-
-
     }
     // 사용자 로그인 및 UID 얻기
     private fun addToCart(menuName: String, menuPrice: String, userUid: String) {
@@ -138,7 +134,26 @@ class MenuReviewActivity : AppCompatActivity() {
             Log.d("Cart", "Added to cart: $menuName, $menuPrice")
         }
     }
-/*
+
+    // 파이어베이스에 저장
+    fun saveComment(rating: Float, contents: String) {
+        // comment에 child로 감상평 추가(이때 키 자동 생성, 이 키 얻어옥기)
+        var key : String? = categoriesRef.child("menuNameText").child("reviews").push().getKey()
+
+        // 객체 생성
+        val comment = TotalReviewClass(key!!, rating, contents)
+        // 객체를 맵 형으로 변환
+        val commentValues : HashMap<String, Any> = comment.toMap()
+
+        // 파이어베이스에 넣어주기(인자에 해시맵과 해시맵에 접근할 수 있는 경로 들어가야함)
+        // -> 별도의 해시맵을 만들어줘야함
+        val childUpdate : MutableMap<String, Any> = HashMap()
+        childUpdate["/reviews/$key"] = commentValues
+
+        categoriesRef.child("menuNameText").updateChildren(childUpdate)
+    }
+
+    /*
     // 이 함수를 이용하고 싶었는데 잘 안되더라구요,,,
     // 데이터베이스로 접근되는 데이터 관리하는 클래스
     fun loadCommentList(dataSanpshot : DataSnapshot) {
@@ -171,21 +186,4 @@ class MenuReviewActivity : AppCompatActivity() {
     }
  */
 
-    // 파이어베이스에 저장
-    fun saveComment(rating: Float, contents: String) {
-        // comment에 child로 감상평 추가(이때 키 자동 생성, 이 키 얻어옥기)
-        var key : String? = categoriesRef.child("menuNameText").child("reviews").push().getKey()
-
-        // 객체 생성
-        val comment = TotalReviewClass(key!!, rating, contents)
-        // 객체를 맵 형으로 변환
-        val commentValues : HashMap<String, Any> = comment.toMap()
-
-        // 파이어베이스에 넣어주기(인자에 해시맵과 해시맵에 접근할 수 있는 경로 들어가야함)
-        // -> 별도의 해시맵을 만들어줘야함
-        val childUpdate : MutableMap<String, Any> = HashMap()
-        childUpdate["/reviews/$key"] = commentValues
-
-        categoriesRef.child("menuNameText").updateChildren(childUpdate)
-    }
 }
