@@ -1,0 +1,22 @@
+package kr.ac.duksung.minifrontapp
+import com.google.firebase.database.Exclude
+
+data class TotalReviewClass(
+    var objectID: String,
+    var rating: Float,
+    var contents: String
+    ){
+
+    @Exclude
+    fun toMap() : HashMap<String, Any> {
+        // 해시맵 만들기
+        val result : HashMap<String, Any> = HashMap()
+
+        // 첫번째 인자의 스트링 부분인  objectID는 objectId와 매칭된다.
+        result["objectID"] = objectID
+        result["rating"] = rating
+        result["contents"] = contents
+
+        return result   // 파이어베이스의 DB에 저장 가능한 자료형으로 변환 완료
+    }
+}

@@ -48,10 +48,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="김치찌개"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="김치찌개" />
 
         <RatingBar
             style="?android:attr/ratingBarStyleSmall"
