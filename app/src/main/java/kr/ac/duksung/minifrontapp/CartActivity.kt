@@ -8,10 +8,11 @@ import kotlinx.android.synthetic.main.activity_card.*
 import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.android.synthetic.main.activity_cart_main.back_icon
 import kotlinx.android.synthetic.main.activity_cart_main.bottomNavigationView
+import kr.ac.duksung.minifrontapp.MenuReviewActivity.CartItem
 
 class CartActivity : AppCompatActivity() {
 
-
+/*
     var menuList : MutableList<MenuClass> = mutableListOf(
         MenuClass("떡볶이", "5,000", "1", R.drawable.boonsik),                   // 일단 서버연동 전까지 이렇게 해둠
         MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
@@ -19,7 +20,7 @@ class CartActivity : AppCompatActivity() {
         MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
         MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang)
     )
-
+*/
     // CartActivity 객체화(다른 클래스에서도 참조할 수 있도록)
     init{
         var instance = this
@@ -68,8 +69,8 @@ class CartActivity : AppCompatActivity() {
 
 
 
-        val adapter = CartAddAdapter(this, menuList)
-        RCV_menu.adapter = adapter
+        //val adapter = CartAddAdapter(this, MenuReviewActivity.CartManager.cartItems)
+        //RCV_menu.adapter = adapter
 
 
 

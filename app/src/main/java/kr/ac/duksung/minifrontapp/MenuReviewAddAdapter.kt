@@ -30,7 +30,6 @@ class MenuReviewAddAdapter(var itemList: MutableList<ReviewClass>) : RecyclerVie
     }
 
 
-
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
         var view : View = v
 

@@ -53,6 +53,7 @@
             android:textStyle="bold"
             tools:text="김치찌개" />
 
+
         <RatingBar
             android:id="@+id/ratingbar"
             style="?android:attr/ratingBarStyleSmall"

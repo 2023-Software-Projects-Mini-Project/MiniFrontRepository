@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             val price: String,
             val reviews: MutableList<String>
         )
-
+*/
         data class TodayMenu(
             val TodayName: String,
             val price: String
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             val menuB: TodayMenu
         )
 
-        val kfood1 = Menu("5500", mutableListOf("맛나요"))
+ /*       val kfood1 = Menu("5500", mutableListOf("맛나요"))
         val kfood2 = Menu("5500", mutableListOf("맛나요"))
         val kfood3 = Menu("5500", mutableListOf("맛나요"))
         // 다른 메뉴 추가
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         val boonsik1 = Menu("3000", mutableListOf("맛나요"))
         val boonsik2 = Menu("4000", mutableListOf("맛나요"))
         val boonsik3 = Menu("5000", mutableListOf("맛나요"))
-
+*/
 
         val menu1A = TodayMenu("생야채비빔밥\n" +
                 "연두부*양념장\n" +
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                 "석박지\n" +
                 "흑미밥", "6000")
         val TodayDate5 = TodayDate(menu5A, menu5B)
-
+/*
         categoriesRef.child("김치찌개").setValue(kfood1)
         categoriesRef.child("된장찌개").setValue(kfood2)
         categoriesRef.child("부대찌개").setValue(kfood3)
@@ -161,13 +161,13 @@ class MainActivity : AppCompatActivity() {
         categoriesRef.child("김밥").setValue(boonsik1)
         categoriesRef.child("라면").setValue(boonsik2)
         categoriesRef.child("떡볶이").setValue(boonsik3)
-
+*/
         categoriesRef.child("오늘의 메뉴").child("2023-10-02").setValue(TodayDate1)
         categoriesRef.child("오늘의 메뉴").child("2023-10-03").setValue(TodayDate2)
         categoriesRef.child("오늘의 메뉴").child("2023-10-04").setValue(TodayDate3)
         categoriesRef.child("오늘의 메뉴").child("2023-10-05").setValue(TodayDate4)
-        categoriesRef.child("오늘의 메뉴").child("2023-10-06").setValue(TodayDate5)
-*/
+        categoriesRef.child("오늘의 메뉴").child("2023-10-09").setValue(TodayDate5)
+
     }
     private fun signUp(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
@@ -177,20 +177,29 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_LONG).show()
                     // 필요한 작업 수행 (예: 메인 화면으로 이동)
                     // goToMainActivity(task.result?.user)auth.currentUser?.uid.toString()
-                   /* val emailId = email.substringBefore('@')
-                    val user = hashMapOf( "username" to emailId)
+
+                   /* val user = hashMapOf( "username" to emailId)
                     db.collection("users")
                         .document(auth.currentUser?.uid.toString())
                         .set(user)
 */
-                    val emailId = email.substringBefore('@')
+                   // val emailId = email.substringBefore('@')
                    /* val FireuserID = hashMapOf( "userID" to auth.currentUser?.uid.toString(),
                         "cart" to hashMapOf<String, Any>()
                         )*/
+                    val emailId = email.substringBefore('@')
+
                     val FireuserID = hashMapOf( "userID" to auth.currentUser?.uid.toString())
                     db.collection("users")
                         .document(emailId)
                         .set(FireuserID)
+
+
+                    val intent = Intent(this, MyPage::class.java)
+                    intent.putExtra("email", emailId)
+                    startActivity(intent)
+
+
 
                     val mainIntent = Intent(this, HomeFragment::class.java)
                     startActivity(mainIntent)

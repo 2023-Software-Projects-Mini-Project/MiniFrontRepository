@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import com.google.firebase.auth.FirebaseAuth
 import android.widget.RatingBar
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
@@ -13,19 +14,30 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
 
+
 class MenuReviewActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
+    private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
+    private val cartRef = db.getReference("Cart")
+    val menunameRef = db.getReference("MenuName")
+
     private lateinit var adapter : TotalReviewAdapter
-    private var db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private var categoriesRef = db.getReference("MenuName")
 
+    data class CartItem(val menuName: String, val menuPrice: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_review)
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser?.uid
 
         val backIcon = findViewById<ImageView>(R.id.back_icon)
         backIcon.setOnClickListener(object : View.OnClickListener {
@@ -58,6 +70,7 @@ class MenuReviewActivity : AppCompatActivity() {
 
         val intent : Intent = intent
         val menuNameText = intent.getStringExtra("menuName")
+        val menuPriceText = intent.getStringExtra("menuPrice")
         menu_name.setText(menuNameText)
 
 
@@ -98,8 +111,32 @@ class MenuReviewActivity : AppCompatActivity() {
         ratingbar.rating = adapter.totalRating
 
 
+        addToCartButton.setOnClickListener {
+            if (menuNameText != null && menuPriceText != null && userUid != null) {
+                // 장바구니에 메뉴 추가
+                addToCart(menuNameText, menuPriceText, userUid)
+                val mainIntent = Intent(this, CartActivity::class.java)
+                startActivity(mainIntent)
+            } else {
+                // 유효한 메뉴 정보가 없을 경우 예외 처리
+                // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
+            }
+        }
 
 
+
+
+
+
+    }
+    // 사용자 로그인 및 UID 얻기
+    private fun addToCart(menuName: String, menuPrice: String, userUid: String) {
+        val newItem = CartItem(menuName, menuPrice)
+        val cartItemKey = cartRef.child(userUid).push().key
+        if (cartItemKey != null) {
+            cartRef.child(userUid).child(cartItemKey).setValue(newItem)
+            Log.d("Cart", "Added to cart: $menuName, $menuPrice")
+        }
     }
 /*
     // 이 함수를 이용하고 싶었는데 잘 안되더라구요,,,
