@@ -7,14 +7,11 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
-import android.widget.RatingBar
-import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
 
