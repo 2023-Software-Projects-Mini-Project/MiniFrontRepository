@@ -1,15 +1,25 @@
 package kr.ac.duksung.minifrontapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_my_page.*
 
 class MyPage : AppCompatActivity() {
+
+    private val db = FirebaseFirestore.getInstance()
+    private lateinit var auth : FirebaseAuth
+    private lateinit var username_area: TextView
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page)
@@ -43,6 +53,15 @@ class MyPage : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+
+        auth = FirebaseAuth.getInstance()
+
+        username_area = findViewById(R.id.username_area)
+
+        val docRef  =  db.collection("users").document(auth.currentUser?.uid.toString())
+        docRef.get().addOnSuccessListener { documentSnapshot ->
+            username_area.setText(documentSnapshot.get("username").toString())
         }
     }
 }

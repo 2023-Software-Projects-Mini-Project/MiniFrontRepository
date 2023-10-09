@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FriendsList : AppCompatActivity() {
 
@@ -38,7 +39,26 @@ class FriendsList : AppCompatActivity() {
             }
         })
 
-        // 친구 목록 데이터를 어댑터에 설정하거나 가져오는 코드를 추가해야 합니다.
-        // friendsAdapter.setData(friendsList) 또는 fetchFriendsList()와 같은 메서드를 사용하여 데이터를 설정하세요.
+        //여기 밑에는 손대지마.
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        // 바텀 네비게이션 아이템 클릭 리스너 설정
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.page_home -> {
+                    // 홈 아이템 클릭 시 홈 화면으로 이동
+                    startActivity(Intent(this@FriendsList, HomeFragment::class.java))
+                    true
+                }
+                R.id.page_ps -> {
+                    // 마이페이지 아이템 클릭 시 친구 추가 화면으로 이동
+                    startActivity(Intent(this@FriendsList, MyPage::class.java))
+                    true
+                }
+                else -> false
+            }
+
+        }
     }
 }

@@ -45,14 +45,16 @@ tools:context=".MyPage">
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_baseline_person_24"
             app:tint="@color/duksung" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"
-            android:text="20210805 한서현" />
+
+            <TextView
+                android:id="@+id/username_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:text="20210805 한서현"
+                android:textSize="18dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- 카드 결제 관리 -->
