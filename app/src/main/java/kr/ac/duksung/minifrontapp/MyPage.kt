@@ -58,7 +58,7 @@ class MyPage : AppCompatActivity() {
                 else -> false
             }
         }
-
+/*
 
         username_area = findViewById(R.id.username_area)
 
@@ -91,7 +91,15 @@ class MyPage : AppCompatActivity() {
         } else {
             // emailId가 null일 때 처리할 코드
         }
+*/
+        auth = FirebaseAuth.getInstance()
 
+        username_area = findViewById(R.id.username_area)
+
+        val docRef  =  db.collection("users").document(auth.currentUser?.uid.toString())
+        docRef.get().addOnSuccessListener { documentSnapshot ->
+            username_area.setText(documentSnapshot.get("username").toString())
+        }
 
     }
 }
