@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,8 +19,8 @@ import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
 class MenuReviewActivity : AppCompatActivity() {
 
     private lateinit var adapter : TotalReviewAdapter
-    private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
-    private val categoriesRef = db.getReference("MenuName")
+    private var db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
+    private var categoriesRef = db.getReference("MenuName")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,54 +56,37 @@ class MenuReviewActivity : AppCompatActivity() {
             }
         }
 
-/*
-        var reviewList : MutableList<TotalReviewClass> = mutableListOf(
-            TotalReviewClass(4.5f, "맛있어요!"), // 일단 서버연동 전까지 이렇게 해둠
-            TotalReviewClass(5.0f, "맛있어요!"),
-        )
-
- */
-
         val intent : Intent = intent
         val menuNameText = intent.getStringExtra("menuName")
         menu_name.setText(menuNameText)
 
-/*
-        categoriesRef.child("김밥").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-
-                    /*
-                    reviewList.add(
-                        ReviewClass(
-                        4.5f, dataSnapshot.child("reviews").child("0").getValue(String::class.java)
-                    ))
-                     */
-                    Toast.makeText(this@MenuReviewActivity, dataSnapshot.child("reviews").child("0").getValue(String::class.java), Toast.LENGTH_SHORT).show()
-
-                }
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // 데이터 읽기가 취소된 경우
-                Log.e("Firebase", "Data read cancelled: ${databaseError.message}")
-            }
-        })
-
- */
 
 
         adapter = TotalReviewAdapter()
         menu_review.adapter = adapter
 
-        //saveComment(2.5f, "개빡칠거같아요")
+        //var totalrating: Float = 0.0f
 
-        // 최근에 저잘된 데이터 5개 불러오기
-        categoriesRef.child("김밥").limitToFirst(5).addValueEventListener(object: ValueEventListener {
+
+        categoriesRef.child("$menuNameText").child("reviews").addValueEventListener(object: ValueEventListener {
             // 내용 추가될 때마다 자동으로 화면 바뀌게
             override fun onDataChange(snapshot: DataSnapshot) { // snapshot : 데이터베이스에서 조회되는 객체들을 접근할 수 있는 권한이 있는 객체
-                loadCommentList(snapshot)
+                Log.d("MenuReview: ", "onDataChage Success")
+                if (snapshot.exists()){
+
+
+                    // 리뷰 데이터를 가져오기
+                    for (childSnapshot in snapshot.children) {
+                        val objectId = childSnapshot.child("objectID").getValue(String::class.java)
+                        val rating = childSnapshot.child("rating").getValue(Float::class.java)
+                        val contents = childSnapshot.child("contents").getValue(String::class.java)
+
+                        //totalrating += rating!!
+                        adapter.itemList.add(TotalReviewClass((objectId ?:""), ((rating ?: "")as Float), (contents ?: "")))
+
+                    }
+                    adapter.notifyDataSetChanged()
+                }
             }
 
             // 취소되었을 때
@@ -111,14 +95,20 @@ class MenuReviewActivity : AppCompatActivity() {
             }
         })
 
-    }
+        ratingbar.rating = adapter.totalRating
 
+
+
+
+    }
+/*
+    // 이 함수를 이용하고 싶었는데 잘 안되더라구요,,,
     // 데이터베이스로 접근되는 데이터 관리하는 클래스
     fun loadCommentList(dataSanpshot : DataSnapshot) {
         // comments에서 쭉 내려옴
-        val collectionIterator = dataSanpshot!!.children.iterator()
+        val collectionIterator = dataSanpshot.children.iterator()     // reviews 아래로
         // comments가 있다 == 한줄평이 존재한다
-        if (collectionIterator.hasNext()) {
+        if (collectionIterator.hasNext()) {                             // reviews 아래 항목이 존재한다면
             // 예전 아이템 지우기
             adapter.itemList.clear()
             // 모든 한줄평 읽어오기
@@ -131,20 +121,23 @@ class MenuReviewActivity : AppCompatActivity() {
                 val map = currentItem.value as HashMap<String, Any>
                 // 데이터 변수로 만들기
                 val objectId = map["objectId"].toString()
-                val rating = map["rating"] as Float
+                //val rating = map["rating"] as Float
                 val contents = map["contents"] as String
+                //Toast.makeText(this@MenuReviewActivity, "읽어옴", Toast.LENGTH_SHORT).show()
+                //Log.d("MenuReview", "Toasting")
                 // 리사이클러뷰에 연결
-                adapter.itemList.add(TotalReviewClass(objectId, rating, contents))
+                adapter.itemList.add(TotalReviewClass(objectId, 4.0f, contents))
             }
             // 데이터 바뀌었다고 알려주기
             adapter.notifyDataSetChanged()
         }
     }
+ */
 
     // 파이어베이스에 저장
     fun saveComment(rating: Float, contents: String) {
         // comment에 child로 감상평 추가(이때 키 자동 생성, 이 키 얻어옥기)
-        var key : String? = categoriesRef.child("김밥").child("reviews").push().getKey()
+        var key : String? = categoriesRef.child("menuNameText").child("reviews").push().getKey()
 
         // 객체 생성
         val comment = TotalReviewClass(key!!, rating, contents)
@@ -156,6 +149,6 @@ class MenuReviewActivity : AppCompatActivity() {
         val childUpdate : MutableMap<String, Any> = HashMap()
         childUpdate["/reviews/$key"] = commentValues
 
-        categoriesRef.child("김밥").updateChildren(childUpdate)
+        categoriesRef.child("menuNameText").updateChildren(childUpdate)
     }
 }

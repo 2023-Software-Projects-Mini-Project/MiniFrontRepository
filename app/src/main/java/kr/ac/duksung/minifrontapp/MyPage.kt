@@ -60,7 +60,6 @@ class MyPage : AppCompatActivity() {
         }
 
         auth = FirebaseAuth.getInstance()
-
         username_area = findViewById(R.id.username_area)
 
         val docRef  =  db.collection("users").document(auth.currentUser?.uid.toString())

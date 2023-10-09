@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.review_list.view.*
 class TotalReviewAdapter: RecyclerView.Adapter<TotalReviewAdapter.ViewHolder>() {
 
     var itemList = ArrayList<TotalReviewClass>()
+    var totalRating : Float = 0.0f
 
     // Adapter에서 사용할 ViewHolder를 설정
     // LayoutInflater를 이용해서 review_list.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
@@ -36,6 +37,7 @@ class TotalReviewAdapter: RecyclerView.Adapter<TotalReviewAdapter.ViewHolder>() 
 
         fun bind(item: TotalReviewClass){
 
+            totalRating += item.rating!!
             view.Rate.rating = item.rating
             view.message.text = item.contents
         }
