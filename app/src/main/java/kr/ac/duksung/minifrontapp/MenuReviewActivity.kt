@@ -25,7 +25,6 @@ class MenuReviewActivity : AppCompatActivity() {
 
     private lateinit var adapter : TotalReviewAdapter
 
-
     data class CartItem(val menuName: String, val menuPrice: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,8 +112,8 @@ class MenuReviewActivity : AppCompatActivity() {
             if (menuNameText != null && menuPriceText != null && userUid != null) {
                 // 장바구니에 메뉴 추가
                 addToCart(menuNameText, menuPriceText, userUid)
-                val mainIntent = Intent(this, CartActivity::class.java)
-                startActivity(mainIntent)
+                //val mainIntent = Intent(this, CartActivity::class.java)
+                //startActivity(mainIntent)
             } else {
                 // 유효한 메뉴 정보가 없을 경우 예외 처리
                 // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
