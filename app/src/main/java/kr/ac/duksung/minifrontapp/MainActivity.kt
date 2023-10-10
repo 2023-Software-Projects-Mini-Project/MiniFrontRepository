@@ -100,12 +100,8 @@ class MainActivity : AppCompatActivity() {
                     val userRef = ref.child(userId)
 
                     userRef.setValue(Usersinfo) //realtime database에 추가
-
-                    val friendList = HashMap<String, Any>() // 빈 맵을 생성합니다.
-
                     val userMap = HashMap<String, Any>()
                     userMap["userID"] = userId
-                    userMap["friendList"] = friendList
 
                 } else {
                     // 회원가입 실패
