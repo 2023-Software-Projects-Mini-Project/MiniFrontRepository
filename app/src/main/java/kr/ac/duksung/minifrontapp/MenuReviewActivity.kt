@@ -84,18 +84,27 @@ class MenuReviewActivity : AppCompatActivity() {
                 Log.d("MenuReview: ", "onDataChage Success")
                 if (snapshot.exists()){
 
-
+                    var totalRating: Float = 0.0f  // 리뷰 총 별점을 저장할 변수
                     // 리뷰 데이터를 가져오기
                     for (childSnapshot in snapshot.children) {
                         val objectId = childSnapshot.child("objectID").getValue(String::class.java)
                         val rating = childSnapshot.child("rating").getValue(Float::class.java)
                         val contents = childSnapshot.child("contents").getValue(String::class.java)
 
+                        // 각 리뷰의 별점을 총 별점에 더함
+                        totalRating += rating ?: 0.0f  // null 처리
+
                         //totalrating += rating!!
                         adapter.itemList.add(TotalReviewClass((objectId ?:""), ((rating ?: "")as Float), (contents ?: "")))
 
                     }
                     adapter.notifyDataSetChanged()
+
+                    // 리뷰의 총 별점을 리뷰 개수로 나누어 평균을 계산
+                    val averageRating = totalRating / snapshot.childrenCount
+                    // 계산된 평균 별점을 ratingbar에 설정
+                    ratingbar.rating = averageRating
+
                 }
             }
 

@@ -41,5 +41,7 @@ class TotalReviewAdapter: RecyclerView.Adapter<TotalReviewAdapter.ViewHolder>() 
             view.Rate.rating = item.rating
             view.message.text = item.contents
         }
+
+
     }
 }
