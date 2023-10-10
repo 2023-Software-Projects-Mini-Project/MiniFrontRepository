@@ -7,11 +7,15 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestoreSettings
+import com.google.firebase.ktx.Firebase
 
 class FriendsAddList : AppCompatActivity() {
 
+    private val realdb = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
+    private var userRef = realdb.getReference("users")
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
     private lateinit var textView: TextView // 수정: textView를 클래스 레벨에서 선언
