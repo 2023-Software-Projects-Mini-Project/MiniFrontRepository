@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPassword: EditText
     private val db = FirebaseFirestore.getInstance()
 
+    data class Usersinfo(val username: String, val usertoken: String, val userid : String)
+
     private val realdb = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val categoriesRef = realdb.getReference("MenuName")
 
@@ -210,6 +212,20 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, MyPage::class.java)
                     intent.putExtra("email", emailId)
                     startActivity(intent)
+
+                    //리얼타임데이터에 넣기
+                    val userId = auth.currentUser?.uid.toString()
+                    val userToken = "yourUserTokenHere" // 클라우드메시지 토큰
+
+                    val Usersinfo = Usersinfo(emailId, userToken, userId)
+
+                    val ref = realdb.getReference("users") // "users"는 데이터베이스의 경로입니다.
+                    val userRef = ref.child(userId)
+
+                    userRef.setValue(Usersinfo) //realtime database에 추가
+                    val userMap = HashMap<String, Any>()
+                    userMap["userID"] = userId
+
 
 
 
