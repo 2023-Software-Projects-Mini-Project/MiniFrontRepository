@@ -3,23 +3,35 @@ package kr.ac.duksung.minifrontapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_card.*
 import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.android.synthetic.main.activity_cart_main.back_icon
 import kotlinx.android.synthetic.main.activity_cart_main.bottomNavigationView
-import kr.ac.duksung.minifrontapp.MenuReviewActivity.CartItem
 
 class CartActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
+    private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
+    private val cartRef = db.getReference("Cart")
 
+    private lateinit var adapter : CartAddAdapter
+/*
     var menuList : MutableList<MenuClass> = mutableListOf(
-        MenuClass("떡볶이", "5,000", "1", R.drawable.boonsik),                   // 일단 서버연동 전까지 이렇게 해둠
-        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
-        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
-        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang),
-        MenuClass("된장찌개", "5,500", "2", R.drawable.doenjang)
+        MenuClass("떡볶이", "5,000", 1, R.drawable.boonsik),                   // 일단 서버연동 전까지 이렇게 해둠
+        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang),
+        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang),
+        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang),
+        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang)
     )
+ */
 
     // CartActivity 객체화(다른 클래스에서도 참조할 수 있도록)
     init{
@@ -32,7 +44,6 @@ class CartActivity : AppCompatActivity() {
             return instance
         }
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,9 +79,40 @@ class CartActivity : AppCompatActivity() {
         }
 
 
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser!!.uid
 
-        val adapter = CartAddAdapter(this, menuList)
+        adapter = CartAddAdapter()
         RCV_menu.adapter = adapter
+
+
+        cartRef.child(userUid).addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+                Log.d("MenuReview: ", "onDataChage Success")
+                if (snapshot.exists()){
+                    for (childSnapshot in snapshot.children){
+                        val menuname = childSnapshot.child("menuName").getValue(String::class.java)
+                        val menuprice = childSnapshot.child("menuPrice").getValue(String::class.java)
+                        val menucount = childSnapshot.child("menuCount").getValue(Int::class.java)
+
+                        adapter.itemList.add(MenuClass((menuname ?:""), (menuprice ?: ""), ((menucount ?: "") as Int)))
+
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("test", "loadItem:onCancelled : ${error.toException()}")
+            }
+
+        })
+
+
+
+
+
 
 
 

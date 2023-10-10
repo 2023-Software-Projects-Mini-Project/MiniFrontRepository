@@ -25,15 +25,11 @@ class MenuReviewActivity : AppCompatActivity() {
 
     private lateinit var adapter : TotalReviewAdapter
 
-    data class CartItem(val menuName: String, val menuPrice: String)
+    //data class CartItem(val menuName: String, val menuPrice: String, val menuCount: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_review)
-
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        val userUid = currentUser?.uid
 
         val backIcon = findViewById<ImageView>(R.id.back_icon)
         backIcon.setOnClickListener(object : View.OnClickListener {
@@ -73,7 +69,7 @@ class MenuReviewActivity : AppCompatActivity() {
         adapter = TotalReviewAdapter()
         menu_review.adapter = adapter
 
-
+        // 메뉴별 리뷰 데이터 가져오기
         categoriesRef.child("$menuNameText").child("reviews").addValueEventListener(object: ValueEventListener {
             // 내용 추가될 때마다 자동으로 화면 바뀌게
             override fun onDataChange(snapshot: DataSnapshot) { // snapshot : 데이터베이스에서 조회되는 객체들을 접근할 수 있는 권한이 있는 객체
@@ -109,15 +105,18 @@ class MenuReviewActivity : AppCompatActivity() {
                 Log.e("test", "loadItem:onCancelled : ${error.toException()}")
             }
         })
+        ratingbar.rating = adapter.totalRating      // 레이팅바 별점 연결
 
-        ratingbar.rating = adapter.totalRating
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser?.uid
 
 
         // 장바구니에 담기 버튼이 눌렸을때
         addToCartButton.setOnClickListener {
             if (menuNameText != null && menuPriceText != null && userUid != null) {
                 // 장바구니에 메뉴 추가
-                addToCart(menuNameText, menuPriceText, userUid)
+                addToCart(userUid, menuNameText, menuPriceText, 1)
                 //val mainIntent = Intent(this, CartActivity::class.java)
                 //startActivity(mainIntent)
             } else {
@@ -128,8 +127,8 @@ class MenuReviewActivity : AppCompatActivity() {
 
     }
     // 사용자 로그인 및 UID 얻기
-    private fun addToCart(menuName: String, menuPrice: String, userUid: String) {
-        val newItem = CartItem(menuName, menuPrice)
+    private fun addToCart(userUid: String, menuName: String, menuPrice: String, menuCount: Int) {
+        val newItem = MenuClass(menuName, menuPrice, menuCount)
         val cartItemKey = cartRef.child(userUid).push().key
         if (cartItemKey != null) {
             cartRef.child(userUid).child(cartItemKey).setValue(newItem)
