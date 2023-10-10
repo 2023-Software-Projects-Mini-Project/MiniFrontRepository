@@ -58,17 +58,21 @@
         android:background="#aaa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/review_info" />
+        app:layout_constraintTop_toBottomOf="@+id/review_info" />'
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menu_review"
+        android:layout_width="411dp"
+        android:layout_height="245dp"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView">
-
-        <include layout="@layout/before_wrote_review"/>
-
-    </ScrollView>
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
