@@ -23,15 +23,7 @@ class CartActivity : AppCompatActivity() {
     private val cartRef = db.getReference("Cart")
 
     private lateinit var adapter : CartAddAdapter
-/*
-    var menuList : MutableList<MenuClass> = mutableListOf(
-        MenuClass("떡볶이", "5,000", 1, R.drawable.boonsik),                   // 일단 서버연동 전까지 이렇게 해둠
-        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang),
-        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang),
-        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang),
-        MenuClass("된장찌개", "5,500", 2, R.drawable.doenjang)
-    )
- */
+
 
     // CartActivity 객체화(다른 클래스에서도 참조할 수 있도록)
     init{
@@ -111,11 +103,6 @@ class CartActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
         BT_order.setText("9,000원 주문하기")                                // 일단 임의로 가격 직접 표시
 
         // ~원 주문하기 버튼이 눌리면
@@ -123,5 +110,13 @@ class CartActivity : AppCompatActivity() {
             val intent = Intent(this, OrderAndPayActivity::class.java) // Intent는 화면전환 담당객체. Intent(a, b)이면 a에서 b로 화면을 전환.
             startActivity(intent)
         }
+    }
+
+    fun deleteMenuFromFirebase(menu: MenuClass){
+        val currentUser = auth.currentUser
+        val userUid = currentUser!!.uid
+
+        val menuRef = cartRef.child(userUid).child(menu.menuName)
+        menuRef.removeValue()
     }
 }
