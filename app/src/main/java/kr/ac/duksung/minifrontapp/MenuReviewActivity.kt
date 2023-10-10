@@ -70,11 +70,8 @@ class MenuReviewActivity : AppCompatActivity() {
         menu_name.setText(menuNameText)
 
 
-
         adapter = TotalReviewAdapter()
         menu_review.adapter = adapter
-
-        //var totalrating: Float = 0.0f
 
 
         categoriesRef.child("$menuNameText").child("reviews").addValueEventListener(object: ValueEventListener {
