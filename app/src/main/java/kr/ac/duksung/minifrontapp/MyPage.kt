@@ -63,5 +63,6 @@ class MyPage : AppCompatActivity() {
         docRef.get().addOnSuccessListener { documentSnapshot ->
             username_area.setText(documentSnapshot.get("username").toString())
         }
+        //.uid.toString()
     }
 }

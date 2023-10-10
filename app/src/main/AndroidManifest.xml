@@ -30,10 +30,10 @@
                 android:value="" />
         </activity>
 
+        <!-- Firebase Cloud Messaging (FCM) 액션 및 서비스 설정 -->
         <service
-            android:name=".MyFirebaseMessagingService"
-            android:enabled="true"
-            android:exported="true">
+            android:name="MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -19,20 +19,14 @@ class WaitingNumActivity : AppCompatActivity() {
         setContentView(R.layout.activity_waiting_num)
 
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
+        // FCM 토큰 가져오기
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                Log.d("FCM Token", token)
+            } else {
+                Log.e("FCM Token", "Failed to get token")
             }
-
-            // Get new FCM registration token
-            val token = task.result
-
-            // Log and toast
-            val msg = getString(R.string.msg_token_fmt, token)
-            Log.d(TAG, msg)
-            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-        })
-
+        }
     }
 }
