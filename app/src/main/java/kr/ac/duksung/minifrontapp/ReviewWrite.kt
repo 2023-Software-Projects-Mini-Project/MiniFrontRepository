@@ -55,7 +55,7 @@ class ReviewWrite : AppCompatActivity() {
         }
 
 
-// 사용자의 UID 가져오기 (Firebase Authentication에서 로그인한 경우)
+        // 사용자의 UID 가져오기 (Firebase Authentication에서 로그인한 경우)
 
         val user = FirebaseAuth.getInstance().currentUser
 
