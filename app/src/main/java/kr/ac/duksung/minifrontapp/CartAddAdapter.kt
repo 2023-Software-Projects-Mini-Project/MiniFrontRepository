@@ -51,6 +51,9 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
                     // RecyclerView에 변경사항을 알림
                     notifyItemRemoved(position)
 
+                    val menuToDelete = itemList[position]
+                    cartActivity?.deleteMenuFromFirebase(menuToDelete)
+
                 }
             }
 

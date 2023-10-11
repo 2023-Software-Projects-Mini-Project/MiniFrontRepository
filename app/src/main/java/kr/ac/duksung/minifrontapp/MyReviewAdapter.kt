@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.before_wrote_review.view.*
 import kotlinx.android.synthetic.main.review_list.view.*
 import kotlinx.android.synthetic.main.review_list.view.message
-import kotlinx.android.synthetic.main.row_menu.view.*
 
-class MyReviewAdapter(var itemList: MutableList<MyReviewClass>) : RecyclerView.Adapter<MyReviewAdapter.ViewHolder>() {
+class MyReviewAdapter: RecyclerView.Adapter<MyReviewAdapter.ViewHolder>() {
+
+    var itemList = ArrayList<MyReviewClass>()
 
     // Adapter에서 사용할 ViewHolder를 설정
     // LayoutInflater를 이용해서 before_wrote_review.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
@@ -32,14 +33,14 @@ class MyReviewAdapter(var itemList: MutableList<MyReviewClass>) : RecyclerView.A
     }
 
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
-        var view : View = v
+    inner class ViewHolder(inflatedView: View) : RecyclerView.ViewHolder(inflatedView){
+        var view : View = inflatedView
 
         fun bind(item: MyReviewClass){
             view.menu.text = item.menu
-            view.rate.rating = item.rate
+            view.rate.rating = item.rating
             view.date.text = item.date
-            view.message.text = item.reviewText
+            view.message.text = item.contents
         }
     }
 

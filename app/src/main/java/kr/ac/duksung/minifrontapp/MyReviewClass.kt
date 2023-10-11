@@ -1,4 +1,13 @@
 package kr.ac.duksung.minifrontapp
 
-data class MyReviewClass(var menu: String, var rate: Float, var date: String, var reviewText: String)
+import com.google.firebase.database.Exclude
+import java.util.Date
+
+data class MyReviewClass(
+    var menu: String,
+    var rating: Float,
+    var date: String,
+    var contents: String
+    )
+
 

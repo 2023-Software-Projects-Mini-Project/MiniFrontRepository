@@ -14,6 +14,9 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class MenuReviewActivity : AppCompatActivity() {
@@ -22,10 +25,10 @@ class MenuReviewActivity : AppCompatActivity() {
     private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val cartRef = db.getReference("Cart")
     private var categoriesRef = db.getReference("MenuName")
+    private var userreviewRef = db.getReference("UserReview")
 
     private lateinit var adapter : TotalReviewAdapter
 
-    //data class CartItem(val menuName: String, val menuPrice: String, val menuCount: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,6 +114,7 @@ class MenuReviewActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         val userUid = currentUser?.uid
 
+        //saveComment(2.5f, "개빡칠거같아요") // 일단 냅둬줘여 리뷰 어케 보내는지 까먹을거 같으니께
 
         // 장바구니에 담기 버튼이 눌렸을때
         addToCartButton.setOnClickListener {
@@ -119,6 +123,8 @@ class MenuReviewActivity : AppCompatActivity() {
                 addToCart(userUid, menuNameText, menuPriceText, 1)
                 //val mainIntent = Intent(this, CartActivity::class.java)
                 //startActivity(mainIntent)
+                //val currentDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
+                //savePersonalComment(userUid, "떡볶이", 4.5f, currentDate, "맵찔이도 먹을 수 있어서 좋아요")
             } else {
                 // 유효한 메뉴 정보가 없을 경우 예외 처리
                 // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
@@ -152,6 +158,15 @@ class MenuReviewActivity : AppCompatActivity() {
         childUpdate["/reviews/$key"] = commentValues
 
         categoriesRef.child("menuNameText").updateChildren(childUpdate)
+    }
+
+    // 파이어베이스에 저장
+    fun savePersonalComment(userUid: String, menu: String, rating: Float, date: String, contents: String) {
+        val comment = MyReviewClass(menu, rating, date, contents)
+        val userreviewItemKey = userreviewRef.child(userUid).push().key
+        if (userreviewItemKey != null) {
+            userreviewRef.child(userUid).child(userreviewItemKey).setValue(comment)
+        }
     }
 
     /*
