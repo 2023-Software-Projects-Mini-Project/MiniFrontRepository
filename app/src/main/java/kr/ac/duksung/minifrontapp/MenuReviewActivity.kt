@@ -17,8 +17,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.HashMap
 
 // 음식 상세 페이지
@@ -185,8 +183,13 @@ class MenuReviewActivity : AppCompatActivity() {
             }
         }
 
-    }
+        addToReviewButton.setOnClickListener {
+            val reviewIntent = Intent(this@MenuReviewActivity, ReviewWrite::class.java)
+            startActivity(reviewIntent)
+        }
 
+
+    }
 
 
     // 사용자 로그인 및 UID 얻기
