@@ -6,26 +6,31 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-
+// 음식 상세 페이지
 class MenuReviewActivity : AppCompatActivity() {
+
+    private lateinit var iv: ImageView
 
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val cartRef = db.getReference("Cart")
-    private var categoriesRef = db.getReference("MenuName")
-    private var userreviewRef = db.getReference("UserReview")
+    private val categoriesRef = db.getReference("MenuName")
+    private val userreviewRef = db.getReference("UserReview")
 
     private lateinit var adapter : TotalReviewAdapter
 
@@ -64,10 +69,26 @@ class MenuReviewActivity : AppCompatActivity() {
         }
 
         val intent : Intent = intent
-        val menuNameText = intent.getStringExtra("menuName")
-        val menuPriceText = intent.getStringExtra("menuPrice")
+        val menuNameText : String = intent.getStringExtra("menuName").toString()
+        val menuPriceText : String = intent.getStringExtra("menuPrice").toString()
         menu_name.setText(menuNameText)
 
+
+        iv = findViewById(R.id.image_view)
+
+        // 1. Firebase Storage 관리 객체 얻어오기
+        val firebaseStorage = FirebaseStorage.getInstance()
+        // 2. 최상위 노드 참조 객체 얻어오기
+        val rootRef = firebaseStorage.reference
+        // 메뉴 이미지 띄우기
+        var image : String
+        categoriesRef.child("$menuNameText").get().addOnSuccessListener {
+            image = it.child("menuImage").getValue(String::class.java).toString()
+            rootRef.child("$image").downloadUrl.addOnSuccessListener { uri ->
+                // 다운로드 URL이 파라미터로 전달되어 옴.
+                Glide.with(image_view).load(uri).into(iv)
+            }
+        }
 
         adapter = TotalReviewAdapter()
         menu_review.adapter = adapter
@@ -85,11 +106,8 @@ class MenuReviewActivity : AppCompatActivity() {
                         val objectId = childSnapshot.child("objectID").getValue(String::class.java)
                         val rating = childSnapshot.child("rating").getValue(Float::class.java)
                         val contents = childSnapshot.child("contents").getValue(String::class.java)
-
                         // 각 리뷰의 별점을 총 별점에 더함
                         totalRating += rating ?: 0.0f  // null 처리
-
-                        //totalrating += rating!!
                         adapter.itemList.add(TotalReviewClass((objectId ?:""), ((rating ?: "")as Float), (contents ?: "")))
 
                     }
@@ -99,10 +117,8 @@ class MenuReviewActivity : AppCompatActivity() {
                     val averageRating = totalRating / snapshot.childrenCount
                     // 계산된 평균 별점을 ratingbar에 설정
                     ratingbar.rating = averageRating
-
                 }
             }
-
             // 취소되었을 때
             override fun onCancelled(error: DatabaseError) {
                 Log.e("test", "loadItem:onCancelled : ${error.toException()}")
@@ -110,17 +126,55 @@ class MenuReviewActivity : AppCompatActivity() {
         })
         ratingbar.rating = adapter.totalRating      // 레이팅바 별점 연결
 
+
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         val userUid = currentUser?.uid
 
         //saveComment(2.5f, "개빡칠거같아요") // 일단 냅둬줘여 리뷰 어케 보내는지 까먹을거 같으니께
 
+        //var exist : Boolean = false
+        var oldcount : String
         // 장바구니에 담기 버튼이 눌렸을때
         addToCartButton.setOnClickListener {
             if (menuNameText != null && menuPriceText != null && userUid != null) {
-                // 장바구니에 메뉴 추가
-                addToCart(userUid, menuNameText, menuPriceText, 1)
+                // 장바구니 순회해해서 같은 아이템이 있는지 봄
+
+                var exist : Boolean = false
+                cartRef.child(userUid).addValueEventListener(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+
+                            for (childSnapshot in snapshot.children){
+                                var oldmenu = childSnapshot.child("menuName").getValue(String::class.java).toString()
+
+                                if (menuNameText == oldmenu){        // 담으려는 메뉴가 장바구니에 있으면
+                                    exist = true
+                                    oldcount = childSnapshot.child("menuName").getValue(String::class.java).toString()
+                                    break
+                                }
+
+                                else{                   // 담으려는 메뉴가 장바구니에 없으면
+                                    exist = false
+                                }
+                            }
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("test", "loadItem:onCancelled : ${error.toException()}")
+                    }
+
+                })
+                Toast.makeText(this, exist.toString(), Toast.LENGTH_SHORT).show()
+
+                if(exist == false)
+                    // 장바구니에 메뉴 추가
+                    addToCart(userUid, menuNameText, menuPriceText, 1)
+                else{
+                    Toast.makeText(this, "메뉴가 이미 있어요", Toast.LENGTH_SHORT).show()
+
+                }
+
                 //val mainIntent = Intent(this, CartActivity::class.java)
                 //startActivity(mainIntent)
                 //val currentDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
@@ -132,8 +186,11 @@ class MenuReviewActivity : AppCompatActivity() {
         }
 
     }
+
+
+
     // 사용자 로그인 및 UID 얻기
-    private fun addToCart(userUid: String, menuName: String, menuPrice: String, menuCount: Int) {
+    fun addToCart(userUid: String, menuName: String, menuPrice: String, menuCount: Int) {
         val newItem = MenuClass(menuName, menuPrice, menuCount)
         val cartItemKey = cartRef.child(userUid).push().key
         if (cartItemKey != null) {

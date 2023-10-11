@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -78,6 +79,7 @@ class CartActivity : AppCompatActivity() {
         adapter = CartAddAdapter()
         RCV_menu.adapter = adapter
 
+        var TOTALPRICE : Int = 0
 
         cartRef.child(userUid).addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
@@ -87,6 +89,8 @@ class CartActivity : AppCompatActivity() {
                         val menuname = childSnapshot.child("menuName").getValue(String::class.java)
                         val menuprice = childSnapshot.child("menuPrice").getValue(String::class.java)
                         val menucount = childSnapshot.child("menuCount").getValue(Int::class.java)
+
+                        //TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
 
                         adapter.itemList.add(MenuClass((menuname ?:""), (menuprice ?: ""), ((menucount ?: "") as Int)))
 
@@ -103,7 +107,7 @@ class CartActivity : AppCompatActivity() {
 
 
 
-        BT_order.setText("9,000원 주문하기")                                // 일단 임의로 가격 직접 표시
+        BT_order.setText("총 가격")                                // 일단 임의로 가격 직접 표시
 
         // ~원 주문하기 버튼이 눌리면
         BT_order.setOnClickListener {

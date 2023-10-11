@@ -6,7 +6,7 @@ data class MenuClass(
     var menuName: String,
     var menuPrice: String,
     var menuCount: Int,
-    //var menuimage: Int
+    //var menuimage: String
     ){
 
 

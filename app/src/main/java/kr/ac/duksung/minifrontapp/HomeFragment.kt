@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -25,6 +26,7 @@ import java.util.*
 
 class HomeFragment : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private val database = FirebaseDatabase.getInstance()
     private val categoriesRef = database.getReference("MenuName")
 
@@ -102,8 +104,7 @@ class HomeFragment : AppCompatActivity() {
         }
 
         val todayDate = getTodayDate()
-        categoriesRef.child("오늘의 메뉴").child(todayDate)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+        categoriesRef.child("오늘의 메뉴").child(todayDate).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
                         val TodayATextView = findViewById<TextView>(R.id.mon_A)
@@ -117,7 +118,40 @@ class HomeFragment : AppCompatActivity() {
                 override fun onCancelled(databaseError: DatabaseError) {
                     // 필요한 대로 onCancelled를 처리합니다.
                 }
-            })
+        })
+
+        val cartAImageView = findViewById<ImageView>(R.id.cart_A)
+        val cartBImageView = findViewById<ImageView>(R.id.cart_B)
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser?.uid
+
+        cartAImageView.setOnClickListener {
+            // MenuReviewActivity의 addToCart 함수를 호출합니다.
+            val intent = Intent(this, CartActivity::class.java)
+            val menuName = "오늘의메뉴A"
+            val menuPrice = "6000"
+            if (userUid != null) {
+                //  MenuReviewActivity().addToCart(menuName, menuPrice, userUid)
+                MenuReviewActivity().addToCart(userUid, menuName, menuPrice, 1)
+
+            }
+            startActivity(intent)
+        }
+
+        cartBImageView.setOnClickListener {
+            // MenuReviewActivity의 addToCart 함수를 호출합니다.
+            val intent = Intent(this, CartActivity::class.java)
+            val menuName = "오늘의메뉴B"
+            val menuPrice = "6000"
+            if (userUid != null) {
+                //  MenuReviewActivity().addToCart(menuName, menuPrice, userUid)
+                MenuReviewActivity().addToCart(userUid, menuName, menuPrice, 1)
+
+            }
+            startActivity(intent)
+        }
     }
 
     private fun getTodayDate(): String {

@@ -37,10 +37,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <ImageView
+            android:id="@+id/image_view"
             android:layout_width="190dp"
             android:layout_height="168dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/kimchi" />
+            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/menu_name"

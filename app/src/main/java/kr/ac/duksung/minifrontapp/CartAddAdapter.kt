@@ -4,13 +4,22 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.row_menu.view.*
 
 class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
     var itemList = ArrayList<MenuClass>()
+    private lateinit var iv: ImageView
+    private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
+    private val categoriesRef = db.getReference("MenuName")
+
 
 
     // Adapter에서 사용할 ViewHolder를 설정
@@ -69,10 +78,29 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
         }
 
         fun bind(item: MenuClass){
+
             //Glide.with(view).load(item.menuimage).into(view.MenuImage)
+            var name = item.menuName
             view.MenuName.text = item.menuName
             view.MenuPrice.text = item.menuPrice
             view.MenuCount.text = item.menuCount.toString()
+
+
+            // 1. Firebase Storage 관리 객체 얻어오기
+            val firebaseStorage = FirebaseStorage.getInstance()
+            // 2. 최상위 노드 참조 객체 얻어오기
+            val rootRef = firebaseStorage.reference
+            // 메뉴 이미지 띄우기
+            var image : String
+            categoriesRef.child("$name").get().addOnSuccessListener {
+                image = it.child("menuImage").getValue(String::class.java).toString()
+                rootRef.child("$image").downloadUrl.addOnSuccessListener { uri ->
+                    // 다운로드 URL이 파라미터로 전달되어 옴.
+                    Glide.with(view).load(uri).into(view.MenuImage)
+                }
+            }
+
+
         }
 
     }
