@@ -6,7 +6,7 @@ data class MenuClass(
     var menuName: String,
     var menuPrice: String,
     var menuCount: Int,
-    //var menuimage: String
+
     ){
 
 
@@ -19,7 +19,7 @@ data class MenuClass(
         result["menuName"] = menuName
         result["menuPrice"] = menuPrice
         result["menuCount"] = menuCount
-        //result["menuimage"] = menuimage
+
 
         return result   // 파이어베이스의 DB에 저장 가능한 자료형으로 변환 완료
     }

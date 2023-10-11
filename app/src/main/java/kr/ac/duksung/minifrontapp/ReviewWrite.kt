@@ -70,29 +70,7 @@ class ReviewWrite : AppCompatActivity() {
         val currentUser = auth.currentUser
         val userUid = currentUser?.uid
 
-/*
-        if (user != null) {
-            val uid = user.uid
 
-            // 사용자 UID를 사용하여 리뷰를 저장
-            val reviewsRef = realdb.getReference("MenuName").child("김밥").child("reviews")
-            //val userReviewText = "uid 넣지 말라네여"
-
-            btn_finish.setOnClickListener {
-                val userReviewText = edit_review.text.toString()
-
-                // 사용자가 입력한 리뷰 텍스트를 가져와서 Firebase에 저장
-                reviewsRef.push().setValue(userReviewText)
-                saveComment(2.5f, "개빡칠거같아요")
-                val currentDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
-                savePersonalComment(userUid, "떡볶이", 4.5f, currentDate, "맵찔이도 먹을 수 있어서 좋아요")
-
-
-              //  findViewById<EditText>(R.id.edit_review).text.clear()
-            }
-        }
-
- */
         btn_finish.setOnClickListener {
             val userReviewText = edit_review.text.toString()
             val ratingScore = ratingBar.rating
@@ -100,7 +78,7 @@ class ReviewWrite : AppCompatActivity() {
             // 사용자가 입력한 리뷰 텍스트를 가져와서 Firebase에 저장
             val currentDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
             savePersonalComment(userUid!!, "$menuNameText", ratingScore, currentDate, "$userReviewText")
-            saveComment("$menuNameText", ratingScore, "$userReviewText") // 일단 냅둬줘여 리뷰 어케 보내는지 까먹을거 같으니께
+            saveComment("$menuNameText", ratingScore, "$userReviewText")
 
             adapter.notifyDataSetChanged()
         }

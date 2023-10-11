@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_card.*
 import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.android.synthetic.main.activity_cart_main.back_icon
 import kotlinx.android.synthetic.main.activity_cart_main.bottomNavigationView
+import kotlinx.android.synthetic.main.activity_order_and_pay.*
+import java.text.DecimalFormat
 
 class CartActivity : AppCompatActivity() {
 
@@ -79,23 +81,30 @@ class CartActivity : AppCompatActivity() {
         adapter = CartAddAdapter()
         RCV_menu.adapter = adapter
 
-        var TOTALPRICE : Int = 0
 
         cartRef.child(userUid).addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
                 Log.d("MenuReview: ", "onDataChage Success")
                 if (snapshot.exists()){
+
+                    var TOTALPRICE : Int = 0
                     for (childSnapshot in snapshot.children){
                         val menuname = childSnapshot.child("menuName").getValue(String::class.java)
                         val menuprice = childSnapshot.child("menuPrice").getValue(String::class.java)
                         val menucount = childSnapshot.child("menuCount").getValue(Int::class.java)
+                        Log.d("CartActivity", "$menuname, $menuprice, $menucount")
 
                         //TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
+                        //Log.d("CartActivity", "$TOTALPRICE")
 
                         adapter.itemList.add(MenuClass((menuname ?:""), (menuprice ?: ""), ((menucount ?: "") as Int)))
 
                     }
                     adapter.notifyDataSetChanged()
+
+                    //val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
+                    //val print_cart_price = t_dec_up.format(TOTALPRICE)
+                    //BT_order.setText("$print_cart_price 원 주문하기")       // 총 금액 표시
                 }
             }
 
@@ -107,7 +116,7 @@ class CartActivity : AppCompatActivity() {
 
 
 
-        BT_order.setText("총 가격")                                // 일단 임의로 가격 직접 표시
+        //BT_order.setText("총 가격")                                // 일단 임의로 가격 직접 표시
 
         // ~원 주문하기 버튼이 눌리면
         BT_order.setOnClickListener {

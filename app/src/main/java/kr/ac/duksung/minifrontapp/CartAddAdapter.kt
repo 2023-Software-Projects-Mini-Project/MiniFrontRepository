@@ -1,12 +1,15 @@
 package kr.ac.duksung.minifrontapp
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -16,9 +19,10 @@ import kotlinx.android.synthetic.main.row_menu.view.*
 class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
     var itemList = ArrayList<MenuClass>()
-    private lateinit var iv: ImageView
+    private lateinit var auth: FirebaseAuth
     private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val categoriesRef = db.getReference("MenuName")
+    private val cartRef = db.getReference("Cart")
 
 
 
@@ -54,24 +58,38 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
             view.bt_DeleteMenu.setOnClickListener{
                 // bt_DeleteMenu를 클릭할 때 실행할 코드
                 val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    // 아이템을 itemList에서 삭제
-                    itemList.removeAt(position)
-                    // RecyclerView에 변경사항을 알림
-                    notifyItemRemoved(position)
 
-                    val menuToDelete = itemList[position]
-                    cartActivity?.deleteMenuFromFirebase(menuToDelete)
+                if (position != RecyclerView.NO_POSITION) {
+
+                    itemList.removeAt(position)     // 아이템을 itemList에서 삭제
+
+
+                    notifyItemRemoved(position)     // RecyclerView에 변경사항을 알림
+
+                    //val menuToDelete = itemList[position]
+                    //cartActivity?.deleteMenuFromFirebase(menuToDelete)        // 이거 쓰면 앱 꺼짐.
 
                 }
             }
 
             view.bt_sub.setOnClickListener{             // 빼기 버튼 눌렸을때
-                count = count - 1
-                view.MenuCount.text = count.toString()
+                count = view.MenuCount.text.toString().toInt()
+                Log.d("CardAddAdapter", "get $count")
+
+                if(count == 1){                                     // 수량 0개 이하로는 안 내려가도록
+                    Log.d("CardAddAdapter", "if $count")
+                    Toast.makeText(this.view.context, "수량 0개는 안됩니다.", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Log.d("CardAddAdapter", "else start $count")
+                    count = count - 1
+                    view.MenuCount.text = count.toString()
+                    Log.d("CardAddAdapter", "else end $count")
+                }
             }
 
             view.bt_add.setOnClickListener{             // 더하기 버튼 눌렸을때
+                count = view.MenuCount.text.toString().toInt()
                 count = count + 1
                 view.MenuCount.text = count.toString()
             }
@@ -79,7 +97,6 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
         fun bind(item: MenuClass){
 
-            //Glide.with(view).load(item.menuimage).into(view.MenuImage)
             var name = item.menuName
             view.MenuName.text = item.menuName
             view.MenuPrice.text = item.menuPrice
