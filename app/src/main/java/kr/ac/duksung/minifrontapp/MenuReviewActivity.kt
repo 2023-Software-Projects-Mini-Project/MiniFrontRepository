@@ -1,12 +1,12 @@
 package kr.ac.duksung.minifrontapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -16,10 +16,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.menu_review.*
-import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
 
 // 음식 상세 페이지
 class MenuReviewActivity : AppCompatActivity() {
@@ -130,54 +126,67 @@ class MenuReviewActivity : AppCompatActivity() {
         val userUid = currentUser?.uid
 
 
-        //var exist : Boolean = false
-        var oldcount : String
-        // 장바구니에 담기 버튼이 눌렸을때
+        var exist : Boolean = true      // 장바구니에 담으려는 메뉴와 같은 이름의 메뉴가 있는지 확인 및 저장용 변수
         addToCartButton.setOnClickListener {
             if (menuNameText != null && menuPriceText != null && userUid != null) {
-                // 장바구니 순회해해서 같은 아이템이 있는지 봄
+                Log.e("MeneReviewActivity: ", "$menuNameText, $menuPriceText, $userUid")
 
-                var exist : Boolean = false
-                cartRef.child(userUid).addValueEventListener(object: ValueEventListener{
+
+                // 장바구니 순회해해서 같은 아이템이 있는지 봄
+                cartRef.child(userUid).addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
+
                         if (snapshot.exists()){
 
+                            var oldcount : Int
+
+                            // userid 아래 장바구니에 담아둔 메뉴 순회 시작
                             for (childSnapshot in snapshot.children){
                                 var oldmenu = childSnapshot.child("menuName").getValue(String::class.java).toString()
+                                Log.e("MeneReviewActivity: ", "$oldmenu, $menuNameText")
 
                                 if (menuNameText == oldmenu){        // 담으려는 메뉴가 장바구니에 있으면
+                                    Log.e("MeneReviewActivity: ", "장바구니에 추가 안한다")
                                     exist = true
-                                    oldcount = childSnapshot.child("menuName").getValue(String::class.java).toString()
+
+                                    oldcount = childSnapshot.child("menuCount").getValue(Int::class.java)!! // 담으려는 메뉴의 기존 수량 가져옴
+                                    oldcount += 1       // 기존 수량 +1
+
+                                    var key = childSnapshot.key
+
+                                    val updateCount: HashMap<String, Any> = HashMap()       // updateChildren은 인스턴스로 해쉬맵만 받음
+                                    updateCount["menuCount"] = oldcount                     // key: menuCount, value: oldcount로 updateCount에 저장
+
+                                    // 루트 노드부터 타고 내려오면서 변화된 수량을 DB에 저장
+                                    cartRef.child(userUid).child("$key").updateChildren(updateCount)
+                                    Toast.makeText(this@MenuReviewActivity, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
+                                    
                                     break
                                 }
 
                                 else{                   // 담으려는 메뉴가 장바구니에 없으면
                                     exist = false
+                                    Log.e("MeneReviewActivity: ", "장바구니에 추가한다")
                                 }
+                            }
+
+                            if(exist == false){
+                                addToCart(userUid, menuNameText, menuPriceText, 1)
+                                Toast.makeText(this@MenuReviewActivity, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
+                                Log.e("MeneReviewActivity: ", "장바구니에 추가한다")
                             }
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {
                         Log.e("test", "loadItem:onCancelled : ${error.toException()}")
                     }
-
                 })
-                Toast.makeText(this, exist.toString(), Toast.LENGTH_SHORT).show()
 
-                if(exist == false)
-                    // 장바구니에 메뉴 추가
-                    addToCart(userUid, menuNameText, menuPriceText, 1)
-                else{
-                    Toast.makeText(this, "메뉴가 이미 있어요", Toast.LENGTH_SHORT).show()
-
-                }
-
-                //val mainIntent = Intent(this, CartActivity::class.java)
-                //startActivity(mainIntent)
             } else {
                 // 유효한 메뉴 정보가 없을 경우 예외 처리
                 // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
             }
+            finish()
         }
 
         addToReviewButton.setOnClickListener {
@@ -199,38 +208,4 @@ class MenuReviewActivity : AppCompatActivity() {
             Log.d("Cart", "Added to cart: $menuName, $menuPrice")
         }
     }
-
-    /*
-    // 이 함수를 이용하고 싶었는데 잘 안되더라구요,,,
-    // 데이터베이스로 접근되는 데이터 관리하는 클래스
-    fun loadCommentList(dataSanpshot : DataSnapshot) {
-        // comments에서 쭉 내려옴
-        val collectionIterator = dataSanpshot.children.iterator()     // reviews 아래로
-        // comments가 있다 == 한줄평이 존재한다
-        if (collectionIterator.hasNext()) {                             // reviews 아래 항목이 존재한다면
-            // 예전 아이템 지우기
-            adapter.itemList.clear()
-            // 모든 한줄평 읽어오기
-            val comments = collectionIterator.next()
-            val itemsIterator = comments.children.iterator()
-            while (itemsIterator.hasNext()) {
-                // 매 반복마다 itemsIterator가 가리키는 아이템 가져오기
-                val currentItem = itemsIterator.next()
-                // 해시맵 형태로 읽어오기(저장도 해시맵 형태로 해야하니까)
-                val map = currentItem.value as HashMap<String, Any>
-                // 데이터 변수로 만들기
-                val objectId = map["objectId"].toString()
-                //val rating = map["rating"] as Float
-                val contents = map["contents"] as String
-                //Toast.makeText(this@MenuReviewActivity, "읽어옴", Toast.LENGTH_SHORT).show()
-                //Log.d("MenuReview", "Toasting")
-                // 리사이클러뷰에 연결
-                adapter.itemList.add(TotalReviewClass(objectId, 4.0f, contents))
-            }
-            // 데이터 바뀌었다고 알려주기
-            adapter.notifyDataSetChanged()
-        }
-    }
- */
-
 }
