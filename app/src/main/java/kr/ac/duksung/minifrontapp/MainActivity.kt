@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPassword: EditText
     private val db = FirebaseFirestore.getInstance()
 
-    data class Usersinfo(val username: String, val usertoken: String, val userid : String)
-
     private val realdb = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val categoriesRef = realdb.getReference("MenuName")
 
@@ -183,6 +181,7 @@ class MainActivity : AppCompatActivity() {
         categoriesRef.child("오늘의 메뉴").child("2023-10-09").setValue(TodayDate5)
 
     }
+    data class Usersinfo(val username: String,val friends: List<String> ,val userid : String)
     private fun signUp(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -197,17 +196,12 @@ class MainActivity : AppCompatActivity() {
                         .document(auth.currentUser?.uid.toString())
                         .set(user)
 */
-                   // val emailId = email.substringBefore('@')
-                   /* val FireuserID = hashMapOf( "userID" to auth.currentUser?.uid.toString(),
-                        "cart" to hashMapOf<String, Any>()
-                        )*/
                     val emailId = email.substringBefore('@')
 
-                    val FireuserID = hashMapOf( "userID" to auth.currentUser?.uid.toString())
+                    val user = hashMapOf( "username" to emailId)
                     db.collection("users")
-                        .document(emailId)
-                        .set(FireuserID)
-
+                        .document(auth.currentUser?.uid.toString())
+                        .set(user)
 
                     val intent = Intent(this, MyPage::class.java)
                     intent.putExtra("email", emailId)
@@ -215,9 +209,9 @@ class MainActivity : AppCompatActivity() {
 
                     //리얼타임데이터에 넣기
                     val userId = auth.currentUser?.uid.toString()
-                    val userToken = "yourUserTokenHere" // 클라우드메시지 토큰
+                    val friendsList = listOf<String>()
 
-                    val Usersinfo = Usersinfo(emailId, userToken, userId)
+                    val Usersinfo = Usersinfo(emailId, friendsList, userId)
 
                     val ref = realdb.getReference("users") // "users"는 데이터베이스의 경로입니다.
                     val userRef = ref.child(userId)
@@ -225,9 +219,6 @@ class MainActivity : AppCompatActivity() {
                     userRef.setValue(Usersinfo) //realtime database에 추가
                     val userMap = HashMap<String, Any>()
                     userMap["userID"] = userId
-
-
-
 
                     val mainIntent = Intent(this, HomeFragment::class.java)
                     startActivity(mainIntent)
