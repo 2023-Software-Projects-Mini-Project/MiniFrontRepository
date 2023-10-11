@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editPassword: EditText
     private val db = FirebaseFirestore.getInstance()
 
+    //data class Usersinfo(val username: String, val usertoken: String, val userid : String)
+
     private val realdb = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val categoriesRef = realdb.getReference("MenuName")
 
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "이메일과 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show()
             }
         }
- /*       data class review(
+        data class review(
             val reviewText: String
 
         )
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             val price: String,
             val reviews: MutableList<String>
         )
-*/
+
         data class TodayMenu(
             val TodayName: String,
             val price: String
@@ -88,78 +90,63 @@ class MainActivity : AppCompatActivity() {
             val menuA: TodayMenu,
             val menuB: TodayMenu
         )
+//주석 해제하지 마세용
+        /*       val kfood1 = Menu("5500", mutableListOf("맛나요"))
+               val kfood2 = Menu("5500", mutableListOf("맛나요"))
+               val kfood3 = Menu("5500", mutableListOf("맛나요"))
+               // 다른 메뉴 추가
+               val cfood1 = Menu("6000", mutableListOf("맛나요"))
+               val cfood2 = Menu("6000", mutableListOf("맛나요"))
+               val cfood3 = Menu("4000", mutableListOf("맛나요"))
 
- /*       val kfood1 = Menu("5500", mutableListOf("맛나요"))
-        val kfood2 = Menu("5500", mutableListOf("맛나요"))
-        val kfood3 = Menu("5500", mutableListOf("맛나요"))
-        // 다른 메뉴 추가
-        val cfood1 = Menu("6000", mutableListOf("맛나요"))
-        val cfood2 = Menu("6000", mutableListOf("맛나요"))
-        val cfood3 = Menu("4000", mutableListOf("맛나요"))
+               val boonsik1 = Menu("3000", mutableListOf("맛나요"))
+               val boonsik2 = Menu("4000", mutableListOf("맛나요"))
+               val boonsik3 = Menu("5000", mutableListOf("맛나요"))
+       */
+/*
 
-        val boonsik1 = Menu("3000", mutableListOf("맛나요"))
-        val boonsik2 = Menu("4000", mutableListOf("맛나요"))
-        val boonsik3 = Menu("5000", mutableListOf("맛나요"))
-*/
-
-        val menu1A = TodayMenu("생야채비빔밥\n" +
-                "연두부*양념장\n" +
-                "서문시장st매콤어묵\n" +
-                "배추김치\n" +
-                "유부장국", "6000")
-        val menu1B = TodayMenu("돼지고기감자짜글이\n" +
-                "탕평채\n" +
-                "깻잎무침\n" +
-                "배추김치\n" +
-                "흑미밥", "6000")
+        val menu1A = TodayMenu("대체휴무", "6000")
+        val menu1B = TodayMenu("대체휴무", "6000")
         val TodayDate1 = TodayDate(menu1A, menu1B)
 
-        val menu2A = TodayMenu("쭈삼불고기덮밥\n" +
-                "어묵잡채\n" +
-                "파인애플샐러드\n" +
-                "배추김치\n" +
-                "파송송계란국", "6000")
-        val menu2B = TodayMenu("연남동st라구소바\n" +
-                "모듬감자튀김\n" +
-                "상큼두부카프레제\n" +
-                "배추김치\n" +
-                "추가밥", "6000")
+        val menu2A = TodayMenu("개천절", "6000")
+        val menu2B = TodayMenu("개천절", "6000")
         val TodayDate2 = TodayDate(menu2A, menu2B)
 
-        val menu3A = TodayMenu("눈꽃함박스테이크\n" +
-                "계란볶음밥\n" +
-                "단호박*감자샐러드\n" +
-                "배추김치\n" +
+        val menu3A = TodayMenu("훈제오리볶음밥\n" +
+                "생선까스*타르타르\n" +
+                "나쵸샐러드\n" +
+                "깍두기\n" +
                 "우동국", "6000")
-        val menu3B = TodayMenu("안동찜닭\n" +
-                "콩나물비빔라면\n" +
-                "연근조림\n" +
-                "배추김치\n" +
+        val menu3B = TodayMenu("짬뽕순두부\n" +
+                "메추리알장조림\n" +
+                "고구마맛탕\n" +
+                "깍두기\n" +
                 "흑미밥", "6000")
         val TodayDate3 = TodayDate(menu3A, menu3B)
 
-        val menu4A = TodayMenu("해물짜장면\n" +
-                "김치피자탕수육\n" +
-                "단무지\n" +
+        val menu4A = TodayMenu("수제치킨햄버거\n" +
+                "모듬감자튀김*케찹\n" +
+                "파르팔레샐러드\n" +
+                "할라피뇨*피클\n" +
+                "콜라", "6000")
+        val menu4B = TodayMenu("태국식등뼈탕\n" +
+                "새우까스*콘소스\n" +
+                "무쏨땀\n" +
                 "배추김치\n" +
-                "짬뽕국", "6000")
-        val menu4B = TodayMenu("돈까스김치나베\n" +
-                "해물동그랑땡\n" +
-                "아이스망고샐러드\n" +
-                "깍두기\n" +
-                "흑미밥", "6000")
+                "추가밥", "6000")
         val TodayDate4 = TodayDate(menu4A, menu4B)
 
-        val menu5A = TodayMenu("참치마요밥버거\n" +
-                "로제마라떡볶이\n" +
-                "츄러스\n" +
-                "단무지\n" +
-                "어묵국", "6000")
-        val menu5B = TodayMenu("소고기장터국밥\n" +
-                "사각어묵볶음\n" +
-                "숙주부추무침\n" +
+        val menu5A = TodayMenu("현풍st딝칼국수\n" +
+                "바삭떡만순강정\n" +
+                "숙주나물\n" +
                 "석박지\n" +
-                "흑미밥", "6000")
+                "추가밥", "6000")
+        val menu5B = TodayMenu("비빔막국수\n" +
+                "콩나물국\n" +
+                "메밀전병*부추무침\n" +
+                "리코타베리믹스샐러드\n" +
+                "열무김치\n", "6000")
         val TodayDate5 = TodayDate(menu5A, menu5B)
 /*
         categoriesRef.child("김치찌개").setValue(kfood1)
@@ -174,12 +161,12 @@ class MainActivity : AppCompatActivity() {
         categoriesRef.child("라면").setValue(boonsik2)
         categoriesRef.child("떡볶이").setValue(boonsik3)
 */
-        categoriesRef.child("오늘의 메뉴").child("2023-10-02").setValue(TodayDate1)
-        categoriesRef.child("오늘의 메뉴").child("2023-10-03").setValue(TodayDate2)
-        categoriesRef.child("오늘의 메뉴").child("2023-10-04").setValue(TodayDate3)
-        categoriesRef.child("오늘의 메뉴").child("2023-10-05").setValue(TodayDate4)
-        categoriesRef.child("오늘의 메뉴").child("2023-10-09").setValue(TodayDate5)
-
+        categoriesRef.child("오늘의 메뉴").child("2023-10-09").setValue(TodayDate1)
+        categoriesRef.child("오늘의 메뉴").child("2023-10-10").setValue(TodayDate2)
+        categoriesRef.child("오늘의 메뉴").child("2023-10-11").setValue(TodayDate3)
+        categoriesRef.child("오늘의 메뉴").child("2023-10-12").setValue(TodayDate4)
+        categoriesRef.child("오늘의 메뉴").child("2023-10-13").setValue(TodayDate5)
+*/
     }
     data class Usersinfo(val username: String,val friends: List<String> ,val userid : String)
     private fun signUp(email: String, password: String) {
@@ -188,14 +175,6 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // 회원가입 성공
                     Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_LONG).show()
-                    // 필요한 작업 수행 (예: 메인 화면으로 이동)
-                    // goToMainActivity(task.result?.user)auth.currentUser?.uid.toString()
-
-                   /* val user = hashMapOf( "username" to emailId)
-                    db.collection("users")
-                        .document(auth.currentUser?.uid.toString())
-                        .set(user)
-*/
 
                     val emailId = email.substringBefore('@')
 
@@ -210,6 +189,7 @@ class MainActivity : AppCompatActivity() {
 
                     //리얼타임데이터에 넣기
                     val userId = auth.currentUser?.uid.toString()
+
                     val friendsList = listOf<String>()
 
                     val Usersinfo = Usersinfo(emailId, friendsList, userId)
@@ -220,6 +200,9 @@ class MainActivity : AppCompatActivity() {
                     userRef.setValue(Usersinfo) //realtime database에 추가
                     val userMap = HashMap<String, Any>()
                     userMap["userID"] = userId
+
+
+
 
                     val mainIntent = Intent(this, HomeFragment::class.java)
                     startActivity(mainIntent)

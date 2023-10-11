@@ -89,7 +89,8 @@
                 android:layout_marginBottom="7dp"
                 android:background="@drawable/round_background_orderdetails"
                 android:text="리뷰 쓰기"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <View

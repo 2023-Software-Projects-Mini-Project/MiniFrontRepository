@@ -17,6 +17,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.menu_review.bottomNavigationView
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.HashMap
 
 // 음식 상세 페이지
@@ -74,10 +76,8 @@ class MenuReviewActivity : AppCompatActivity() {
 
         iv = findViewById(R.id.image_view)
 
-        // 1. Firebase Storage 관리 객체 얻어오기
-        val firebaseStorage = FirebaseStorage.getInstance()
-        // 2. 최상위 노드 참조 객체 얻어오기
-        val rootRef = firebaseStorage.reference
+        val firebaseStorage = FirebaseStorage.getInstance()     // 1. Firebase Storage 관리 객체 얻어오기
+        val rootRef = firebaseStorage.reference                 // 2. 최상위 노드 참조 객체 얻어오기
         // 메뉴 이미지 띄우기
         var image : String
         categoriesRef.child("$menuNameText").get().addOnSuccessListener {
@@ -129,7 +129,6 @@ class MenuReviewActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         val userUid = currentUser?.uid
 
-        //saveComment(2.5f, "개빡칠거같아요") // 일단 냅둬줘여 리뷰 어케 보내는지 까먹을거 같으니께
 
         //var exist : Boolean = false
         var oldcount : String
@@ -175,8 +174,6 @@ class MenuReviewActivity : AppCompatActivity() {
 
                 //val mainIntent = Intent(this, CartActivity::class.java)
                 //startActivity(mainIntent)
-                //val currentDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
-                //savePersonalComment(userUid, "떡볶이", 4.5f, currentDate, "맵찔이도 먹을 수 있어서 좋아요")
             } else {
                 // 유효한 메뉴 정보가 없을 경우 예외 처리
                 // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
@@ -185,6 +182,7 @@ class MenuReviewActivity : AppCompatActivity() {
 
         addToReviewButton.setOnClickListener {
             val reviewIntent = Intent(this@MenuReviewActivity, ReviewWrite::class.java)
+            reviewIntent.putExtra("menuName", menuNameText)
             startActivity(reviewIntent)
         }
 
@@ -199,33 +197,6 @@ class MenuReviewActivity : AppCompatActivity() {
         if (cartItemKey != null) {
             cartRef.child(userUid).child(cartItemKey).setValue(newItem)
             Log.d("Cart", "Added to cart: $menuName, $menuPrice")
-        }
-    }
-
-    // 파이어베이스에 저장
-    fun saveComment(rating: Float, contents: String) {
-        // comment에 child로 감상평 추가(이때 키 자동 생성, 이 키 얻어옥기)
-        var key : String? = categoriesRef.child("menuNameText").child("reviews").push().getKey()
-
-        // 객체 생성
-        val comment = TotalReviewClass(key!!, rating, contents)
-        // 객체를 맵 형으로 변환
-        val commentValues : HashMap<String, Any> = comment.toMap()
-
-        // 파이어베이스에 넣어주기(인자에 해시맵과 해시맵에 접근할 수 있는 경로 들어가야함)
-        // -> 별도의 해시맵을 만들어줘야함
-        val childUpdate : MutableMap<String, Any> = HashMap()
-        childUpdate["/reviews/$key"] = commentValues
-
-        categoriesRef.child("menuNameText").updateChildren(childUpdate)
-    }
-
-    // 파이어베이스에 저장
-    fun savePersonalComment(userUid: String, menu: String, rating: Float, date: String, contents: String) {
-        val comment = MyReviewClass(menu, rating, date, contents)
-        val userreviewItemKey = userreviewRef.child(userUid).push().key
-        if (userreviewItemKey != null) {
-            userreviewRef.child(userUid).child(userreviewItemKey).setValue(comment)
         }
     }
 
