@@ -196,6 +196,7 @@ class MainActivity : AppCompatActivity() {
                         .document(auth.currentUser?.uid.toString())
                         .set(user)
 */
+
                     val emailId = email.substringBefore('@')
 
                     val user = hashMapOf( "username" to emailId)
