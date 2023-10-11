@@ -7,36 +7,54 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_friends_list.*
 import kotlinx.android.synthetic.main.activity_friends_list.back_icon
 import kotlinx.android.synthetic.main.cfood_list.*
 
+
 class FriendsList : AppCompatActivity() {
 
-    // 뷰 홀더에 넣을 가변리스트(추가와 삭제가 자유로움)
-    var friendsList : MutableList<FriendsID> = mutableListOf(
-        FriendsID("20210691안가은"),                   // 일단 서버연동 전까지 이렇게 해둠
-        FriendsID("20210692문나연")
-    )
-
-
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
+    private lateinit var userRef: DatabaseReference
+    private val friendsList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_list)
 
+        // XML에서 정의한 RecyclerView와 SearchView를 찾습니다.
+        recyclerView = findViewById(R.id.RCV_friendslist)
+        searchView = findViewById(R.id.search_view)
 
-        val adapter = FriendsAddAdapter(friendsList)        // 분할결제를 위한 친구목록 띄우기용 adapter
-        RCV_friendslist.adapter = adapter                           // 이렇게 하면 항상 리사이클러뷰가 보이니까
+        // RecyclerView 설정
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
+        // SearchView의 검색 이벤트 처리
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // 검색 버튼을 누를 때 친구 검색 결과 화면으로 이동
+                val intent = Intent(this@FriendsList, FriendsAddList::class.java)
+                intent.putExtra("search_query", query)
+                startActivity(intent)
+                return true
+            }
 
-        back_icon.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                finish() // 현재 액티비티 종료
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
             }
         })
-
+//여기서부터는 바텀
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         // 바텀 네비게이션 아이템 클릭 리스너 설정
@@ -56,4 +74,44 @@ class FriendsList : AppCompatActivity() {
             }
         }
     }
-}
+
+        /*      auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        val currentUser = auth.currentUser
+        val userId = currentUser?.uid
+
+        if (userId != null) {
+            userRef = database.getReference("users").child(userId)
+            val layoutManager = LinearLayoutManager(this)
+            RCV_friendslist.layoutManager = layoutManager
+
+            val adapter = FriendsAddAdapter(friendsList)
+            RCV_friendslist.adapter = adapter
+
+            // 뒤로 가기 아이콘 클릭 시 현재 액티비티 종료
+            back_icon.setOnClickListener {
+                finish()
+            }
+
+
+
+            // Firebase Realtime Database에서 친구 목록을 가져와서 리스트에 추가
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val usersInfo = dataSnapshot.getValue(MainActivity.Usersinfo::class.java)
+                    if (usersInfo != null) {
+                        val friends = usersInfo.friends
+                        if (friends != null) {
+                            friendsList.addAll(friends)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Firebase Realtime Database에서의 읽기 실패 또는 취소 처리
+                    println("Database Error: ${databaseError.message}")
+                }
+            })
+            */
+    }
