@@ -189,15 +189,16 @@ class MainActivity : AppCompatActivity() {
 
                     //리얼타임데이터에 넣기
                     val userId = auth.currentUser?.uid.toString()
-
                     val friendsList = listOf<String>()
 
                     val Usersinfo = Usersinfo(emailId, friendsList, userId)
 
                     val ref = realdb.getReference("users") // "users"는 데이터베이스의 경로입니다.
-                    val userRef = ref.child(userId)
 
-                    userRef.setValue(Usersinfo) //realtime database에 추가
+                    // 사용자 이름(username)을 키(key)로 사용하여 데이터를 저장
+                    val userRef = ref.child(emailId) // emailId를 사용하여 사용자를 저장
+
+                    userRef.setValue(Usersinfo) // Realtime Database에 추가
                     val userMap = HashMap<String, Any>()
                     userMap["userID"] = userId
 
