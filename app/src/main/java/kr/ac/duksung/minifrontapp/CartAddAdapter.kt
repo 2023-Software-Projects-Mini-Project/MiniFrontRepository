@@ -101,9 +101,7 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
                 count = view.MenuCount.text.toString().toInt()
                 count = count + 1
                 view.MenuCount.text = count.toString()
-
-
-
+                changeMenuCountFromDB(view.MenuName.text as String, count)
             }
         }
 

@@ -16,6 +16,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.android.synthetic.main.row_menu.view.*
+import java.text.DecimalFormat
 
 
 class CartActivity : AppCompatActivity() {
@@ -101,17 +102,17 @@ class CartActivity : AppCompatActivity() {
                         val menucount = childSnapshot.child("menuCount").getValue(Int::class.java)
                         Log.d("CartActivity", "$menuname, $menuprice, $menucount")
 
-                        //TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
-                        //Log.d("CartActivity", "$TOTALPRICE")
+                        TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
+                        Log.d("CartActivity", "$TOTALPRICE")
 
                         adapter.itemList.add(MenuClass((menuname ?:""), (menuprice ?: ""), ((menucount ?: "") as Int)))
 
                     }
                     adapter.notifyDataSetChanged()
 
-                    //val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
-                    //val print_cart_price = t_dec_up.format(TOTALPRICE)
-                    //BT_order.setText("$print_cart_price 원 주문하기")       // 총 금액 표시
+                    val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
+                    val print_cart_price = t_dec_up.format(TOTALPRICE)
+                    BT_order.setText("$print_cart_price 원 주문하기")       // 총 금액 표시
                 }
             }
 

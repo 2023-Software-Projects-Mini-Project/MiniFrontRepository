@@ -187,23 +187,13 @@ class MenuReviewActivity : AppCompatActivity() {
                         else{
                             Log.e("MeneReviewActivity: ", "스냅샷 없음")
                         }
-                        // 스냅샷이 없으면
-
-                        //Log.e("MeneReviewActivity: ", "스냅샷 없음")
-                        //val newItem = MenuClass("부대찌개", "5500", 1)
-                        //cartRef.child(userUid).setValue("부대찌개")
-                        //cartRef.child(userUid).child("부대찌개").setValue(newItem)
-
                     }
                     override fun onCancelled(error: DatabaseError) {
                         Log.e("test", "loadItem:onCancelled : ${error.toException()}")
                     }
                 })
-
             } else {
 
-                // 유효한 메뉴 정보가 없을 경우 예외 처리
-                // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
             }
             finish()
         }
@@ -213,8 +203,6 @@ class MenuReviewActivity : AppCompatActivity() {
             reviewIntent.putExtra("menuName", menuNameText)
             startActivity(reviewIntent)
         }
-
-
     }
 
 

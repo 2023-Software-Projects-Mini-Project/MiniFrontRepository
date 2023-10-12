@@ -5,11 +5,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.SearchView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -29,6 +27,7 @@ class HomeFragment : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val database = FirebaseDatabase.getInstance()
     private val categoriesRef = database.getReference("MenuName")
+    private val cartRef = database.getReference("Cart")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,30 +126,123 @@ class HomeFragment : AppCompatActivity() {
         val currentUser = auth.currentUser
         val userUid = currentUser?.uid
 
-        cartAImageView.setOnClickListener {
-            // MenuReviewActivity의 addToCart 함수를 호출합니다.
-            val intent = Intent(this, CartActivity::class.java)
-            val menuName = "오늘의메뉴A"
-            val menuPrice = "6000"
-            if (userUid != null) {
-                //  MenuReviewActivity().addToCart(menuName, menuPrice, userUid)
-                MenuReviewActivity().addToCartTest(userUid, menuName, menuPrice, 1)
 
+        var exist : Boolean = false
+        cartAImageView.setOnClickListener {
+            val menuNameText = "오늘의메뉴A"
+            val menuPriceText = "6000"
+
+            if (menuNameText != null && menuPriceText != null && userUid != null) {
+                Log.e("MeneReviewActivity: ", "$menuNameText, $menuPriceText, $userUid")
+
+                // 장바구니 순회해해서 같은 아이템이 있는지 봄
+                cartRef.child(userUid).addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+
+                            var oldcount : Int
+
+                            // userid 아래 장바구니에 담아둔 메뉴 순회 시작
+                            for (childSnapshot in snapshot.children){
+                                var oldmenu = childSnapshot.child("menuName").getValue(String::class.java).toString()
+
+                                if (menuNameText == oldmenu){        // 담으려는 메뉴가 장바구니에 있으면
+                                    Log.e("MeneReviewActivity: ", "장바구니에 추가 안한다")
+                                    exist = true
+
+                                    oldcount = childSnapshot.child("menuCount").getValue(Int::class.java)!! // 담으려는 메뉴의 기존 수량 가져옴
+                                    oldcount += 1       // 기존 수량 +1
+
+                                    var key = childSnapshot.key
+
+                                    val updateCount: HashMap<String, Any> = HashMap()       // updateChildren은 인스턴스로 해쉬맵만 받음
+                                    updateCount["menuCount"] = oldcount                     // key: menuCount, value: oldcount로 updateCount에 저장
+
+                                    // 루트 노드부터 타고 내려오면서 변화된 수량을 DB에 저장
+                                    cartRef.child(userUid).child("$key").updateChildren(updateCount)
+                                    Toast.makeText(this@HomeFragment, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
+
+                                    break
+                                }
+
+                                else{                   // 담으려는 메뉴가 장바구니에 없으면
+                                    exist = false
+                                }
+                            }
+
+                            if(exist == false){
+                                MenuReviewActivity().addToCartTest(userUid, menuNameText, menuPriceText, 1)
+                                Toast.makeText(this@HomeFragment, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
+                                Log.e("MeneReviewActivity: ", "장바구니에 추가한다")
+                            }
+                        }
+
+                        else{
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("test", "loadItem:onCancelled : ${error.toException()}")
+                    }
+                })
             }
-            startActivity(intent)
         }
 
         cartBImageView.setOnClickListener {
-            // MenuReviewActivity의 addToCart 함수를 호출합니다.
-            val intent = Intent(this, CartActivity::class.java)
-            val menuName = "오늘의메뉴B"
-            val menuPrice = "6000"
-            if (userUid != null) {
-                //  MenuReviewActivity().addToCart(menuName, menuPrice, userUid)
-                MenuReviewActivity().addToCartTest(userUid, menuName, menuPrice, 1)
+            val menuNameText = "오늘의메뉴B"
+            val menuPriceText = "6000"
 
+            if (menuNameText != null && menuPriceText != null && userUid != null) {
+                Log.e("MeneReviewActivity: ", "$menuNameText, $menuPriceText, $userUid")
+
+                // 장바구니 순회해해서 같은 아이템이 있는지 봄
+                cartRef.child(userUid).addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()){
+
+                            var oldcount : Int
+
+                            // userid 아래 장바구니에 담아둔 메뉴 순회 시작
+                            for (childSnapshot in snapshot.children){
+                                var oldmenu = childSnapshot.child("menuName").getValue(String::class.java).toString()
+
+                                if (menuNameText == oldmenu){        // 담으려는 메뉴가 장바구니에 있으면
+                                    Log.e("MeneReviewActivity: ", "장바구니에 추가 안한다")
+                                    exist = true
+
+                                    oldcount = childSnapshot.child("menuCount").getValue(Int::class.java)!! // 담으려는 메뉴의 기존 수량 가져옴
+                                    oldcount += 1       // 기존 수량 +1
+
+                                    var key = childSnapshot.key
+
+                                    val updateCount: HashMap<String, Any> = HashMap()       // updateChildren은 인스턴스로 해쉬맵만 받음
+                                    updateCount["menuCount"] = oldcount                     // key: menuCount, value: oldcount로 updateCount에 저장
+
+                                    // 루트 노드부터 타고 내려오면서 변화된 수량을 DB에 저장
+                                    cartRef.child(userUid).child("$key").updateChildren(updateCount)
+                                    Toast.makeText(this@HomeFragment, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
+
+                                    break
+                                }
+
+                                else{                   // 담으려는 메뉴가 장바구니에 없으면
+                                    exist = false
+                                    Log.e("MeneReviewActivity: ", "장바구니에 추가한다")
+                                }
+                            }
+
+                            if(exist == false){
+                                MenuReviewActivity().addToCartTest(userUid, menuNameText, menuPriceText, 1)
+                                Toast.makeText(this@HomeFragment, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
+                                Log.e("MeneReviewActivity: ", "장바구니에 추가한다")
+                            }
+                        }
+
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e("test", "loadItem:onCancelled : ${error.toException()}")
+                    }
+                })
             }
-            startActivity(intent)
         }
     }
 

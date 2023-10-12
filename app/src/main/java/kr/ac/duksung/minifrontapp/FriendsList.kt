@@ -1,5 +1,6 @@
 package kr.ac.duksung.minifrontapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -29,13 +30,14 @@ class FriendsList : AppCompatActivity() {
     private lateinit var userRef: DatabaseReference
     private val friendsList = mutableListOf<String>()
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_list)
 
         // XML에서 정의한 RecyclerView와 SearchView를 찾습니다.
         recyclerView = findViewById(R.id.RCV_friendslist)
-        searchView = findViewById(R.id.search_view)
+        searchView = findViewById(R.id.editText)
 
         // RecyclerView 설정
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -54,7 +56,7 @@ class FriendsList : AppCompatActivity() {
                 return false
             }
         })
-//여기서부터는 바텀
+        //여기서부터는 바텀
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         // 바텀 네비게이션 아이템 클릭 리스너 설정
