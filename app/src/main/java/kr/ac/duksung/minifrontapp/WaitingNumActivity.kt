@@ -39,5 +39,10 @@ class WaitingNumActivity : AppCompatActivity() {
             }
         }
 
+
+
+
+
+
     }
 }

@@ -156,7 +156,6 @@ class CartActivity : AppCompatActivity() {
             intent.putExtra("TOTALPRICE", TOTALPRICE)
             intent.putExtra("TOTALCOUNT", TOTALCOUNT)
             intent.putExtra("STRING", "striing")
-
              */
 
             startActivity(intent)

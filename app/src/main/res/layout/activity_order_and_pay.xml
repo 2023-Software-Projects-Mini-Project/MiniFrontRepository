@@ -167,7 +167,7 @@
             android:button="@null"
             android:gravity="center"
             android:minHeight="48dp"
-            android:text="분할결제"
+            android:text="N/1 페이"
             tools:ignore="TouchTargetSizeCheck" />
 
     </RadioGroup>

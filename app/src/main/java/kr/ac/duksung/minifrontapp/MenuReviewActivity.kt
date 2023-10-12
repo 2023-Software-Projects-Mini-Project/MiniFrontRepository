@@ -179,16 +179,11 @@ class MenuReviewActivity : AppCompatActivity() {
                                 Toast.makeText(this@MenuReviewActivity, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
                                 Log.e("MeneReviewActivity: ", "장바구니에 추가한다")
                             }
-
                             Log.e("MeneReviewActivity: ", "순환끝")
-
-
                         }
-
                         else{
                             Log.e("MeneReviewActivity: ", "스냅샷 없음")
                         }
-
                     }
                     override fun onCancelled(error: DatabaseError) {
                         Log.e("test", "loadItem:onCancelled : ${error.toException()}")
@@ -196,7 +191,6 @@ class MenuReviewActivity : AppCompatActivity() {
                 })
 
             } else {
-
                 // 유효한 메뉴 정보가 없을 경우 예외 처리
                 // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
             }

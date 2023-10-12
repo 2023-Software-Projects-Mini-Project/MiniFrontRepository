@@ -96,7 +96,6 @@ class ReviewWrite : AppCompatActivity() {
         val comment = TotalReviewClass(key!!, rating, contents)
         // 객체를 맵 형으로 변환
         val commentValues : HashMap<String, Any> = comment.toMap()
-
         // 파이어베이스에 넣어주기(인자에 해시맵과 해시맵에 접근할 수 있는 경로 들어가야함)
         // -> 별도의 해시맵을 만들어줘야함
         val childUpdate : MutableMap<String, Any> = HashMap()

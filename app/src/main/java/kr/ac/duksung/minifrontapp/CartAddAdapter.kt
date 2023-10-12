@@ -131,7 +131,6 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
         Log.e("test", "deleteMenuFromDB 함수 들어옴")
 
-        var mycartfef = cartRef.child(userUid).child("$MENUNAME").removeValue()
         //val count = cartRef.child(userUid).snapshots
 
         cartRef.child(userUid).addListenerForSingleValueEvent(object : ValueEventListener {
