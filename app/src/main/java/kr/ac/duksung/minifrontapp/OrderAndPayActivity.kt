@@ -75,15 +75,14 @@ class OrderAndPayActivity : AppCompatActivity() {
         RCV_pay.adapter = adapter                           // 이렇게 하면 항상 리사이클러뷰가 보이니까
         RCV_pay.visibility = View.INVISIBLE                 // visibility = INVISIBLE로 일단 안보이게 처리
 
+        val intent : Intent = intent
+        val TotalPrice : Int = intent.getIntExtra("TOTALPRICE", 0)
+        val TotalCount : Int = intent.getIntExtra("TOTALCOUNT", 0)
 
-        var Order_sum = 1               // 총 주문수량
-        var Order_total = 9000         // 총 결제금액
-        var Pay_total: Int ?= null      // 결제하기 버튼에 표시될 금액
-
-        Order_sum_text.setText("$Order_sum 개")                  // 총 주문수량 표시
+        Order_sum_text.setText("$TotalCount 개")                  // 총 주문수량 표시
 
         val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
-        val print_order_total = t_dec_up.format(Order_total)
+        val print_order_total = t_dec_up.format(TotalPrice)
         Order_total_text.setText("$print_order_total 원")       // 총 금액 표시
 
 
@@ -109,8 +108,8 @@ class OrderAndPayActivity : AppCompatActivity() {
             bindingMain.SVPay.removeAllViews()
         }
 
-
-        Pay_total = Order_total
+        var Pay_total: Int ?= null      // 결제하기 버튼에 표시될 금액
+        Pay_total = TotalPrice
 
         BT_pay.setText("$Pay_total 원 결제하기")
 

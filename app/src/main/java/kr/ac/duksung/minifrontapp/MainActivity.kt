@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private val realdb = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val categoriesRef = realdb.getReference("MenuName")
+    private val cartRef = realdb.getReference("Cart")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -191,6 +192,9 @@ class MainActivity : AppCompatActivity() {
                     //리얼타임데이터에 넣기
                     val userId = auth.currentUser?.uid.toString()
                     val friendsList = listOf<String>()
+                    val giveEmptyList: HashMap<String, Any> = HashMap()
+                    giveEmptyList[userId] = ""
+                    cartRef.updateChildren(giveEmptyList)
 
                     val Usersinfo = Usersinfo(emailId, friendsList, userId)
 
@@ -200,8 +204,6 @@ class MainActivity : AppCompatActivity() {
                     val userRef = ref.child(emailId) // emailId를 사용하여 사용자를 저장
 
                     userRef.setValue(Usersinfo) // Realtime Database에 추가
-                    val userMap = HashMap<String, Any>()
-                    userMap["userID"] = userId
 
 
 

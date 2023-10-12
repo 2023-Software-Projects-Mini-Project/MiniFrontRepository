@@ -24,12 +24,16 @@ import kotlinx.coroutines.flow.count
 class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
     var itemList = ArrayList<MenuClass>()
+
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val categoriesRef = db.getReference("MenuName")
     private val cartRef = db.getReference("Cart")
 
     val cartActivity = CartActivity.getInstance()
+
+    var TOTALPRICE : Int = 0
+    var TOTALCOUNT : Int = 0
 
 
 
@@ -45,7 +49,6 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
     override fun onBindViewHolder(holder: CartAddAdapter.ViewHolder, position: Int) {
         val item = itemList[position]
         holder.bind(item)
-
     }
 
     override fun getItemCount(): Int {          // 생성자로 부터 받은 데이터의 개수를 측정
@@ -57,10 +60,6 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
         var view : View = v
         var count : Int = view.MenuCount.text.toString().toInt()
-        
-        //val cartActivity = CartActivity.getInstance()       // CartActivity에서 객체 가져오기
-
-
 
 
         init {
@@ -126,6 +125,8 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
                     Glide.with(view).load(uri).into(view.MenuImage)
                 }
             }
+
+            TOTALPRICE += item.menuPrice.toInt()
         }
 
     }
@@ -150,11 +151,8 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
                     giveEmptyList[userUid] = ""
                     cartRef.updateChildren(giveEmptyList)
                 }
-
                 else
                     cartRef.child(userUid).child("$MENUNAME").removeValue()
-
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
