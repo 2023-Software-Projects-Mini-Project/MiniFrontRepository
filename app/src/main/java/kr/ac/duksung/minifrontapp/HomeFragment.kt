@@ -134,7 +134,7 @@ class HomeFragment : AppCompatActivity() {
             val menuPrice = "6000"
             if (userUid != null) {
                 //  MenuReviewActivity().addToCart(menuName, menuPrice, userUid)
-                MenuReviewActivity().addToCart(userUid, menuName, menuPrice, 1)
+                MenuReviewActivity().addToCartTest(userUid, menuName, menuPrice, 1)
 
             }
             startActivity(intent)
@@ -147,7 +147,7 @@ class HomeFragment : AppCompatActivity() {
             val menuPrice = "6000"
             if (userUid != null) {
                 //  MenuReviewActivity().addToCart(menuName, menuPrice, userUid)
-                MenuReviewActivity().addToCart(userUid, menuName, menuPrice, 1)
+                MenuReviewActivity().addToCartTest(userUid, menuName, menuPrice, 1)
 
             }
             startActivity(intent)
