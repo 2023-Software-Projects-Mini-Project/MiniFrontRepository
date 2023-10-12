@@ -16,8 +16,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.snapshots
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.row_menu.view.*
+import kotlinx.android.synthetic.main.activity_cart_main.*
 import kotlinx.coroutines.flow.count
 
 
@@ -31,11 +31,6 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
     private val cartRef = db.getReference("Cart")
 
     val cartActivity = CartActivity.getInstance()
-
-    var TOTALPRICE : Int = 0
-    var TOTALCOUNT : Int = 0
-
-
 
     // Adapter에서 사용할 ViewHolder를 설정
     // LayoutInflater를 이용해서 row_menu.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
@@ -125,11 +120,10 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
                     Glide.with(view).load(uri).into(view.MenuImage)
                 }
             }
-
-            TOTALPRICE += item.menuPrice.toInt()
         }
 
     }
+
     fun deleteMenuFromDB(MENUNAME:String){
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser

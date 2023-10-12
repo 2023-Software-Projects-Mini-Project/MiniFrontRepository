@@ -4,7 +4,14 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_card.*
 import kotlinx.android.synthetic.main.activity_order_and_pay.*
 import kotlinx.android.synthetic.main.activity_order_and_pay.back_icon
@@ -14,6 +21,11 @@ import kr.ac.duksung.minifrontapp.databinding.SmartPayContentBinding
 import java.text.DecimalFormat
 
 class OrderAndPayActivity : AppCompatActivity() {
+
+    private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
+    private val cartRef = db.getReference("Cart")
+
+    private lateinit var auth: FirebaseAuth
 
     // 뷰 홀더에 넣을 가변리스트(추가와 삭제가 자유로움)
     var friendsList : MutableList<FriendsID> = mutableListOf(
@@ -75,15 +87,52 @@ class OrderAndPayActivity : AppCompatActivity() {
         RCV_pay.adapter = adapter                           // 이렇게 하면 항상 리사이클러뷰가 보이니까
         RCV_pay.visibility = View.INVISIBLE                 // visibility = INVISIBLE로 일단 안보이게 처리
 
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser!!.uid
+
+        /*
         val intent : Intent = intent
         val TotalPrice : Int = intent.getIntExtra("TOTALPRICE", 0)
+        val test: String? = intent.getStringExtra("STRING")
+        Log.d("intent.getIntExtra", "$TotalPrice")
+        Log.d("intent.getIntExtra", "$test")
         val TotalCount : Int = intent.getIntExtra("TOTALCOUNT", 0)
+         */
 
-        Order_sum_text.setText("$TotalCount 개")                  // 총 주문수량 표시
+        var TOTALPRICE = 0
+        var TOTALCOUNT = 0
 
-        val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
-        val print_order_total = t_dec_up.format(TotalPrice)
-        Order_total_text.setText("$print_order_total 원")       // 총 금액 표시
+        cartRef.child(userUid).addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+                Log.d("MenuReview: ", "onDataChage Success")
+                if (snapshot.exists()){
+                    Log.d("MenuReview: ", "Snapshot exist")
+                    for (childSnapshot in snapshot.children){
+                        val menuprice = childSnapshot.child("menuPrice").getValue(String::class.java)
+                        val menucount = childSnapshot.child("menuCount").getValue(Int::class.java)
+
+                        TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
+                        TOTALCOUNT += menucount
+                    }
+                    //Log.d("CartActivity Button PRICE", "$TOTALPRICE")
+                    //Log.d("CartActivity Button COUNT", "$TOTALCOUNT")
+                    Order_sum_text.setText("$TOTALCOUNT 개")         // 총 주문수량 표시
+                    val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
+                    val print_order_total = t_dec_up.format(TOTALPRICE)
+                    Order_total_text.setText("$print_order_total 원")       // 총 금액 표시
+                    BT_pay.setText("$print_order_total 원")
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("test", "loadItem:onCancelled : ${error.toException()}")
+            }
+        })
+        //Log.d("CartActivity final PRICE", "$TOTALPRICE")
+        //Log.d("CartActivity fianl COUNT", "$TOTALCOUNT")
+        //val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
+        //val print_order_total = t_dec_up.format(TOTALPRICE)
+        //Order_total_text.setText("$print_order_total 원")       // 총 금액 표시
 
 
 
@@ -109,8 +158,6 @@ class OrderAndPayActivity : AppCompatActivity() {
         }
 
         var Pay_total: Int ?= null      // 결제하기 버튼에 표시될 금액
-        Pay_total = TotalPrice
-
         BT_pay.setText("$Pay_total 원 결제하기")
 
         // ~원 결제하기 버튼이 눌리면

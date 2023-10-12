@@ -90,11 +90,10 @@ class CartActivity : AppCompatActivity() {
         RCV_menu.adapter = adapter
         val intent = Intent(this, OrderAndPayActivity::class.java)
 
-        var TOTALPRICE : Int = 0
-        var TOTALCOUNT : Int = 0
+
         cartRef.child(userUid).addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
-                Log.d("MenuReview: ", "onDataChage Success")
+                //Log.d("MenuReview: ", "onDataChage Success")
                 if (snapshot.exists()){
 
                     for (childSnapshot in snapshot.children){
@@ -103,16 +102,12 @@ class CartActivity : AppCompatActivity() {
                         val menucount = childSnapshot.child("menuCount").getValue(Int::class.java)
                         Log.d("CartActivity", "$menuname, $menuprice, $menucount")
 
-                        TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
-                        TOTALCOUNT += menucount
-                        Log.d("CartActivity PRICE", "$TOTALPRICE")
-                        Log.d("CartActivity COUNT", "$TOTALCOUNT")
-
                         adapter.itemList.add(MenuClass((menuname ?:""), (menuprice ?: ""), ((menucount ?: "") as Int)))
 
                     }
-                    adapter.notifyDataSetChanged()
+                    //adapter.notifyDataSetChanged()
                 }
+                adapter.notifyDataSetChanged()
             }
 
 
@@ -123,23 +118,49 @@ class CartActivity : AppCompatActivity() {
         })
         BT_order.setText("메뉴 주문하기")
 
+
         // ~원 주문하기 버튼이 눌리면
         BT_order.setOnClickListener {
-            var TOTALPRICE : Int = 0
-            var TOTALCOUNT : Int = 0
-            for(item in adapter.itemList){
-                var count: Int = item.menuCount
-                TOTALPRICE += item.menuPrice.toInt() * count
-                TOTALCOUNT += item.menuCount
-            }
+            /*
+            var TOTALPRICE = 0
+            var TOTALCOUNT = 0
+            cartRef.child(userUid).addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot){
+                    Log.d("MenuReview: ", "onDataChage Success")
+                    if (snapshot.exists()){
+                        Log.d("MenuReview: ", "Snapshot exist")
+                        for (childSnapshot in snapshot.children){
+                            val menuname = childSnapshot.child("menuName").getValue(String::class.java)
+                            val menuprice = childSnapshot.child("menuPrice").getValue(String::class.java)
+                            val menucount = childSnapshot.child("menuCount").getValue(Int::class.java)
+
+                            TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
+                            TOTALCOUNT += menucount
+                            //intent.putExtra("TOTALPRICE", TOTALPRICE)
+                            //intent.putExtra("TOTALCOUNT", "$TOTALCOUNT")
+                        }
+                        //TOTALPRICE.toString()
+                        Log.d("CartActivity Button PRICE", "$TOTALPRICE")
+                        Log.d("CartActivity Button COUNT", "$TOTALCOUNT")
+
+                        //intent.putExtra("TOTALPRICE", TOTALPRICE)
+                        //intent.putExtra("TOTALCOUNT", "$TOTALCOUNT")
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("test", "loadItem:onCancelled : ${error.toException()}")
+                }
+            })
+            Log.d("CartActivity End PRICE", "$TOTALPRICE")
+            //Log.d("CartActivity Button COUNT", "$TOTALCOUNT")
             intent.putExtra("TOTALPRICE", TOTALPRICE)
             intent.putExtra("TOTALCOUNT", TOTALCOUNT)
+            intent.putExtra("STRING", "striing")
+
+             */
+
             startActivity(intent)
         }
-
-        //val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
-        //val print_cart_price = t_dec_up.format(TOTALPRICE)
-        BT_order.setText("메뉴 주문하기")       // 총 금액 표시
 
     }
 }
