@@ -41,6 +41,13 @@ class HomeFragment : AppCompatActivity() {
             startActivity(intent)
         }
 
+        /*
+        notification_icon.setOnClickListener{
+            val intent = Intent(this, WaitingNumActivity::class.java)
+            startActivity(intent)
+        }
+        */
+
 
         // "View All >" 텍스트뷰를 찾습니다.
         val viewAllButton = findViewById<TextView>(R.id.viewAllButton)

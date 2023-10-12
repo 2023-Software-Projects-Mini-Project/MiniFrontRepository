@@ -10,8 +10,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_order_and_pay.*
+import kotlinx.android.synthetic.main.activity_order_and_pay.back_icon
+import kotlinx.android.synthetic.main.activity_order_and_pay.bottomNavigationView
+import kotlinx.android.synthetic.main.activity_waiting_num.*
+import java.text.DecimalFormat
 
 class WaitingNumActivity : AppCompatActivity() {
 
@@ -56,31 +61,27 @@ class WaitingNumActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         val userUid = currentUser!!.uid
 
-        var count : Int = 0
+        var index : String
 
         totalorderRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
+
+                // var index : String
 
                 for(childSnapshot in snapshot.children){
                     val userID = childSnapshot.child("userid").getValue(String::class.java)
 
                     if(userID == userUid){
-
-
+                        index = childSnapshot.child("OrderNum").getValue(String::class.java).toString()
+                        Order_num_text.setText("$index")
+                        Log.d("test", "$index")
                     }
-
                 }
-
-
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.e("test", "loadItem:onCancelled : ${error.toException()}")
             }
         })
-        Log.d("OrderAndPay", "finish $count")
-
-
-
 
 
 

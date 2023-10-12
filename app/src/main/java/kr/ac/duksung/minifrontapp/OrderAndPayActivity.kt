@@ -205,8 +205,8 @@ class OrderAndPayActivity : AppCompatActivity() {
                 Toast.makeText(this, "결제 방법을 선택해주세요.", Toast.LENGTH_SHORT).show()
             }
 
-            //val intent = Intent(this, WaitingNumActivity::class.java) // Intent는 화면전환 담당객체. Intent(a, b)이면 a에서 b로 화면을 전환.
-            //startActivity(intent)
+            val intent = Intent(this, WaitingNumActivity::class.java) // Intent는 화면전환 담당객체. Intent(a, b)이면 a에서 b로 화면을 전환.
+            startActivity(intent)
         }
 
     }
