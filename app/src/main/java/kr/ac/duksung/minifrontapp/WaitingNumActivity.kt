@@ -3,10 +3,23 @@ package kr.ac.duksung.minifrontapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_order_and_pay.*
 
 class WaitingNumActivity : AppCompatActivity() {
+
+    private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
+    private val totalorderRef = db.getReference("TotalOrder")
+
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_waiting_num)
@@ -38,6 +51,33 @@ class WaitingNumActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser!!.uid
+
+        var count : Int = 0
+
+        totalorderRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot){
+
+                for(childSnapshot in snapshot.children){
+                    val userID = childSnapshot.child("userid").getValue(String::class.java)
+
+                    if(userID == userUid){
+
+
+                    }
+
+                }
+
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("test", "loadItem:onCancelled : ${error.toException()}")
+            }
+        })
+        Log.d("OrderAndPay", "finish $count")
 
 
 
