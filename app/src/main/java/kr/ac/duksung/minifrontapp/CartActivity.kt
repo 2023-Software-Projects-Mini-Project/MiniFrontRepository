@@ -1,23 +1,22 @@
 package kr.ac.duksung.minifrontapp
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_card.*
 import kotlinx.android.synthetic.main.activity_cart_main.*
-import kotlinx.android.synthetic.main.activity_cart_main.back_icon
-import kotlinx.android.synthetic.main.activity_cart_main.bottomNavigationView
-import kotlinx.android.synthetic.main.activity_order_and_pay.*
-import java.text.DecimalFormat
+import kotlinx.android.synthetic.main.row_menu.view.*
+
 
 class CartActivity : AppCompatActivity() {
 
@@ -26,6 +25,8 @@ class CartActivity : AppCompatActivity() {
     private val cartRef = db.getReference("Cart")
 
     private lateinit var adapter : CartAddAdapter
+    lateinit var mContext: Context          // Context 변수 선언
+    lateinit var USERID : String
 
 
     // CartActivity 객체화(다른 클래스에서도 참조할 수 있도록)
@@ -44,6 +45,8 @@ class CartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart_main)
+
+        mContext = this
 
         back_icon.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -78,11 +81,15 @@ class CartActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         val userUid = currentUser!!.uid
 
+        if (userUid != null) {      // 어댑터로 보낼 userid
+            USERID = userUid
+        }
+
         adapter = CartAddAdapter()
         RCV_menu.adapter = adapter
 
 
-        cartRef.child(userUid).addValueEventListener(object: ValueEventListener {
+        cartRef.child(userUid).addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
                 Log.d("MenuReview: ", "onDataChage Success")
                 if (snapshot.exists()){
@@ -123,13 +130,5 @@ class CartActivity : AppCompatActivity() {
             val intent = Intent(this, OrderAndPayActivity::class.java) // Intent는 화면전환 담당객체. Intent(a, b)이면 a에서 b로 화면을 전환.
             startActivity(intent)
         }
-    }
-
-    fun deleteMenuFromFirebase(menu: MenuClass){
-        val currentUser = auth.currentUser
-        val userUid = currentUser!!.uid
-
-        val menuRef = cartRef.child(userUid).child(menu.menuName)
-        menuRef.removeValue()
     }
 }

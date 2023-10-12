@@ -1,20 +1,25 @@
 package kr.ac.duksung.minifrontapp
 
-import android.content.Context
+import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.snapshots
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.menu_review.*
 import kotlinx.android.synthetic.main.row_menu.view.*
+import kotlinx.coroutines.flow.count
+
 
 class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
 
@@ -24,11 +29,12 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
     private val categoriesRef = db.getReference("MenuName")
     private val cartRef = db.getReference("Cart")
 
+    val cartActivity = CartActivity.getInstance()
+
 
 
     // Adapter에서 사용할 ViewHolder를 설정
-    // LayoutInflater를 이용해서 row_friends.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
-    // inflatedView를 사용한 FriendsRowViewHolder를 반환
+    // LayoutInflater를 이용해서 row_menu.xml 정보를 가져옴 (inflate는 xml를 객체화 함)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAddAdapter.ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.row_menu, parent, false)
         return ViewHolder(inflatedView)
@@ -52,27 +58,29 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
         var view : View = v
         var count : Int = view.MenuCount.text.toString().toInt()
         
-        private val cartActivity = CartActivity.getInstance()       // CartActivity에서 객체 가져오기
+        //val cartActivity = CartActivity.getInstance()       // CartActivity에서 객체 가져오기
+
+
+
 
         init {
+            // 삭제 버튼이 클릭되었을 때
             view.bt_DeleteMenu.setOnClickListener{
                 // bt_DeleteMenu를 클릭할 때 실행할 코드
                 val position = adapterPosition
 
                 if (position != RecyclerView.NO_POSITION) {
 
-                    itemList.removeAt(position)     // 아이템을 itemList에서 삭제
-
-
+                    itemList.removeAt(position)     // 아이템을 itemList에서 삭제(안드로이드 화면 상에만 반영)
                     notifyItemRemoved(position)     // RecyclerView에 변경사항을 알림
 
-                    //val menuToDelete = itemList[position]
-                    //cartActivity?.deleteMenuFromFirebase(menuToDelete)        // 이거 쓰면 앱 꺼짐.
-
+                    deleteMenuFromDB(view.MenuName.text as String)
+                    Log.d("CardAddAdapter", "지울 메뉴 이름 ${view.MenuName.text as String}")
                 }
             }
 
-            view.bt_sub.setOnClickListener{             // 빼기 버튼 눌렸을때
+            // 수량 빼기 버튼 눌렸을때
+            view.bt_sub.setOnClickListener{
                 count = view.MenuCount.text.toString().toInt()
                 Log.d("CardAddAdapter", "get $count")
 
@@ -81,17 +89,21 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
                     Toast.makeText(this.view.context, "수량 0개는 안됩니다.", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    Log.d("CardAddAdapter", "else start $count")
+                    Log.d("CardAddAdapter", "else $count")
                     count = count - 1
                     view.MenuCount.text = count.toString()
-                    Log.d("CardAddAdapter", "else end $count")
+                    changeMenuCountFromDB(view.MenuName.text as String, count)
                 }
             }
 
-            view.bt_add.setOnClickListener{             // 더하기 버튼 눌렸을때
+            // 수량 더하기 버튼 눌렸을 때
+            view.bt_add.setOnClickListener{
                 count = view.MenuCount.text.toString().toInt()
                 count = count + 1
                 view.MenuCount.text = count.toString()
+
+
+
             }
         }
 
@@ -116,10 +128,54 @@ class CartAddAdapter: RecyclerView.Adapter<CartAddAdapter.ViewHolder>()  {
                     Glide.with(view).load(uri).into(view.MenuImage)
                 }
             }
-
-
         }
 
+    }
+    fun deleteMenuFromDB(MENUNAME:String){
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser!!.uid
+
+        Log.e("test", "deleteMenuFromDB 함수 들어옴")
+
+        var mycartfef = cartRef.child(userUid).child("$MENUNAME").removeValue()
+        //val count = cartRef.child(userUid).snapshots
+
+        cartRef.child(userUid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val nodeCount = dataSnapshot.childrenCount.toInt()       // nodeCount 변수에 해당 경로의 노드 개수가 저장
+
+                Log.d("NodeCount", "Node count: $nodeCount")
+
+                if(nodeCount == 0){                           // 파이어베이스는 자식노드가 없으면 상위노드가 파괴됨.
+                    val giveEmptyList: HashMap<String, Any> = HashMap()
+                    giveEmptyList[userUid] = ""
+                    cartRef.updateChildren(giveEmptyList)
+                }
+
+                else
+                    cartRef.child(userUid).child("$MENUNAME").removeValue()
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // 에러 처리
+                Log.e("NodeCount", "Error getting node count: ${databaseError.message}")
+            }
+        })
+
+    }
+
+    fun changeMenuCountFromDB(MENUNAME:String, MENUCOUNT:Int){
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userUid = currentUser!!.uid
+
+        val updateCount: HashMap<String, Any> = HashMap()       // updateChildren은 인스턴스로 해쉬맵만 받음
+        updateCount["menuCount"] = MENUCOUNT                    // key: menuCount, value: oldcount로 updateCount에 저장
+
+        cartRef.child(userUid).child("$MENUNAME").updateChildren(updateCount)
     }
 
 

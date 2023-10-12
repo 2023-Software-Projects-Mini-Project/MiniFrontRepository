@@ -1,5 +1,6 @@
 package kr.ac.duksung.minifrontapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +27,6 @@ class MenuReviewActivity : AppCompatActivity() {
     private val db = Firebase.database("https://testlogin2-a82d6-default-rtdb.firebaseio.com/")
     private val cartRef = db.getReference("Cart")
     private val categoriesRef = db.getReference("MenuName")
-    private val userreviewRef = db.getReference("UserReview")
 
     private lateinit var adapter : TotalReviewAdapter
 
@@ -34,6 +34,7 @@ class MenuReviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_review)
+
 
         val backIcon = findViewById<ImageView>(R.id.back_icon)
         backIcon.setOnClickListener(object : View.OnClickListener {
@@ -126,17 +127,19 @@ class MenuReviewActivity : AppCompatActivity() {
         val userUid = currentUser?.uid
 
 
-        var exist : Boolean = true      // 장바구니에 담으려는 메뉴와 같은 이름의 메뉴가 있는지 확인 및 저장용 변수
+
+        var exist : Boolean = false      // 장바구니에 담으려는 메뉴와 같은 이름의 메뉴가 있는지 확인 및 저장용 변수
         addToCartButton.setOnClickListener {
+
             if (menuNameText != null && menuPriceText != null && userUid != null) {
                 Log.e("MeneReviewActivity: ", "$menuNameText, $menuPriceText, $userUid")
-
 
                 // 장바구니 순회해해서 같은 아이템이 있는지 봄
                 cartRef.child(userUid).addListenerForSingleValueEvent(object: ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
-
+                        Log.e("MeneReviewActivity: ", "override fun onDataChange")
                         if (snapshot.exists()){
+                            Log.e("MeneReviewActivity: ", "스냅샷 있음")
 
                             var oldcount : Int
 
@@ -160,7 +163,7 @@ class MenuReviewActivity : AppCompatActivity() {
                                     // 루트 노드부터 타고 내려오면서 변화된 수량을 DB에 저장
                                     cartRef.child(userUid).child("$key").updateChildren(updateCount)
                                     Toast.makeText(this@MenuReviewActivity, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
-                                    
+
                                     break
                                 }
 
@@ -171,11 +174,26 @@ class MenuReviewActivity : AppCompatActivity() {
                             }
 
                             if(exist == false){
-                                addToCart(userUid, menuNameText, menuPriceText, 1)
+                                addToCartTest(userUid, menuNameText, menuPriceText, 1)
                                 Toast.makeText(this@MenuReviewActivity, "$menuNameText 1인분 추가", Toast.LENGTH_SHORT).show()
                                 Log.e("MeneReviewActivity: ", "장바구니에 추가한다")
                             }
+
+                            Log.e("MeneReviewActivity: ", "순환끝")
+
+
                         }
+
+                        else{
+                            Log.e("MeneReviewActivity: ", "스냅샷 없음")
+                        }
+                        // 스냅샷이 없으면
+
+                        //Log.e("MeneReviewActivity: ", "스냅샷 없음")
+                        //val newItem = MenuClass("부대찌개", "5500", 1)
+                        //cartRef.child(userUid).setValue("부대찌개")
+                        //cartRef.child(userUid).child("부대찌개").setValue(newItem)
+
                     }
                     override fun onCancelled(error: DatabaseError) {
                         Log.e("test", "loadItem:onCancelled : ${error.toException()}")
@@ -183,6 +201,7 @@ class MenuReviewActivity : AppCompatActivity() {
                 })
 
             } else {
+
                 // 유효한 메뉴 정보가 없을 경우 예외 처리
                 // 사용자에게 적절한 알림을 표시하거나 로그를 남길 수 있습니다.
             }
@@ -207,5 +226,15 @@ class MenuReviewActivity : AppCompatActivity() {
             cartRef.child(userUid).child(cartItemKey).setValue(newItem)
             Log.d("Cart", "Added to cart: $menuName, $menuPrice")
         }
+    }
+
+    // 사용자 로그인 및 UID 얻기
+    fun addToCartTest(userUid: String, menuName: String, menuPrice: String, menuCount: Int) {
+        val newItem = MenuClass(menuName, menuPrice, menuCount)
+        //val cartItemKey = cartRef.child(userUid).push().key
+
+        cartRef.child(userUid).child("$menuName").setValue(newItem)
+        Log.d("Cart", "Added to cart: $menuName, $menuPrice")
+
     }
 }
