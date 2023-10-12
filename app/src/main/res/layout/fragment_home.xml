@@ -35,18 +35,6 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
             tools:layout_editor_absoluteX="371dp"
             tools:layout_editor_absoluteY="16dp" />
-
-        <ImageButton
-            android:id="@+id/notification_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginRight="7dp"
-            android:background="#00FFFFFF"
-            app:srcCompat="@drawable/ic_baseline_notifications_none_24"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="347dp"
-            tools:layout_editor_absoluteY="16dp" />
     </androidx.appcompat.widget.Toolbar>
 
 
