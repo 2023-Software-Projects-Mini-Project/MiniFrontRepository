@@ -31,7 +31,10 @@ class OrderAndPayActivity : AppCompatActivity() {
     // 뷰 홀더에 넣을 가변리스트(추가와 삭제가 자유로움)
     var friendsList : MutableList<FriendsID> = mutableListOf(
         FriendsID("20210691"),                            // 일단 서버연동 전까지 이렇게 해둠
-        FriendsID("20210692")
+        FriendsID("20210692"),
+        FriendsID("20210805"),
+        FriendsID("20210900"),
+        FriendsID("20211121"),
     )
 
     // OrderAndPayActivity 객체화(다른 클래스에서도 참조할 수 있도록)
@@ -84,7 +87,9 @@ class OrderAndPayActivity : AppCompatActivity() {
         }
 
 
-        TextViewGroup.visibility = View.INVISIBLE                 // visibility = INVISIBLE로 일단 안보이게 처리
+        val adapter = FriendsRowAdapter(friendsList)        // 분할결제를 위한 친구목록 띄우기용 adapter
+        RCV_pay.adapter = adapter                           // 이렇게 하면 항상 리사이클러뷰가 보이니까
+        RCV_pay.visibility = View.INVISIBLE                 // visibility = INVISIBLE로 일단 안보이게 처리
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -106,8 +111,7 @@ class OrderAndPayActivity : AppCompatActivity() {
                         TOTALPRICE += ((menuprice?.toInt()!!) * menucount!!)
                         TOTALCOUNT += menucount
                     }
-                    //Log.d("CartActivity Button PRICE", "$TOTALPRICE")
-                    //Log.d("CartActivity Button COUNT", "$TOTALCOUNT")
+
                     Order_sum_text.setText("$TOTALCOUNT 개")         // 총 주문수량 표시
 
                     val t_dec_up = DecimalFormat("#,###")            // 3자리씩 쉼표 넣어 표시하기 위함
@@ -139,7 +143,7 @@ class OrderAndPayActivity : AppCompatActivity() {
             RBT_Npay.setTextColor(Color.parseColor("#FF000000"))
 
             SV_pay.visibility = View.VISIBLE                    // 스크롤뷰(결제방법) 보이게
-            TextViewGroup.visibility = View.INVISIBLE                 // 리사이클러뷰(함께 결제할 친구목록) 안 보이게
+            RCV_pay.visibility = View.INVISIBLE                 // 리사이클러뷰(함께 결제할 친구목록) 안 보이게
             bindingMain.SVPay.removeAllViews()                  // 이미 존재하는 자식뷰를 모두 제외(스크롤뷰는 하나의 자식뷰만 가질 수 있으므로)
             bindingMain.SVPay.addView(bindingSmartPay.root)
 
@@ -153,7 +157,7 @@ class OrderAndPayActivity : AppCompatActivity() {
             RBT_Npay.setTextColor(Color.parseColor("#FFFFFFFF"))
 
             SV_pay.visibility = View.INVISIBLE                   // 스크롤뷰(결제방법) 안 보이게
-            TextViewGroup.visibility = View.VISIBLE                    // 리사이클러뷰(함께 결제할 친구목록) 보이게
+            RCV_pay.visibility = View.VISIBLE                    // 리사이클러뷰(함께 결제할 친구목록) 보이게
             bindingMain.SVPay.removeAllViews()
 
             var Pay_total: Int ?= null      // 결제하기 버튼에 표시될 금액
@@ -164,7 +168,7 @@ class OrderAndPayActivity : AppCompatActivity() {
         // ~원 결제하기 버튼이 눌리면
         BT_pay.setOnClickListener {
             if (Choice == true){
-                if (DividePay == false) {     // 나 혼자결제면
+                if (DividePay == false) {     // 나 혼자 결제면
 
                     var changeDate: Boolean = true
                     var count : Int = 0

@@ -167,10 +167,20 @@
             android:button="@null"
             android:gravity="center"
             android:minHeight="48dp"
-            android:text="분할결제"
+            android:text="N/1 페이"
             tools:ignore="TouchTargetSizeCheck" />
 
     </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RCV_pay"
+        android:layout_width="407dp"
+        android:layout_height="327dp"
+        android:layout_marginTop="30dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <android.widget.Button
         android:id="@+id/BT_pay"
@@ -206,61 +216,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
-
-    <LinearLayout
-        android:id="@+id/TextViewGroup"
-        android:layout_width="match_parent"
-        android:layout_height="305dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
-
-        <EditText
-            android:id="@+id/edit1"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:inputType="number"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/edit2"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:inputType="number"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/edit3"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:inputType="number"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/edit4"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:inputType="number"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
