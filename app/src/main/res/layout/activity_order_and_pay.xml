@@ -172,15 +172,61 @@
 
     </RadioGroup>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_constraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="265dp">
+
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="학번을 검색해서 친구를 추가하세요"
+            android:inputType="textPersonName"
+            android:text=""
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <android.widget.Button
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_background_orderdetails"
+            android:text="친구 추가"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/searchText"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="친구 추가 완료"
+
+            app:layout_constraintTop_toBottomOf="@+id/searchText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RCV_pay"
-        android:layout_width="407dp"
-        android:layout_height="327dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="415dp"
+        android:layout_height="230dp"
+
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/button_constraint" />
 
     <android.widget.Button
         android:id="@+id/BT_pay"
@@ -195,6 +241,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
+
     <ScrollView
         android:id="@+id/SV_pay"
         android:layout_width="408dp"
@@ -203,7 +250,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck">
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

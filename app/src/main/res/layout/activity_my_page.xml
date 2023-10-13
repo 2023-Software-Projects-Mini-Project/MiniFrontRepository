@@ -104,8 +104,6 @@ tools:context=".MyPage">
                 android:text="리뷰 관리" />
         </LinearLayout>
 
-        <!-- 주문 내역 -->
-
     </LinearLayout>
 
 

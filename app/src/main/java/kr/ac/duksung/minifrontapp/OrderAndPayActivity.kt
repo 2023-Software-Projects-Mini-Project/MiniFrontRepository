@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -90,6 +91,12 @@ class OrderAndPayActivity : AppCompatActivity() {
         val adapter = FriendsRowAdapter(friendsList)        // 분할결제를 위한 친구목록 띄우기용 adapter
         RCV_pay.adapter = adapter                           // 이렇게 하면 항상 리사이클러뷰가 보이니까
         RCV_pay.visibility = View.INVISIBLE                 // visibility = INVISIBLE로 일단 안보이게 처리
+
+
+        RBT_Npay.setOnClickListener {
+            button_constraint.visibility = View.VISIBLE // 보이도록 설정
+        }
+
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser

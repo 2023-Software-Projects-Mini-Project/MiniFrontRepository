@@ -2,23 +2,15 @@ package kr.ac.duksung.minifrontapp
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.SearchView
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_friends_list.*
-import kotlinx.android.synthetic.main.activity_friends_list.back_icon
-import kotlinx.android.synthetic.main.cfood_list.*
 
 
 class FriendsList : AppCompatActivity() {
@@ -28,34 +20,27 @@ class FriendsList : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var userRef: DatabaseReference
-    private val friendsList = mutableListOf<String>()
+    private val userList = mutableListOf<String>()
 
     @SuppressLint("MissingInflatedId")
+    private lateinit var getUserList: ValueEventListener
+    private lateinit var db: FirebaseDatabase
+    private lateinit var userAdapter: FriendsAddAdapter
+
+    // Firebase 관련 변수
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_list)
 
-        // XML에서 정의한 RecyclerView와 SearchView를 찾습니다.
-        recyclerView = findViewById(R.id.RCV_friendslist)
-        searchView = findViewById(R.id.editText)
+        val backIcon = findViewById<ImageView>(R.id.back_icon)
 
-        // RecyclerView 설정
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // SearchView의 검색 이벤트 처리
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // 검색 버튼을 누를 때 친구 검색 결과 화면으로 이동
-                val intent = Intent(this@FriendsList, FriendsAddList::class.java)
-                intent.putExtra("search_query", query)
-                startActivity(intent)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+        backIcon.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                finish() // 현재 액티비티 종료
             }
         })
+
         //여기서부터는 바텀
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
@@ -75,45 +60,109 @@ class FriendsList : AppCompatActivity() {
                 else -> false
             }
         }
-    }
 
-        /*      auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
+
+        db = FirebaseDatabase.getInstance()
+
+        val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
-        val userId = currentUser?.uid
 
-        if (userId != null) {
-            userRef = database.getReference("users").child(userId)
-            val layoutManager = LinearLayoutManager(this)
-            RCV_friendslist.layoutManager = layoutManager
+        val userRef = db.getReference("users")
+        val userList = mutableListOf<String>()
 
-            val adapter = FriendsAddAdapter(friendsList)
-            RCV_friendslist.adapter = adapter
+        recyclerView = findViewById(R.id.RCV_friendslist)
 
-            // 뒤로 가기 아이콘 클릭 시 현재 액티비티 종료
-            back_icon.setOnClickListener {
-                finish()
-            }
+        userAdapter = FriendsAddAdapter(userList) // UserAdapter를 초기화
+        recyclerView.adapter = userAdapter
 
 
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-            // Firebase Realtime Database에서 친구 목록을 가져와서 리스트에 추가
-            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        getUserList =
+            userRef.orderByChild("username").addValueEventListener(object : ValueEventListener {
+                // val userList = mutableListOf<String>()
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val usersInfo = dataSnapshot.getValue(MainActivity.Usersinfo::class.java)
-                    if (usersInfo != null) {
-                        val friends = usersInfo.friends
-                        if (friends != null) {
-                            friendsList.addAll(friends)
-                            adapter.notifyDataSetChanged()
+
+                    val searchButton = findViewById<Button>(R.id.searchButton)
+                    val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+
+                    searchButton.setOnClickListener {
+                        for (userSnapshot in dataSnapshot.children) {
+                            val userName =
+                                userSnapshot.child("username").getValue(String::class.java)
+                            val userUid = userSnapshot.child("userid").getValue(String::class.java)
+                            val searchUser = findViewById<EditText>(R.id.searchText).text.toString()
+
+                            if (userName != null && userUid != null && currentUserUid != null) {
+
+                                if (userUid != currentUserUid && userName == searchUser) {
+                                    userList.add(userName)
+                                    //userAdapter.notifyDataSetChanged()
+                                }
+                                if (userUid == currentUserUid) {
+                                    val newFriendEntry = userRef.child(userName).child("userList")
+                                    newFriendEntry.push().setValue(userName)
+                                }
+
+                            }
+
                         }
+
+
+                        userAdapter.notifyDataSetChanged()
+                        //displayUserList(userList)
+                        Toast.makeText(
+                            this@FriendsList, "친구가 되었습니다", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Firebase Realtime Database에서의 읽기 실패 또는 취소 처리
-                    println("Database Error: ${databaseError.message}")
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
                 }
             })
-            */
+
+
     }
+
+
+    // 어댑터를 생성하고 RecyclerView에 설정
+
+
+}
+
+/*
+fun addToCartTest(userUid: String, menuName: String, menuPrice: String, menuCount: Int) {
+    val newItem = MenuClass(menuName, menuPrice, menuCount)
+    //val cartItemKey = cartRef.child(userUid).push().key
+
+    cartRef.child(userUid).child("$menuName").setValue(newItem)
+    Log.d("Cart", "Added to cart: $menuName, $menuPrice")
+*/
+
+
+/*
+userRef.orderByChild("username").addListenerForSingleValueEvent(object : ValueEventListener {
+    override fun onDataChange(dataSnapshot: DataSnapshot) {
+        for (userSnapshot in dataSnapshot.children) {
+            val userName = userSnapshot.child("username").getValue(String::class.java)
+            if (userName != null) {
+                userList.add(userName)
+            }
+        }
+        userAdapter.notifyDataSetChanged()
+    }
+
+    override fun onCancelled(error: DatabaseError) {
+        // Handle the error
+    }
+})
+*/
+
+
+/*private fun displayUserList(userList: List<String>) {
+    val userListString = userList.joinToString(", ")
+    val userListTextView = findViewById<TextView>(R.id.userListTextView)
+    userListTextView.text = "User List: $userListString"
+}
+*/
